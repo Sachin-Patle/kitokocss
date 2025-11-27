@@ -44,8 +44,8 @@
 
 ## Documentation
 
-- **[Documentation Complète](./docs/index.html)** - Apprenez à utiliser KitokoCSS du début à la fin
-- **[Guide Rapide](./guide.html)** - Démarrage rapide avec liens CDN
+- **[Documentation Complète](https://kitokocss.wuaze.com/docs/index.html)** - Apprenez à utiliser KitokoCSS du début à la fin
+- **[Guide Rapide](https://kitokocss.wuaze.com/guide.html)** - Démarrage rapide avec liens CDN
 - **[Exemples](./examples/index.html)** - Templates prêts à l'emploi
 
 ## Développement
@@ -66,5 +66,5 @@ Les contributions sont les bienvenues ! N'hésitez pas à ouvrir une issue ou un
 
 ## Support
 
-Pour toute question ou problème, consultez la [documentation complète](./docs/index.html) ou le [guide rapide](./guide.html).
+Pour toute question ou problème, consultez la [documentation complète](https://kitokocss.wuaze.com/docs/index.html) ou le [guide rapide](https://kitokocss.wuaze.com/guide.html).
 
