@@ -29,3 +29,5 @@ desktop.ini
 *.tmp
 .cache/
 
+# file racine
+index.html
