@@ -21,7 +21,7 @@ Cela générera :
 Une fois le projet publié sur GitHub, les fichiers seront disponibles via jsDelivr :
 
 ```
-https://cdn.jsdelivr.net/gh/FomaDev/KitokoCSS@v1.0/dist/kitoko.min.css
-https://cdn.jsdelivr.net/gh/FomaDev/KitokoCSS@v1.0/dist/kitoko.bundle.min.js
+https://cdn.jsdelivr.net/gh/fomadev/kitokocss@v1.0.0/dist/kitoko.min.css
+https://cdn.jsdelivr.net/gh/fomadev/kitokocss@v1.0.0/dist/kitoko.bundle.min.js
 ```
 

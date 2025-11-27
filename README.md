@@ -15,10 +15,10 @@
 
 ```html
 <!-- CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/FomaDev/KitokoCSS@v1.0/dist/kitoko.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fomadev/kitokocss@v1.0.0/dist/kitoko.min.css">
 
 <!-- JavaScript (optionnel, pour les composants interactifs) -->
-<script src="https://cdn.jsdelivr.net/gh/FomaDev/KitokoCSS@v1.0/dist/kitoko.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fomadev/kitokocss@v1.0.0/dist/kitoko.bundle.min.js"></script>
 ```
 
 ## Démarrage Rapide
@@ -30,14 +30,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KitokoCSS - Démarrage</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/FomaDev/KitokoCSS@v1.0/dist/kitoko.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fomadev/kitokocss@v1.0.0/dist/kitoko.min.css">
 </head>
 <body>
     <div class="kt-container">
         <h1>Bienvenue dans KitokoCSS</h1>
         <button class="kt-btn kt-btn-primary">Commencer</button>
     </div>
-    <script src="https://cdn.jsdelivr.net/gh/FomaDev/KitokoCSS@v1.0/dist/kitoko.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/fomadev/kitokocss@v1.0.0/dist/kitoko.bundle.min.js"></script>
 </body>
 </html>
 ```
