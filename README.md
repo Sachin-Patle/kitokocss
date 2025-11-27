@@ -62,9 +62,18 @@ Consultez le [CHANGELOG.md](./CHANGELOG.md) pour voir l'historique des versions.
 
 ## Contribution
 
-Les contributions sont les bienvenues ! N'hésitez pas à ouvrir une issue ou une pull request.
+Les contributions sont les bienvenues ! KitokoCSS est un projet ouvert : proposez vos idées,
+signalez un bug ou soumettez une pull request pour améliorer le framework, la documentation ou
+les exemples. Rejoignez la discussion sur GitHub : https://github.com/fomadev/kitokocss
 
 ## Support
 
 Pour toute question ou problème, consultez la [documentation complète](https://kitokocss.wuaze.com/docs/index.html) ou le [guide rapide](https://kitokocss.wuaze.com/guide.html).
+
+## Rejoindre la communauté
+
+- ⭐ Donnez une étoile sur GitHub pour soutenir le projet
+- 🐛 Ouvrez des issues pour remonter bugs ou idées
+- 🔀 Soumettez des pull requests pour améliorer composants, docs ou exemples
+- 💬 Rejoignez la discussion sur https://github.com/fomadev/kitokocss et aidez KitokoCSS à grandir
 
