@@ -1,0 +1,128 @@
+// ============================================
+// KitokoCSS v1.0 - Système de Grille
+// ============================================
+
+@import '../config/variables';
+@import '../config/breakpoints';
+
+// --- Conteneurs ---
+.kt-container,
+.kt-container-fluid {
+  width: 100%;
+  padding-right: $kt-grid-gutter-width / 2;
+  padding-left: $kt-grid-gutter-width / 2;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.kt-container {
+  @each $breakpoint, $container-max-width in $kt-container-max-widths {
+    @include kt-media-breakpoint-up($breakpoint) {
+      max-width: $container-max-width;
+    }
+  }
+}
+
+// --- Lignes (Rows) ---
+.kt-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -$kt-grid-gutter-width / 2;
+  margin-left: -$kt-grid-gutter-width / 2;
+}
+
+.kt-row > * {
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 100%;
+  padding-right: $kt-grid-gutter-width / 2;
+  padding-left: $kt-grid-gutter-width / 2;
+}
+
+// --- Colonnes (Cols) ---
+.kt-col {
+  flex: 1 0 0%;
+}
+
+.kt-col-auto {
+  flex: 0 0 auto;
+  width: auto;
+}
+
+// --- Colonnes par Nombre (1-12) ---
+@for $i from 1 through $kt-grid-columns {
+  .kt-col-#{$i} {
+    flex: 0 0 auto;
+    width: percentage($i / $kt-grid-columns);
+  }
+}
+
+// --- Colonnes Responsives ---
+@each $breakpoint in map-keys($kt-grid-breakpoints) {
+  $infix: if($breakpoint == xs, "", "-#{$breakpoint}");
+  
+  @include kt-media-breakpoint-up($breakpoint) {
+    .kt-col#{$infix} {
+      flex: 1 0 0%;
+    }
+    
+    .kt-col#{$infix}-auto {
+      flex: 0 0 auto;
+      width: auto;
+    }
+    
+    @for $i from 1 through $kt-grid-columns {
+      .kt-col#{$infix}-#{$i} {
+        flex: 0 0 auto;
+        width: percentage($i / $kt-grid-columns);
+      }
+    }
+  }
+}
+
+// --- Offset ---
+@for $i from 0 through ($kt-grid-columns - 1) {
+  .kt-offset-#{$i} {
+    margin-left: if($i == 0, 0, percentage($i / $kt-grid-columns));
+  }
+}
+
+@each $breakpoint in map-keys($kt-grid-breakpoints) {
+  $infix: if($breakpoint == xs, "", "-#{$breakpoint}");
+  
+  @include kt-media-breakpoint-up($breakpoint) {
+    @for $i from 0 through ($kt-grid-columns - 1) {
+      .kt-offset#{$infix}-#{$i} {
+        margin-left: if($i == 0, 0, percentage($i / $kt-grid-columns));
+      }
+    }
+  }
+}
+
+// --- Ordre (Order) ---
+@for $i from 0 through 12 {
+  .kt-order-#{$i} {
+    order: $i;
+  }
+}
+
+@each $breakpoint in map-keys($kt-grid-breakpoints) {
+  $infix: if($breakpoint == xs, "", "-#{$breakpoint}");
+  
+  @include kt-media-breakpoint-up($breakpoint) {
+    @for $i from 0 through 12 {
+      .kt-order#{$infix}-#{$i} {
+        order: $i;
+      }
+    }
+  }
+}
+
+// --- Gaps (Espacements entre colonnes) ---
+.kt-gap-0 { gap: 0; }
+.kt-gap-1 { gap: map-get($kt-spacers, 1); }
+.kt-gap-2 { gap: map-get($kt-spacers, 2); }
+.kt-gap-3 { gap: map-get($kt-spacers, 3); }
+.kt-gap-4 { gap: map-get($kt-spacers, 4); }
+.kt-gap-5 { gap: map-get($kt-spacers, 5); }
+

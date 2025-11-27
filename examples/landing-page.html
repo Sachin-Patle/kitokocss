@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page - KitokoCSS Exemple</title>
+    <link rel="icon" type="image/png" href="../logo-trans.png">
+    <link rel="stylesheet" href="../dist/kitoko.min.css">
+    <style>
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8rem 0;
+            text-align: center;
+        }
+        .feature-section {
+            padding: 5rem 0;
+        }
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .feature-icon svg {
+            width: 3rem;
+            height: 3rem;
+            color: #007bff;
+        }
+        .icon {
+            display: inline-block;
+            width: 1em;
+            height: 1em;
+            vertical-align: middle;
+        }
+        .cta-section {
+            background: #f8f9fa;
+            padding: 5rem 0;
+            text-align: center;
+        }
+        footer {
+            background: #343a40;
+            color: white;
+            padding: 3rem 0;
+        }
+    </style>
+</head>
+<body>
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <symbol id="icon-palette" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c.55 0 1-.45 1-1v-4H8c-.55 0-1-.45-1-1s.45-1 1-1h5V8c0-.55.45-1 1-1s1 .45 1 1v3h2c.55 0 1 .45 1 1s-.45 1-1 1h-2v4c0 .55.45 1 1 1 5.52 0 10-4.48 10-10S17.52 2 12 2z"/></symbol>
+        <symbol id="icon-zap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></symbol>
+        <symbol id="icon-smartphone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></symbol>
+        <symbol id="icon-tools" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
+        <symbol id="icon-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
+        <symbol id="icon-rocket" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91l-2.91-2.91c-.78-.78-2.07-.8-2.91-.09zM15 7l-4-4-4 4M11 3v4M7 7h8M12 11v10M8 21l4-4 4 4"/></symbol>
+    </svg>
+    <!-- Navbar -->
+    <nav class="kt-navbar" data-kt-sticky>
+        <a class="kt-navbar-brand" href="index.html"><img src="../logo-trans.png" alt="KitokoCSS" style="height: 30px; vertical-align: middle; margin-right: 0.5rem;">KitokoCSS</a>
+        <button class="kt-navbar-toggler" data-kt-toggle="collapse" data-kt-target="#navbarNav">
+            <span class="kt-navbar-toggler-icon"></span>
+        </button>
+        <div class="kt-navbar-collapse collapse" id="navbarNav">
+            <ul class="kt-navbar-nav">
+                <li class="kt-nav-item">
+                    <a class="kt-nav-link" href="#features">Fonctionnalités</a>
+                </li>
+                <li class="kt-nav-item">
+                    <a class="kt-nav-link" href="#about">À propos</a>
+                </li>
+                <li class="kt-nav-item">
+                    <a class="kt-nav-link" href="#contact">Contact</a>
+                </li>
+                <li class="kt-nav-item">
+                    <a class="kt-btn kt-btn-primary" href="#get-started">Commencer</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="kt-container">
+            <img src="../logo-trans.png" alt="KitokoCSS" style="height: 100px; margin-bottom: 2rem; filter: brightness(0) invert(1);">
+            <h1 class="kt-text-xxl kt-mb-3" style="font-size: 3.5rem; font-weight: 800; text-shadow: 0 2px 20px rgba(0,0,0,0.2);">Créez des Interfaces Magnifiques</h1>
+            <p class="kt-text-lg kt-mb-4" style="font-size: 1.5rem; opacity: 0.95; max-width: 700px; margin: 0 auto 2rem;">
+                KitokoCSS est un framework CSS moderne qui vous permet de créer des applications web
+                esthétiques et responsives en un temps record. Développez plus vite, créez plus beau.
+            </p>
+            <div class="kt-d-flex kt-justify-center kt-gap-3 kt-flex-wrap">
+                <a href="#get-started" class="kt-btn kt-btn-light kt-btn-lg" style="padding: 1rem 2.5rem; font-size: 1.1rem;">Commencer Maintenant</a>
+                <a href="../docs/index.html" class="kt-btn kt-btn-outline-light kt-btn-lg" style="padding: 1rem 2.5rem; font-size: 1.1rem;">Documentation</a>
+                <a href="index.html" class="kt-btn kt-btn-outline-light kt-btn-lg" style="padding: 1rem 2.5rem; font-size: 1.1rem;">Voir les Exemples</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="feature-section" style="background: #f8f9fa;">
+        <div class="kt-container">
+            <div class="kt-text-center kt-mb-5">
+                <h2 class="kt-text-xl kt-mb-3">Pourquoi Choisir KitokoCSS ?</h2>
+                <p class="kt-text-lg kt-text-muted" style="max-width: 600px; margin: 0 auto;">
+                    Découvrez les avantages qui font de KitokoCSS le choix idéal pour vos projets web modernes
+                </p>
+            </div>
+            <div class="kt-row kt-gap-4">
+                <div class="kt-col-md-4">
+                    <div class="kt-card kt-text-center" style="height: 100%; border: none; box-shadow: 0 4px 20px rgba(0,0,0,0.1); transition: transform 0.3s;">
+                        <div class="kt-card-body" style="padding: 2.5rem 2rem;">
+                            <div class="feature-icon" style="margin-bottom: 1.5rem;"><svg><use href="#icon-palette"></use></svg></div>
+                            <h5 class="kt-card-title" style="font-size: 1.5rem; margin-bottom: 1rem;">Design Moderne</h5>
+                            <p class="kt-card-text" style="line-height: 1.8; color: #6c757d;">
+                                Des composants élégants et modernes prêts à l'emploi.
+                                Créez des interfaces "Kitoko" (belles) sans effort avec un design soigné et professionnel.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="kt-col-md-4">
+                    <div class="kt-card kt-text-center" style="height: 100%; border: none; box-shadow: 0 4px 20px rgba(0,0,0,0.1); transition: transform 0.3s;">
+                        <div class="kt-card-body" style="padding: 2.5rem 2rem;">
+                            <div class="feature-icon" style="margin-bottom: 1.5rem;"><svg><use href="#icon-zap"></use></svg></div>
+                            <h5 class="kt-card-title" style="font-size: 1.5rem; margin-bottom: 1rem;">Performance</h5>
+                            <p class="kt-card-text" style="line-height: 1.8; color: #6c757d;">
+                                Code léger et optimisé. Importez uniquement ce dont vous avez besoin.
+                                Aucune dépendance JavaScript lourde. Performance maximale garantie.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="kt-col-md-4">
+                    <div class="kt-card kt-text-center" style="height: 100%; border: none; box-shadow: 0 4px 20px rgba(0,0,0,0.1); transition: transform 0.3s;">
+                        <div class="kt-card-body" style="padding: 2.5rem 2rem;">
+                            <div class="feature-icon" style="margin-bottom: 1.5rem;"><svg><use href="#icon-smartphone"></use></svg></div>
+                            <h5 class="kt-card-title" style="font-size: 1.5rem; margin-bottom: 1rem;">Responsive</h5>
+                            <p class="kt-card-text" style="line-height: 1.8; color: #6c757d;">
+                                Système de grille flexible avec 6 breakpoints.
+                                Parfait sur tous les appareils, du mobile au 8K. Adaptatif par nature.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="kt-col-md-4">
+                    <div class="kt-card kt-text-center" style="height: 100%; border: none; box-shadow: 0 4px 20px rgba(0,0,0,0.1); transition: transform 0.3s;">
+                        <div class="kt-card-body" style="padding: 2.5rem 2rem;">
+                            <div class="feature-icon" style="margin-bottom: 1.5rem;"><svg><use href="#icon-tools"></use></svg></div>
+                            <h5 class="kt-card-title" style="font-size: 1.5rem; margin-bottom: 1rem;">Facile à Utiliser</h5>
+                            <p class="kt-card-text" style="line-height: 1.8; color: #6c757d;">
+                                Syntaxe intuitive avec le préfixe kt-.
+                                Documentation complète et exemples prêts à l'emploi. Apprentissage rapide.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="kt-col-md-4">
+                    <div class="kt-card kt-text-center" style="height: 100%; border: none; box-shadow: 0 4px 20px rgba(0,0,0,0.1); transition: transform 0.3s;">
+                        <div class="kt-card-body" style="padding: 2.5rem 2rem;">
+                            <div class="feature-icon" style="margin-bottom: 1.5rem;"><svg><use href="#icon-target"></use></svg></div>
+                            <h5 class="kt-card-title" style="font-size: 1.5rem; margin-bottom: 1rem;">Modulaire</h5>
+                            <p class="kt-card-text" style="line-height: 1.8; color: #6c757d;">
+                                Architecture SCSS modulaire. Personnalisez facilement
+                                les couleurs, espacements et composants selon vos besoins.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="kt-col-md-4">
+                    <div class="kt-card kt-text-center" style="height: 100%; border: none; box-shadow: 0 4px 20px rgba(0,0,0,0.1); transition: transform 0.3s;">
+                        <div class="kt-card-body" style="padding: 2.5rem 2rem;">
+                            <div class="feature-icon" style="margin-bottom: 1.5rem;"><svg><use href="#icon-rocket"></use></svg></div>
+                            <h5 class="kt-card-title" style="font-size: 1.5rem; margin-bottom: 1rem;">Rapide à Déployer</h5>
+                            <p class="kt-card-text" style="line-height: 1.8; color: #6c757d;">
+                                Installation via CDN en une ligne.
+                                Démarrez votre projet en quelques secondes. Zéro configuration requise.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="get-started" class="cta-section">
+        <div class="kt-container">
+            <h2 class="kt-text-xl kt-mb-3">Prêt à Commencer ?</h2>
+            <p class="kt-text-lg kt-text-muted kt-mb-4">
+                Ajoutez KitokoCSS à votre projet en une seule ligne de code.
+            </p>
+            <div class="kt-card" style="max-width: 600px; margin: 0 auto;">
+                <div class="kt-card-body">
+                    <pre style="background: #f8f9fa; padding: 1rem; border-radius: 0.5rem; overflow-x: auto;"><code>&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/FomaDev/KitokoCSS@v1.0/dist/kitoko.min.css"&gt;</code></pre>
+                    <a href="../guide.html" class="kt-btn kt-btn-primary kt-btn-lg kt-mt-3">Voir le Guide Complet</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="feature-section" style="background: #f8f9fa;">
+        <div class="kt-container">
+            <h2 class="kt-text-center kt-text-xl kt-mb-5">Contactez-Nous</h2>
+            <div class="kt-row">
+                <div class="kt-col-md-6" style="margin: 0 auto;">
+                    <div class="kt-card">
+                        <div class="kt-card-body">
+                            <form>
+                                <div class="kt-mb-3">
+                                    <label class="kt-label">Nom</label>
+                                    <input type="text" class="kt-form-control" placeholder="Votre nom">
+                                </div>
+                                <div class="kt-mb-3">
+                                    <label class="kt-label">Email</label>
+                                    <input type="email" class="kt-form-control" placeholder="votre@email.com">
+                                </div>
+                                <div class="kt-mb-3">
+                                    <label class="kt-label">Message</label>
+                                    <textarea class="kt-form-control" rows="5" placeholder="Votre message"></textarea>
+                                </div>
+                                <button type="submit" class="kt-btn kt-btn-primary kt-btn-block">Envoyer</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="kt-container">
+            <div class="kt-row">
+                <div class="kt-col-md-4">
+                    <h5>KitokoCSS</h5>
+                    <p>Framework CSS moderne développé par FomaDev</p>
+                </div>
+                <div class="kt-col-md-4">
+                    <h5>Liens</h5>
+                    <ul style="list-style: none; padding: 0;">
+                        <li><a href="../docs/index.html" class="kt-text-white">Documentation</a></li>
+                        <li><a href="../guide.html" class="kt-text-white">Guide</a></li>
+                        <li><a href="https://github.com/FomaDev/KitokoCSS" class="kt-text-white">GitHub</a></li>
+                    </ul>
+                </div>
+                <div class="kt-col-md-4">
+                    <h5>Contact</h5>
+                    <p>Développé par FomaDev<br>Publié le 27 novembre 2025</p>
+                </div>
+            </div>
+            <hr style="border-color: rgba(255,255,255,0.1); margin: 2rem 0;">
+            <p class="kt-text-center" style="margin: 0;">© 2025 FomaDev. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="../js/kitoko.bundle.js"></script>
+</body>
+</html>
+

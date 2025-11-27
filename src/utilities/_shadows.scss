@@ -1,0 +1,12 @@
+// ============================================
+// KitokoCSS v1.0 - Classes Utilitaires d'Ombres
+// ============================================
+
+@import '../config/variables';
+
+.kt-shadow-none { box-shadow: none !important; }
+.kt-shadow-sm { box-shadow: $kt-box-shadow-sm !important; }
+.kt-shadow { box-shadow: $kt-box-shadow !important; }
+.kt-shadow-md { box-shadow: $kt-box-shadow-md !important; }
+.kt-shadow-lg { box-shadow: $kt-box-shadow-lg !important; }
+

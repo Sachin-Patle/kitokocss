@@ -1,0 +1,31 @@
+// ============================================
+// KitokoCSS v1.0 - Classes Utilitaires de Couleurs
+// ============================================
+
+@import '../config/variables';
+
+// --- Couleurs de Texte ---
+@each $color, $value in $kt-theme-colors {
+  .kt-text-#{$color} {
+    color: $value !important;
+  }
+}
+
+.kt-text-muted {
+  color: $kt-text-muted !important;
+}
+
+// --- Couleurs de Fond ---
+@each $color, $value in $kt-theme-colors {
+  .kt-bg-#{$color} {
+    background-color: $value !important;
+  }
+}
+
+// --- Opacité ---
+.kt-opacity-0 { opacity: 0 !important; }
+.kt-opacity-25 { opacity: 0.25 !important; }
+.kt-opacity-50 { opacity: 0.5 !important; }
+.kt-opacity-75 { opacity: 0.75 !important; }
+.kt-opacity-100 { opacity: 1 !important; }
+

@@ -1,0 +1,26 @@
+{
+  "name": "kitokocss",
+  "version": "1.0.0",
+  "description": "KitokoCSS - Un framework CSS moderne, esthétique et performant",
+  "main": "dist/kitoko.min.css",
+  "scripts": {
+    "build": "npm run build:css && npm run build:js",
+    "build:css": "sass src/main.scss dist/kitoko.css && sass src/main.scss dist/kitoko.min.css --style=compressed",
+    "build:js": "node -e \"const fs=require('fs');const code=fs.readFileSync('js/kitoko.bundle.js','utf8');const min=code.replace(/\\/\\*[\\s\\S]*?\\*\\//g,'').replace(/\\/\\/[^\\n]*/g,'').replace(/\\s+/g,' ').trim();fs.writeFileSync('dist/kitoko.bundle.min.js',min);\"",
+    "watch": "sass --watch src/main.scss:dist/kitoko.css",
+    "dev": "npm run watch"
+  },
+  "keywords": [
+    "css",
+    "framework",
+    "responsive",
+    "kitoko",
+    "fomadev"
+  ],
+  "author": "FomaDev",
+  "license": "MIT",
+  "devDependencies": {
+    "sass": "^1.69.0"
+  }
+}
+

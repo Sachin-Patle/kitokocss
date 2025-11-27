@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KitokoCSS - Guide Rapide</title>
+    <link rel="icon" type="image/png" href="logo-trans.png">
+    <link rel="stylesheet" href="dist/kitoko.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        .icon {
+            display: inline-block;
+            width: 1em;
+            height: 1em;
+            vertical-align: middle;
+            margin-right: 0.5rem;
+        }
+        .icon-lg {
+            width: 1.5em;
+            height: 1.5em;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding: 2rem 0;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Animated background elements */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: float 20s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        @keyframes float {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+        
+        .guide-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .guide-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 4rem 3rem;
+            border-radius: 2rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2), 0 0 0 1px rgba(255,255,255,0.5);
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+            animation: slideDown 0.8s ease-out;
+        }
+        
+        .guide-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb, #667eea);
+            background-size: 200% 100%;
+            animation: gradientShift 3s ease infinite;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .logo {
+            height: 80px;
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 4px 12px rgba(102, 126, 234, 0.3));
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .guide-header h1 {
+            font-size: 3.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+        
+        .guide-header p {
+            font-size: 1.4rem;
+            color: #4a5568;
+            margin-bottom: 0.5rem;
+        }
+        
+        .guide-header p:last-child {
+            font-size: 1rem;
+            margin-top: 1.5rem;
+            color: #718096;
+        }
+        
+        .guide-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 3rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1), 0 0 0 1px rgba(255,255,255,0.5);
+            margin-bottom: 2.5rem;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease-out;
+            animation-fill-mode: both;
+        }
+        
+        .guide-section:nth-child(2) { animation-delay: 0.1s; }
+        .guide-section:nth-child(3) { animation-delay: 0.2s; }
+        .guide-section:nth-child(4) { animation-delay: 0.3s; }
+        .guide-section:nth-child(5) { animation-delay: 0.4s; }
+        .guide-section:nth-child(6) { animation-delay: 0.5s; }
+        .guide-section:nth-child(7) { animation-delay: 0.6s; }
+        .guide-section:nth-child(8) { animation-delay: 0.7s; }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .guide-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15), 0 0 0 1px rgba(255,255,255,0.5);
+        }
+        
+        .guide-section h2 {
+            color: #2d3748;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid;
+            border-image: linear-gradient(90deg, #667eea, #764ba2) 1;
+            font-size: 2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .guide-section h2 svg {
+            color: #667eea;
+        }
+        
+        .guide-section h3 {
+            color: #4a5568;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+        
+        .code-block {
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+            padding: 2rem;
+            border-radius: 1rem;
+            border-left: 4px solid #667eea;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+        
+        .code-block::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 1rem 1rem 0 0;
+        }
+        
+        .code-block code {
+            font-family: 'Fira Code', 'Courier New', monospace;
+            font-size: 0.95rem;
+            color: #e2e8f0;
+            line-height: 1.8;
+            display: block;
+            position: relative;
+            z-index: 1;
+            white-space: pre;
+            overflow-x: auto;
+        }
+        
+        /* Syntax highlighting colors */
+        .code-block .tag {
+            color: #e06c75;
+            font-weight: 600;
+        }
+        
+        .code-block .attr-name {
+            color: #d19a66;
+            font-weight: 500;
+        }
+        
+        .code-block .attr-value {
+            color: #98c379;
+        }
+        
+        .code-block .comment {
+            color: #5c6370;
+            font-style: italic;
+            opacity: 0.8;
+        }
+        
+        .code-block .doctype {
+            color: #c678dd;
+            font-weight: 600;
+        }
+        
+        .code-block .class-name {
+            color: #61afef;
+            font-weight: 600;
+        }
+        
+        .copy-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .copy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+        }
+        
+        .copy-btn:active {
+            transform: translateY(0);
+        }
+        
+        .copy-btn.copied {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            box-shadow: 0 4px 15px rgba(72, 187, 120, 0.4);
+        }
+        
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .link-card {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            padding: 2rem;
+            border-radius: 1rem;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .link-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        .link-card:hover::before {
+            left: 100%;
+        }
+        
+        .link-card:hover {
+            border-color: #667eea;
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%);
+        }
+        
+        .link-card h3 {
+            color: #2d3748;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .link-card h3 svg {
+            color: #667eea;
+        }
+        
+        .link-card a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+            display: inline-block;
+            position: relative;
+        }
+        
+        .link-card a::after {
+            content: '→';
+            margin-left: 0.5rem;
+            transition: transform 0.2s;
+            display: inline-block;
+        }
+        
+        .link-card a:hover {
+            color: #764ba2;
+        }
+        
+        .link-card a:hover::after {
+            transform: translateX(5px);
+        }
+        
+        .guide-section ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .guide-section ul li {
+            padding: 1rem 1.5rem;
+            margin-bottom: 0.75rem;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.08) 100%);
+            border-radius: 0.75rem;
+            border-left: 4px solid #667eea;
+            transition: all 0.3s ease;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+        
+        .guide-section ul li:hover {
+            transform: translateX(10px);
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+        }
+        
+        .guide-section ul li strong {
+            color: #667eea;
+            font-weight: 700;
+        }
+        
+        .guide-section code {
+            background: rgba(102, 126, 234, 0.1);
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            color: #667eea;
+            font-weight: 600;
+        }
+        
+        .cta-section {
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            color: white;
+            padding: 4rem 3rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: rotate 20s linear infinite;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .cta-section h2 {
+            color: white;
+            border-color: rgba(255,255,255,0.3);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .cta-section p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            position: relative;
+            z-index: 1;
+            opacity: 0.95;
+        }
+        
+        .cta-section .kt-btn {
+            position: relative;
+            z-index: 1;
+            font-size: 1.1rem;
+            padding: 1rem 2.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .cta-section .kt-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.4);
+        }
+        
+        @media (max-width: 768px) {
+            .guide-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .guide-section {
+                padding: 2rem 1.5rem;
+            }
+            
+            .links-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <symbol id="icon-palette" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c.55 0 1-.45 1-1v-4H8c-.55 0-1-.45-1-1s.45-1 1-1h5V8c0-.55.45-1 1-1s1 .45 1 1v3h2c.55 0 1 .45 1 1s-.45 1-1 1h-2v4c0 .55.45 1 1 1 5.52 0 10-4.48 10-10S17.52 2 12 2z"/></symbol>
+        <symbol id="icon-package" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></symbol>
+        <symbol id="icon-rocket" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91l-2.91-2.91c-.78-.78-2.07-.8-2.91-.09zM15 7l-4-4-4 4M11 3v4M7 7h8M12 11v10M8 21l4-4 4 4"/></symbol>
+        <symbol id="icon-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20M4 19.5V4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5z"/></symbol>
+        <symbol id="icon-code" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></symbol>
+        <symbol id="icon-github" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></symbol>
+        <symbol id="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
+        <symbol id="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></symbol>
+        <symbol id="icon-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
+        <symbol id="icon-sparkles" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></symbol>
+        <symbol id="icon-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></symbol>
+        <symbol id="icon-lightbulb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21h6M12 3a6 6 0 0 1 6 6c0 2.22-1.21 4.16-3 5.19V15a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-.81C7.21 13.16 6 11.22 6 9a6 6 0 0 1 6-6z"/></symbol>
+        <symbol id="icon-celebration" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/><path d="M8 14l-2 2M16 14l2 2M14 8l2-2M10 8l-2-2"/></symbol>
+        <symbol id="icon-file" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></symbol>
+    </svg>
+    
+    <div class="guide-container">
+        <div class="guide-header">
+            <img src="logo-trans.png" alt="KitokoCSS" class="logo">
+            <h1><svg class="icon icon-lg"><use href="#icon-palette"></use></svg>KitokoCSS v1.0</h1>
+            <p>Framework CSS moderne, esthétique et performant</p>
+            <p style="font-size: 1rem; margin-top: 1rem; color: #718096;">
+                Développé par <strong>FomaDev</strong> • Publié le 27 novembre 2025
+            </p>
+        </div>
+
+        <div class="guide-section">
+            <h2><svg class="icon"><use href="#icon-package"></use></svg>Installation via CDN</h2>
+            <p style="font-size: 1.1rem; color: #4a5568; margin-bottom: 1.5rem;">Copiez et collez ces liens dans le <code>&lt;head&gt;</code> de votre page HTML :</p>
+            
+            <div class="code-block">
+                <code id="css-link">&lt;!-- CSS --&gt;
+&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/FomaDev/KitokoCSS@v1.0/dist/kitoko.min.css"&gt;</code>
+                <button class="copy-btn" onclick="copyToClipboard('css-link')">
+                    <svg class="icon" style="width: 16px; height: 16px;"><use href="#icon-copy"></use></svg>
+                    Copier
+                </button>
+            </div>
+
+            <div class="code-block">
+                <code id="js-link">&lt;!-- JavaScript (optionnel, pour composants interactifs) --&gt;
+&lt;script src="https://cdn.jsdelivr.net/gh/FomaDev/KitokoCSS@v1.0/dist/kitoko.bundle.min.js"&gt;&lt;/script&gt;</code>
+                <button class="copy-btn" onclick="copyToClipboard('js-link')">
+                    <svg class="icon" style="width: 16px; height: 16px;"><use href="#icon-copy"></use></svg>
+                    Copier
+                </button>
+            </div>
+        </div>
+
+        <div class="guide-section">
+            <h2><svg class="icon"><use href="#icon-rocket"></use></svg>Démarrage Rapide</h2>
+            <p style="font-size: 1.1rem; color: #4a5568; margin-bottom: 1.5rem;">Template HTML de base pour commencer :</p>
+            
+            <div class="code-block">
+                <code id="starter-template">&lt;!DOCTYPE html&gt;
+&lt;html lang="fr"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Mon Projet KitokoCSS&lt;/title&gt;
+    &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/FomaDev/KitokoCSS@v1.0/dist/kitoko.min.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class="kt-container"&gt;
+        &lt;h1&gt;Bienvenue dans KitokoCSS&lt;/h1&gt;
+        &lt;button class="kt-btn kt-btn-primary"&gt;Commencer&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;script src="https://cdn.jsdelivr.net/gh/FomaDev/KitokoCSS@v1.0/dist/kitoko.bundle.min.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code>
+                <button class="copy-btn" onclick="copyToClipboard('starter-template')">
+                    <svg class="icon" style="width: 16px; height: 16px;"><use href="#icon-copy"></use></svg>
+                    Copier
+                </button>
+            </div>
+        </div>
+
+        <div class="guide-section">
+            <h2><svg class="icon"><use href="#icon-book"></use></svg>Documentation Complète</h2>
+            <p style="font-size: 1.1rem; color: #4a5568; margin-bottom: 1.5rem;">Apprenez à utiliser KitokoCSS du début à la fin avec notre documentation détaillée :</p>
+            <div class="links-grid">
+                <div class="link-card">
+                    <h3><svg class="icon"><use href="#icon-book"></use></svg>Documentation</h3>
+                    <a href="docs/index.html" target="_blank">Lire la documentation complète</a>
+                </div>
+                <div class="link-card">
+                    <h3><svg class="icon"><use href="#icon-code"></use></svg>Exemples</h3>
+                    <a href="examples/index.html" target="_blank">Voir les templates d'exemple</a>
+                </div>
+                <div class="link-card">
+                    <h3><svg class="icon"><use href="#icon-github"></use></svg>GitHub</h3>
+                    <a href="https://github.com/FomaDev/KitokoCSS" target="_blank">Voir le code source</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="guide-section">
+            <h2><svg class="icon"><use href="#icon-sparkles"></use></svg>Fonctionnalités Principales</h2>
+            <ul>
+                <li><strong>Système de Grille Responsive</strong> : 12 colonnes, 6 breakpoints (xs à xxl)</li>
+                <li><strong>Composants UI Complets</strong> : Boutons, Cartes, Formulaires, Modales, Navigation, etc.</li>
+                <li><strong>Classes Utilitaires</strong> : Espacement, Flexbox, Couleurs, Bordures, Ombres</li>
+                <li><strong>JavaScript Léger</strong> : Vanilla JS, aucune dépendance</li>
+                <li><strong>Design Moderne</strong> : Interface "Kitoko" (belle) par défaut</li>
+                <li><strong>Préfixe kt-</strong> : Toutes les classes utilisent le préfixe <code>kt-</code></li>
+            </ul>
+        </div>
+
+        <div class="guide-section">
+            <h2><svg class="icon"><use href="#icon-target"></use></svg>Exemples de Code</h2>
+            
+            <h3>Bouton</h3>
+            <div class="code-block">
+                <code>&lt;button class="kt-btn kt-btn-primary"&gt;Cliquez-moi&lt;/button&gt;</code>
+            </div>
+
+            <h3>Grille</h3>
+            <div class="code-block">
+                <code>&lt;div class="kt-container"&gt;
+  &lt;div class="kt-row"&gt;
+    &lt;div class="kt-col-md-6"&gt;Colonne 1&lt;/div&gt;
+    &lt;div class="kt-col-md-6"&gt;Colonne 2&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code>
+            </div>
+
+            <h3>Carte</h3>
+            <div class="code-block">
+                <code>&lt;div class="kt-card"&gt;
+  &lt;div class="kt-card-body"&gt;
+    &lt;h5 class="kt-card-title"&gt;Titre&lt;/h5&gt;
+    &lt;p class="kt-card-text"&gt;Contenu&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code>
+            </div>
+        </div>
+
+        <div class="guide-section">
+            <h2><svg class="icon"><use href="#icon-link"></use></svg>Liens Utiles</h2>
+            <div class="links-grid">
+                <div class="link-card">
+                    <h3><svg class="icon"><use href="#icon-package"></use></svg>CDN jsDelivr</h3>
+                    <a href="https://cdn.jsdelivr.net/gh/FomaDev/KitokoCSS@v1.0/dist/kitoko.min.css" target="_blank">CSS Minifié</a><br>
+                    <a href="https://cdn.jsdelivr.net/gh/FomaDev/KitokoCSS@v1.0/dist/kitoko.bundle.min.js" target="_blank">JS Minifié</a>
+                </div>
+                <div class="link-card">
+                    <h3><svg class="icon"><use href="#icon-file"></use></svg>Documentation</h3>
+                    <a href="docs/index.html">Guide Complet</a><br>
+                    <a href="README.md">README</a>
+                </div>
+                <div class="link-card">
+                    <h3><svg class="icon"><use href="#icon-lightbulb"></use></svg>Exemples</h3>
+                    <a href="examples/dashboard.html">Dashboard</a><br>
+                    <a href="examples/landing-page.html">Landing Page</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="guide-section cta-section">
+            <h2><svg class="icon" style="color: white;"><use href="#icon-celebration"></use></svg>Prêt à Commencer ?</h2>
+            <p>Copiez les liens CDN ci-dessus et commencez à créer des interfaces "Kitoko" !</p>
+            <a href="docs/index.html" class="kt-btn kt-btn-light kt-btn-lg" style="text-decoration: none;">Lire la Documentation</a>
+        </div>
+    </div>
+
+    <script>
+        // Fonction pour colorer le code HTML
+        function highlightHTML(html) {
+            let result = html;
+            const parts = [];
+            let lastIndex = 0;
+            
+            // Traiter les commentaires d'abord
+            result = result.replace(/(&lt;!--[\s\S]*?--&gt;)/g, function(match, offset) {
+                return '<span class="comment">' + match + '</span>';
+            });
+            
+            // Traiter les balises et leurs attributs
+            result = result.replace(/(&lt;)(\/?)([\w-]+)([\s\S]*?)(&gt;)/g, function(match, open, slash, tag, attrs, close) {
+                let highlightedTag = open + slash + '<span class="tag">' + tag + '</span>';
+                
+                // Traiter les attributs
+                let highlightedAttrs = attrs.replace(/(\s+)([\w-]+)(=)(")([^"]*)(")/g, function(attrMatch, space, attrName, eq, quote1, attrValue, quote2) {
+                    // Si c'est l'attribut class avec des classes kt-
+                    if (attrName === 'class' && attrValue.includes('kt-')) {
+                        const highlightedClasses = attrValue.split(' ').map(function(cls) {
+                            if (cls.trim() && cls.startsWith('kt-')) {
+                                return '<span class="class-name">' + cls + '</span>';
+                            }
+                            return cls;
+                        }).join(' ');
+                        return space + '<span class="attr-name">' + attrName + '</span>' + eq + quote1 + highlightedClasses + quote2;
+                    }
+                    return space + '<span class="attr-name">' + attrName + '</span>' + eq + quote1 + '<span class="attr-value">' + attrValue + '</span>' + quote2;
+                });
+                
+                return highlightedTag + highlightedAttrs + close;
+            });
+            
+            // Traiter DOCTYPE séparément
+            result = result.replace(/(&lt;!DOCTYPE[^&gt;]*&gt;)/g, '<span class="doctype">$1</span>');
+            
+            return result;
+        }
+        
+        // Appliquer la coloration à tous les blocs de code
+        document.addEventListener('DOMContentLoaded', function() {
+            const codeBlocks = document.querySelectorAll('.code-block code');
+            codeBlocks.forEach(function(block) {
+                const originalHTML = block.innerHTML;
+                // Ne pas re-colorer si déjà coloré
+                if (!block.querySelector('.tag')) {
+                    block.innerHTML = highlightHTML(originalHTML);
+                }
+            });
+        });
+        
+        function copyToClipboard(elementId) {
+            const element = document.getElementById(elementId);
+            // Récupérer le texte sans les balises HTML de coloration
+            const text = element.textContent || element.innerText;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = element.nextElementSibling;
+                const originalHTML = btn.innerHTML;
+                btn.innerHTML = '<svg class="icon" style="width: 16px; height: 16px;"><use href="#icon-check"></use></svg>Copié !';
+                btn.classList.add('copied');
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalHTML;
+                    btn.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('Erreur lors de la copie:', err);
+                alert('Erreur lors de la copie. Veuillez copier manuellement.');
+            });
+        }
+    </script>
+</body>
+</html>

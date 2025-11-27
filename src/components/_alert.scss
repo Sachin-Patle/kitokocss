@@ -1,0 +1,64 @@
+// ============================================
+// KitokoCSS v1.0 - Composant Alerte
+// ============================================
+
+@import '../config/variables';
+
+.kt-alert {
+  position: relative;
+  padding: map-get($kt-spacers, 3) map-get($kt-spacers, 4);
+  margin-bottom: map-get($kt-spacers, 3);
+  border: $kt-border-width solid transparent;
+  border-radius: $kt-border-radius;
+}
+
+// --- Variantes de Couleurs ---
+@each $color, $value in $kt-theme-colors {
+  .kt-alert-#{$color} {
+    color: darken($value, 30%);
+    background-color: lighten($value, 40%);
+    border-color: lighten($value, 30%);
+  }
+}
+
+// --- Alerte Dismissible ---
+.kt-alert-dismissible {
+  padding-right: map-get($kt-spacers, 6);
+
+  .kt-close {
+    position: absolute;
+  top: 0;
+  right: 0;
+  padding: map-get($kt-spacers, 3) map-get($kt-spacers, 4);
+  color: inherit;
+  }
+}
+
+// --- Bouton de Fermeture ---
+.kt-close {
+  padding: 0;
+  background-color: transparent;
+  border: 0;
+  appearance: none;
+  opacity: 0.5;
+  font-size: 1.5rem;
+  font-weight: $kt-font-weight-bold;
+  line-height: 1;
+  color: inherit;
+  text-shadow: 0 1px 0 $kt-white;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.75;
+    text-decoration: none;
+  }
+
+  &:not(:disabled):not(.disabled) {
+    cursor: pointer;
+  }
+}
+
+.kt-close::before {
+  content: "×";
+}
+

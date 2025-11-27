@@ -1,0 +1,37 @@
+// ============================================
+// KitokoCSS v1.0 - Classes Utilitaires d'Affichage
+// ============================================
+
+@import '../config/variables';
+@import '../config/breakpoints';
+
+// --- Display ---
+.kt-d-none { display: none !important; }
+.kt-d-inline { display: inline !important; }
+.kt-d-inline-block { display: inline-block !important; }
+.kt-d-block { display: block !important; }
+.kt-d-table { display: table !important; }
+.kt-d-table-row { display: table-row !important; }
+.kt-d-table-cell { display: table-cell !important; }
+.kt-d-flex { display: flex !important; }
+.kt-d-inline-flex { display: inline-flex !important; }
+.kt-d-grid { display: grid !important; }
+
+// --- Responsive Display ---
+@each $breakpoint in map-keys($kt-grid-breakpoints) {
+  $infix: if($breakpoint == xs, "", "-#{$breakpoint}");
+  
+  @include kt-media-breakpoint-up($breakpoint) {
+    .kt-d#{$infix}-none { display: none !important; }
+    .kt-d#{$infix}-inline { display: inline !important; }
+    .kt-d#{$infix}-inline-block { display: inline-block !important; }
+    .kt-d#{$infix}-block { display: block !important; }
+    .kt-d#{$infix}-table { display: table !important; }
+    .kt-d#{$infix}-table-row { display: table-row !important; }
+    .kt-d#{$infix}-table-cell { display: table-cell !important; }
+    .kt-d#{$infix}-flex { display: flex !important; }
+    .kt-d#{$infix}-inline-flex { display: inline-flex !important; }
+    .kt-d#{$infix}-grid { display: grid !important; }
+  }
+}
+

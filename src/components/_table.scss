@@ -1,0 +1,72 @@
+// ============================================
+// KitokoCSS v1.0 - Composant Tableau
+// ============================================
+
+@import '../config/variables';
+
+.kt-table {
+  width: 100%;
+  margin-bottom: map-get($kt-spacers, 3);
+  color: $kt-text-color;
+  border-collapse: collapse;
+
+  th,
+  td {
+    padding: map-get($kt-spacers, 2);
+    vertical-align: top;
+    border-top: $kt-border-width solid $kt-border-color;
+  }
+
+  thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid $kt-border-color;
+    font-weight: $kt-font-weight-semibold;
+  }
+
+  tbody + tbody {
+    border-top: 2px solid $kt-border-color;
+  }
+}
+
+// --- Variantes ---
+.kt-table-striped {
+  tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+}
+
+.kt-table-bordered {
+  border: $kt-border-width solid $kt-border-color;
+
+  th,
+  td {
+    border: $kt-border-width solid $kt-border-color;
+  }
+}
+
+.kt-table-hover {
+  tbody tr:hover {
+    color: $kt-text-color;
+    background-color: rgba(0, 0, 0, 0.075);
+  }
+}
+
+// --- Couleurs Contextuelles ---
+@each $color, $value in $kt-theme-colors {
+  .kt-table-#{$color} {
+    thead th {
+      color: $kt-white;
+      background-color: $value;
+      border-color: darken($value, 10%);
+    }
+  }
+}
+
+// --- Responsive ---
+.kt-table-responsive {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+

@@ -1,0 +1,86 @@
+// ============================================
+// KitokoCSS v1.0 - Breakpoints et Media Queries
+// ============================================
+
+@import 'variables';
+
+// --- Fonction pour obtenir un breakpoint ---
+@function kt-breakpoint($name) {
+  @return map-get($kt-grid-breakpoints, $name);
+}
+
+// --- Mixin pour Media Queries (Mobile First) ---
+@mixin kt-media-breakpoint-up($name) {
+  $min: kt-breakpoint($name);
+  @if $min {
+    @media (min-width: $min) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
+@mixin kt-media-breakpoint-down($name) {
+  $max: kt-breakpoint($name) - 0.02px;
+  @if $max {
+    @media (max-width: $max) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
+@mixin kt-media-breakpoint-between($lower, $upper) {
+  $min: kt-breakpoint($lower);
+  $max: kt-breakpoint($upper) - 0.02px;
+  @if $min != null and $max != null {
+    @media (min-width: $min) and (max-width: $max) {
+      @content;
+    }
+  } @else if $max == null {
+    @include kt-media-breakpoint-up($lower) {
+      @content;
+    }
+  } @else if $min == null {
+    @include kt-media-breakpoint-down($upper) {
+      @content;
+    }
+  }
+}
+
+@mixin kt-media-breakpoint-only($name) {
+  $min: kt-breakpoint($name);
+  $next: kt-breakpoint-next($name);
+  $max: null;
+  
+  @if $next {
+    $max: $next - 0.02px;
+  }
+  
+  @if $min != null and $max != null {
+    @media (min-width: $min) and (max-width: $max) {
+      @content;
+    }
+  } @else if $max == null {
+    @include kt-media-breakpoint-up($name) {
+      @content;
+    }
+  } @else if $min == null {
+    @include kt-media-breakpoint-down($name) {
+      @content;
+    }
+  }
+}
+
+// --- Fonction pour obtenir le breakpoint suivant ---
+@function kt-breakpoint-next($name) {
+  $breakpoint-names: map-keys($kt-grid-breakpoints);
+  $n: index($breakpoint-names, $name);
+  @if not $n {
+    @return null;
+  }
+  @return map-get($kt-grid-breakpoints, nth($breakpoint-names, $n + 1));
+}
+

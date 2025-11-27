@@ -1,0 +1,75 @@
+// ============================================
+// KitokoCSS v1.0 - Typographie
+// ============================================
+
+@import '../config/variables';
+
+// --- Titres ---
+h1 { font-size: $kt-font-size-xxl; }
+h2 { font-size: $kt-font-size-xl; }
+h3 { font-size: $kt-font-size-lg; }
+h4 { font-size: $kt-font-size-base; }
+h5 { font-size: $kt-font-size-sm; }
+h6 { font-size: $kt-font-size-sm; }
+
+// --- Classes de Typographie ---
+.kt-text-xs { font-size: 0.75rem; }
+.kt-text-sm { font-size: $kt-font-size-sm; }
+.kt-text-base { font-size: $kt-font-size-base; }
+.kt-text-lg { font-size: $kt-font-size-lg; }
+.kt-text-xl { font-size: $kt-font-size-xl; }
+.kt-text-xxl { font-size: $kt-font-size-xxl; }
+
+// --- Poids de Police ---
+.kt-font-light { font-weight: $kt-font-weight-light; }
+.kt-font-normal { font-weight: $kt-font-weight-normal; }
+.kt-font-medium { font-weight: $kt-font-weight-medium; }
+.kt-font-semibold { font-weight: $kt-font-weight-semibold; }
+.kt-font-bold { font-weight: $kt-font-weight-bold; }
+
+// --- Alignement ---
+.kt-text-left { text-align: left; }
+.kt-text-center { text-align: center; }
+.kt-text-right { text-align: right; }
+.kt-text-justify { text-align: justify; }
+
+// --- Transformation de Texte ---
+.kt-text-lowercase { text-transform: lowercase; }
+.kt-text-uppercase { text-transform: uppercase; }
+.kt-text-capitalize { text-transform: capitalize; }
+
+// --- Décoration ---
+.kt-text-decoration-none { text-decoration: none; }
+.kt-text-decoration-underline { text-decoration: underline; }
+
+// --- Couleurs de Texte ---
+@each $color, $value in $kt-theme-colors {
+  .kt-text-#{$color} {
+    color: $value !important;
+  }
+}
+
+.kt-text-muted {
+  color: $kt-text-muted !important;
+}
+
+// --- Truncate ---
+.kt-text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// --- Responsive Typography ---
+@import '../config/breakpoints';
+
+@each $breakpoint in map-keys($kt-grid-breakpoints) {
+  $infix: if($breakpoint == xs, "", "-#{$breakpoint}");
+  
+  @include kt-media-breakpoint-up($breakpoint) {
+    .kt-text#{$infix}-left { text-align: left !important; }
+    .kt-text#{$infix}-center { text-align: center !important; }
+    .kt-text#{$infix}-right { text-align: right !important; }
+  }
+}
+

@@ -1,0 +1,136 @@
+// ============================================
+// KitokoCSS v1.0 - Reset CSS
+// ============================================
+
+@import '../config/variables';
+
+// --- Reset de Base ---
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: sans-serif;
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+body {
+  margin: 0;
+  font-family: $kt-font-family-base;
+  font-size: $kt-font-size-base;
+  font-weight: $kt-font-weight-normal;
+  line-height: $kt-line-height-base;
+  color: $kt-text-color;
+  text-align: left;
+  background-color: $kt-bg-primary;
+}
+
+// --- Éléments de Base ---
+article,
+aside,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+nav,
+section {
+  display: block;
+}
+
+// --- Typographie ---
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  margin-bottom: map-get($kt-spacers, 2);
+  font-weight: $kt-font-weight-bold;
+  line-height: $kt-line-height-sm;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: map-get($kt-spacers, 3);
+}
+
+// --- Liens ---
+a {
+  color: $kt-primary;
+  text-decoration: none;
+  background-color: transparent;
+
+  &:hover {
+    color: darken($kt-primary, 15%);
+    text-decoration: underline;
+  }
+}
+
+// --- Images ---
+img {
+  vertical-align: middle;
+  border-style: none;
+  max-width: 100%;
+  height: auto;
+}
+
+// --- Listes ---
+ul, ol {
+  margin-top: 0;
+  margin-bottom: map-get($kt-spacers, 3);
+  padding-left: map-get($kt-spacers, 5);
+}
+
+// --- Formulaires ---
+button,
+input,
+optgroup,
+select,
+textarea {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+button,
+input {
+  overflow: visible;
+}
+
+button,
+select {
+  text-transform: none;
+}
+
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  -webkit-appearance: button;
+}
+
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+  padding: 0;
+  border-style: none;
+}
+
+// --- Tableaux ---
+table {
+  border-collapse: collapse;
+}
+
+// --- Mode Sombre ---
+@media (prefers-color-scheme: dark) {
+  body.kitoko-dark,
+  .kitoko-dark body {
+    background-color: $kt-dark-mode-bg;
+    color: $kt-dark-mode-text;
+  }
+}
+

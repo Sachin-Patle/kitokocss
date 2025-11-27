@@ -1,0 +1,33 @@
+// ============================================
+// KitokoCSS v1.0 - Composant Badge
+// ============================================
+
+@import '../config/variables';
+
+.kt-badge {
+  display: inline-block;
+  padding: 0.25em 0.4em;
+  font-size: 75%;
+  font-weight: $kt-font-weight-semibold;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: $kt-border-radius;
+}
+
+// --- Variantes de Couleurs ---
+@each $color, $value in $kt-theme-colors {
+  .kt-badge-#{$color} {
+    color: $kt-white;
+    background-color: $value;
+  }
+}
+
+// --- Badge Pill (Arrondi) ---
+.kt-badge-pill {
+  padding-right: 0.6em;
+  padding-left: 0.6em;
+  border-radius: $kt-border-radius-pill;
+}
+

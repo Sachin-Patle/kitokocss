@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article de Blog - KitokoCSS Exemple</title>
+    <link rel="icon" type="image/png" href="../logo-trans.png">
+    <link rel="stylesheet" href="../dist/kitoko.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+        }
+        .kt-navbar {
+            background: white;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .article-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 6rem 0 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .article-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=600&fit=crop') center/cover;
+            opacity: 0.15;
+            z-index: 0;
+        }
+        .article-header > * {
+            position: relative;
+            z-index: 1;
+        }
+        .article-header img {
+            width: 100%;
+            max-width: 900px;
+            height: 450px;
+            object-fit: cover;
+            border-radius: 1rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            border: 5px solid rgba(255,255,255,0.2);
+        }
+        .article-header h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            line-height: 1.2;
+        }
+        .article-meta {
+            color: rgba(255,255,255,0.95);
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+        .article-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 4rem 0;
+        }
+        .article-body {
+            line-height: 1.9;
+            font-size: 1.15rem;
+            color: #2c3e50;
+        }
+        .article-body h2 {
+            margin-top: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: #667eea;
+            font-size: 2rem;
+            font-weight: 700;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #667eea;
+        }
+        .article-body p {
+            margin-bottom: 1.75rem;
+            color: #4a5568;
+        }
+        .article-body img {
+            width: 100%;
+            border-radius: 1rem;
+            margin: 3rem 0;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease;
+        }
+        .article-body img:hover {
+            transform: scale(1.02);
+        }
+        .article-body code {
+            background: #f7fafc;
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.25rem;
+            font-family: 'Courier New', monospace;
+            color: #e53e3e;
+            font-size: 0.9em;
+        }
+        .article-body pre {
+            background: #1a202c;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            overflow-x: auto;
+            margin: 2rem 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        .article-body pre code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+        }
+        .article-body ul, .article-body ol {
+            margin: 1.5rem 0;
+            padding-left: 2rem;
+        }
+        .article-body li {
+            margin: 0.75rem 0;
+            color: #4a5568;
+        }
+        .article-body a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        .article-body a:hover {
+            border-bottom-color: #667eea;
+        }
+        .sidebar {
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 100px;
+        }
+        .sidebar h5 {
+            color: #2d3748;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            font-size: 1.25rem;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar li {
+            margin-bottom: 1.5rem;
+        }
+        .sidebar a {
+            text-decoration: none;
+            color: #2d3748;
+            transition: all 0.3s ease;
+            display: block;
+        }
+        .sidebar a:hover {
+            transform: translateX(5px);
+        }
+        .sidebar img {
+            transition: transform 0.3s ease;
+            border-radius: 0.75rem;
+        }
+        .sidebar a:hover img {
+            transform: scale(1.05);
+        }
+        .author-card {
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+        }
+        .author-card img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-bottom: 1.5rem;
+            border: 5px solid rgba(255,255,255,0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .author-card h5 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .kt-card {
+            border: none;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border-radius: 1.5rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .kt-card:hover {
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            transform: translateY(-5px);
+        }
+        .kt-card-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            border-bottom: none;
+        }
+        .kt-card-body {
+            padding: 2rem;
+        }
+        .kt-btn {
+            transition: all 0.3s ease;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+        }
+        .kt-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        }
+        .comment-item {
+            padding: 1.5rem;
+            border-radius: 1rem;
+            margin-bottom: 1.5rem;
+            background: #f7fafc;
+            transition: all 0.3s ease;
+        }
+        .comment-item:hover {
+            background: #edf2f7;
+            transform: translateX(5px);
+        }
+        .comment-item img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <symbol id="icon-book-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol>
+        <symbol id="icon-newspaper" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8z"/></symbol>
+        <symbol id="icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><circle cx="7" cy="7" r="1.5"/></symbol>
+        <symbol id="icon-message-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></symbol>
+        <symbol id="icon-facebook" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></symbol>
+        <symbol id="icon-twitter" viewBox="0 0 24 24" fill="currentColor"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></symbol>
+        <symbol id="icon-linkedin" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></symbol>
+    </svg>
+    <!-- Navbar -->
+    <nav class="kt-navbar">
+        <div class="kt-container">
+            <a class="kt-navbar-brand" href="index.html"><img src="../logo-trans.png" alt="MonBlog" style="height: 35px; vertical-align: middle; margin-right: 0.75rem;">MonBlog</a>
+            <div class="kt-navbar-collapse">
+                <ul class="kt-navbar-nav">
+                    <li class="kt-nav-item">
+                        <a class="kt-nav-link" href="#">Accueil</a>
+                    </li>
+                    <li class="kt-nav-item">
+                        <a class="kt-nav-link" href="#">Articles</a>
+                    </li>
+                    <li class="kt-nav-item">
+                        <a class="kt-nav-link" href="#">Catégories</a>
+                    </li>
+                    <li class="kt-nav-item">
+                        <a class="kt-nav-link" href="#">À propos</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Article Header -->
+    <section class="article-header">
+        <div class="kt-container">
+            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=600&fit=crop" alt="Article Header">
+            <h1 class="kt-text-xxl kt-mb-3">Comment Utiliser KitokoCSS pour Créer des Interfaces Modernes</h1>
+            <div class="article-meta">
+                <span>Par <strong>FomaDev</strong></span> • 
+                <span>27 novembre 2025</span> • 
+                <span><svg class="icon" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 0.5rem;"><use href="#icon-book-open"></use></svg>5 min de lecture</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Article Content -->
+    <section class="article-content">
+        <div class="kt-container">
+            <div class="kt-row">
+                <div class="kt-col-md-8">
+                    <article class="article-body">
+                        <p class="kt-text-lg" style="font-size: 1.35rem; color: #667eea; font-weight: 600; margin-bottom: 2rem;">
+                            Dans cet article, nous allons explorer comment utiliser KitokoCSS pour créer
+                            des interfaces web modernes et responsives en un temps record.
+                        </p>
+
+                        <h2>Introduction à KitokoCSS</h2>
+                        <p>
+                            KitokoCSS est un framework CSS moderne qui simplifie le développement front-end.
+                            Avec son système de grille flexible et ses composants pré-stylisés, vous pouvez
+                            créer des interfaces professionnelles sans effort.
+                        </p>
+
+                        <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=800&h=400&fit=crop" alt="Code Example">
+
+                        <p>
+                            Le framework utilise le préfixe <code>kt-</code> pour toutes ses classes, ce qui
+                            évite les conflits avec d'autres frameworks et rend le code plus lisible et maintenable.
+                        </p>
+
+                        <h2>Installation Rapide</h2>
+                        <p>
+                            L'installation de KitokoCSS est extrêmement simple. Il suffit d'ajouter une seule
+                            ligne dans le <code>&lt;head&gt;</code> de votre page HTML :
+                        </p>
+
+                        <pre><code>&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/FomaDev/KitokoCSS@v1.0/dist/kitoko.min.css"&gt;</code></pre>
+
+                        <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=400&fit=crop" alt="Installation">
+
+                        <p>
+                            C'est tout ! Vous pouvez maintenant utiliser toutes les classes KitokoCSS dans
+                            votre projet.
+                        </p>
+
+                        <h2>Système de Grille</h2>
+                        <p>
+                            Le système de grille de KitokoCSS est basé sur Flexbox et offre une flexibilité
+                            maximale. Avec 12 colonnes et 6 breakpoints, vous pouvez créer des mises en page
+                            adaptatives pour tous les types d'écrans.
+                        </p>
+
+                        <p>
+                            Voici un exemple simple de grille responsive :
+                        </p>
+
+                        <pre><code>&lt;div class="kt-container"&gt;
+  &lt;div class="kt-row"&gt;
+    &lt;div class="kt-col-12 kt-col-md-6 kt-col-lg-4"&gt;
+      Colonne 1
+    &lt;/div&gt;
+    &lt;div class="kt-col-12 kt-col-md-6 kt-col-lg-4"&gt;
+      Colonne 2
+    &lt;/div&gt;
+    &lt;div class="kt-col-12 kt-col-md-6 kt-col-lg-4"&gt;
+      Colonne 3
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=400&fit=crop" alt="Grid System">
+
+                        <h2>Composants UI</h2>
+                        <p>
+                            KitokoCSS inclut une vaste collection de composants UI prêts à l'emploi :
+                        </p>
+
+                        <ul>
+                            <li><strong>Boutons</strong> : Plusieurs variantes et tailles</li>
+                            <li><strong>Cartes</strong> : Conteneurs flexibles pour le contenu</li>
+                            <li><strong>Formulaires</strong> : Styles élégants et cohérents</li>
+                            <li><strong>Modales</strong> : Boîtes de dialogue interactives</li>
+                            <li><strong>Navigation</strong> : Barres de navigation responsives</li>
+                            <li><strong>Et bien plus...</strong></li>
+                        </ul>
+
+                        <h2>Classes Utilitaires</h2>
+                        <p>
+                            Les classes utilitaires permettent de styliser rapidement les éléments sans
+                            écrire de CSS personnalisé. Par exemple :
+                        </p>
+
+                        <ul>
+                            <li><code>kt-m-3</code> : Marge de 1rem</li>
+                            <li><code>kt-p-4</code> : Padding de 1.5rem</li>
+                            <li><code>kt-d-flex</code> : Display flex</li>
+                            <li><code>kt-justify-center</code> : Justify-content center</li>
+                            <li><code>kt-text-primary</code> : Couleur primaire</li>
+                        </ul>
+
+                        <h2>Conclusion</h2>
+                        <p>
+                            KitokoCSS est un excellent choix pour les développeurs qui cherchent un framework
+                            moderne, léger et facile à utiliser. Avec sa documentation complète et ses exemples
+                            pratiques, vous serez productif en quelques minutes.
+                        </p>
+
+                        <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=800&h=400&fit=crop" alt="Conclusion">
+
+                        <p>
+                            N'hésitez pas à consulter la <a href="../docs/index.html">documentation complète</a>
+                            pour découvrir toutes les fonctionnalités du framework.
+                        </p>
+                    </article>
+
+                    <!-- Author Card -->
+                    <div class="kt-card kt-mt-5">
+                        <div class="kt-card-body author-card">
+                            <img src="../FM.png" alt="Auteur">
+                            <h5>FomaDev</h5>
+                            <p style="opacity: 0.9; font-size: 1.1rem;">Développeur passionné et créateur de KitokoCSS</p>
+                        </div>
+                    </div>
+
+                    <!-- Share Buttons -->
+                    <div class="kt-card kt-mt-4">
+                        <div class="kt-card-body">
+                            <h5 class="kt-card-title">Partager cet article</h5>
+                            <div class="kt-d-flex kt-gap-2">
+                                <button class="kt-btn kt-btn-primary"><svg class="icon" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 0.5rem;"><use href="#icon-facebook"></use></svg>Facebook</button>
+                                <button class="kt-btn kt-btn-info"><svg class="icon" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 0.5rem;"><use href="#icon-twitter"></use></svg>Twitter</button>
+                                <button class="kt-btn kt-btn-danger"><svg class="icon" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 0.5rem;"><use href="#icon-linkedin"></use></svg>LinkedIn</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Comments Section -->
+                    <div class="kt-card kt-mt-4">
+                        <div class="kt-card-header">
+                            <h5 class="kt-card-title"><svg class="icon" style="width: 18px; height: 18px; vertical-align: middle; margin-right: 0.5rem;"><use href="#icon-message-circle"></use></svg>Commentaires (3)</h5>
+                        </div>
+                        <div class="kt-card-body">
+                            <div class="comment-item">
+                                <div class="kt-d-flex kt-gap-2">
+                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=50&h=50&fit=crop" alt="User">
+                                    <div>
+                                        <strong>Jean Dupont</strong>
+                                        <span class="kt-text-muted" style="font-size: 0.9rem;"> • Il y a 2 heures</span>
+                                        <p class="kt-mt-2" style="margin-top: 0.75rem;">Excellent article ! KitokoCSS est vraiment impressionnant.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="comment-item">
+                                <div class="kt-d-flex kt-gap-2">
+                                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=50&h=50&fit=crop" alt="User">
+                                    <div>
+                                        <strong>Marie Martin</strong>
+                                        <span class="kt-text-muted" style="font-size: 0.9rem;"> • Il y a 5 heures</span>
+                                        <p class="kt-mt-2" style="margin-top: 0.75rem;">Merci pour ce guide détaillé. Je vais l'essayer dès aujourd'hui !</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="comment-item">
+                                <div class="kt-d-flex kt-gap-2">
+                                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=50&h=50&fit=crop" alt="User">
+                                    <div>
+                                        <strong>Pierre Durand</strong>
+                                        <span class="kt-text-muted" style="font-size: 0.9rem;"> • Il y a 1 jour</span>
+                                        <p class="kt-mt-2" style="margin-top: 0.75rem;">Très utile, surtout la partie sur le système de grille.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="kt-col-md-4">
+                    <div class="sidebar">
+                        <h5><svg class="icon" style="width: 18px; height: 18px; vertical-align: middle; margin-right: 0.5rem;"><use href="#icon-newspaper"></use></svg>Articles Récents</h5>
+                        <ul>
+                            <li>
+                                <a href="#">
+                                    <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=300&h=150&fit=crop" alt="Article" style="width: 100%; margin-bottom: 0.75rem;">
+                                    <strong>10 Astuces pour Améliorer vos CSS</strong>
+                                    <p class="kt-text-muted" style="font-size: 0.9rem; margin: 0.5rem 0 0 0;">30 novembre 2025</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=300&h=150&fit=crop" alt="Article" style="width: 100%; margin-bottom: 0.75rem;">
+                                    <strong>Introduction au Responsive Design</strong>
+                                    <p class="kt-text-muted" style="font-size: 0.9rem; margin: 0.5rem 0 0 0;">28 novembre 2025</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=300&h=150&fit=crop" alt="Article" style="width: 100%; margin-bottom: 0.75rem;">
+                                    <strong>Les Meilleurs Frameworks CSS en 2025</strong>
+                                    <p class="kt-text-muted" style="font-size: 0.9rem; margin: 0.5rem 0 0 0;">25 novembre 2025</p>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <h5 class="kt-mt-5"><svg class="icon" style="width: 18px; height: 18px; vertical-align: middle; margin-right: 0.5rem;"><use href="#icon-tag"></use></svg>Catégories</h5>
+                        <ul>
+                            <li class="kt-mb-2"><a href="#" style="color: #667eea; font-weight: 600;">CSS (12)</a></li>
+                            <li class="kt-mb-2"><a href="#" style="color: #667eea; font-weight: 600;">JavaScript (8)</a></li>
+                            <li class="kt-mb-2"><a href="#" style="color: #667eea; font-weight: 600;">Frameworks (5)</a></li>
+                            <li class="kt-mb-2"><a href="#" style="color: #667eea; font-weight: 600;">Tutoriels (15)</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="../js/kitoko.bundle.js"></script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+// ============================================
+// KitokoCSS v1.0 - Composant Pagination
+// ============================================
+
+@import '../config/variables';
+
+.kt-pagination {
+  display: flex;
+  padding-left: 0;
+  list-style: none;
+  border-radius: $kt-border-radius;
+}
+
+.kt-page-link {
+  position: relative;
+  display: block;
+  padding: map-get($kt-spacers, 2) map-get($kt-spacers, 3);
+  margin-left: -$kt-border-width;
+  line-height: $kt-line-height-base;
+  color: $kt-primary;
+  text-decoration: none;
+  background-color: $kt-white;
+  border: $kt-border-width solid $kt-border-color;
+  transition: $kt-transition-base;
+
+  &:hover {
+    z-index: 2;
+    color: darken($kt-primary, 15%);
+    text-decoration: none;
+    background-color: $kt-bg-secondary;
+    border-color: $kt-border-color;
+  }
+
+  &:focus {
+    z-index: 2;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba($kt-primary, 0.25);
+  }
+}
+
+.kt-page-item {
+  &:first-child .kt-page-link {
+    margin-left: 0;
+    border-top-left-radius: $kt-border-radius;
+    border-bottom-left-radius: $kt-border-radius;
+  }
+
+  &:last-child .kt-page-link {
+    border-top-right-radius: $kt-border-radius;
+    border-bottom-right-radius: $kt-border-radius;
+  }
+
+  &.active .kt-page-link {
+    z-index: 1;
+    color: $kt-white;
+    background-color: $kt-primary;
+    border-color: $kt-primary;
+  }
+
+  &.disabled .kt-page-link {
+    color: $kt-text-muted;
+    pointer-events: none;
+    cursor: auto;
+    background-color: $kt-white;
+    border-color: $kt-border-color;
+  }
+}
+

@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Produit - KitokoCSS Exemple</title>
+    <link rel="icon" type="image/png" href="../logo-trans.png">
+    <link rel="stylesheet" href="../dist/kitoko.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+        .kt-navbar {
+            background: white;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .product-hero {
+            padding: 4rem 0;
+            background: white;
+        }
+        .product-image {
+            width: 100%;
+            border-radius: 1.5rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease;
+        }
+        .product-image:hover {
+            transform: scale(1.02);
+        }
+        .thumbnail {
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: all 0.3s ease;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .thumbnail:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        }
+        .thumbnail.active {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+        }
+        .price {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #28a745;
+            text-shadow: 0 2px 10px rgba(40, 167, 69, 0.2);
+        }
+        .old-price {
+            text-decoration: line-through;
+            color: #6c757d;
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+        .size-btn {
+            min-width: 60px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            border-radius: 0.75rem;
+        }
+        .size-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: transparent;
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        .size-btn:hover {
+            transform: translateY(-2px);
+        }
+        .color-option {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+        .color-option.active {
+            border: 4px solid #667eea !important;
+            transform: scale(1.2);
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2);
+        }
+        .color-option:hover {
+            transform: scale(1.15);
+        }
+        .kt-card {
+            border: none;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border-radius: 1.5rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .kt-card:hover {
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            transform: translateY(-5px);
+        }
+        .kt-btn {
+            transition: all 0.3s ease;
+            border-radius: 0.75rem;
+            font-weight: 600;
+        }
+        .kt-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        }
+        .kt-btn-lg {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+        }
+        .kt-nav-link[data-tab] {
+            transition: all 0.3s ease;
+            border-radius: 0.5rem;
+            padding: 0.75rem 1.5rem;
+        }
+        .kt-nav-link[data-tab].active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white !important;
+            font-weight: 700;
+        }
+        .kt-nav-link[data-tab]:hover {
+            background: #f8f9fa;
+        }
+        .related-product-card {
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        .related-product-card:hover {
+            transform: translateY(-10px);
+        }
+        .related-product-card img {
+            transition: transform 0.5s ease;
+        }
+        .related-product-card:hover img {
+            transform: scale(1.1);
+        }
+        .icon {
+            display: inline-block;
+            width: 1em;
+            height: 1em;
+            vertical-align: middle;
+        }
+        .feature-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+        .feature-list li:hover {
+            padding-left: 1rem;
+            color: #667eea;
+        }
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <symbol id="icon-cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></symbol>
+        <symbol id="icon-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></symbol>
+        <symbol id="icon-check-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></symbol>
+        <symbol id="icon-sparkles" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41M17.66 17.66l-1.41-1.41M4.93 19.07l-1.41-1.41"/></symbol>
+        <symbol id="icon-file-text" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></symbol>
+        <symbol id="icon-settings" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 6v6M5.64 5.64l4.24 4.24m4.24 4.24l4.24 4.24M1 12h6m6 0h6M5.64 18.36l4.24-4.24m4.24-4.24l4.24-4.24"/></symbol>
+        <symbol id="icon-star" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></symbol>
+        <symbol id="icon-shopping-bag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></symbol>
+        <symbol id="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></symbol>
+    </svg>
+    <!-- Navbar -->
+    <nav class="kt-navbar">
+        <div class="kt-container">
+            <a class="kt-navbar-brand" href="index.html"><img src="../logo-trans.png" alt="MonShop" style="height: 35px; vertical-align: middle; margin-right: 0.75rem;">MonShop</a>
+            <div class="kt-navbar-collapse">
+                <ul class="kt-navbar-nav">
+                    <li class="kt-nav-item">
+                        <a class="kt-nav-link" href="#">Accueil</a>
+                    </li>
+                    <li class="kt-nav-item">
+                        <a class="kt-nav-link" href="#">Produits</a>
+                    </li>
+                    <li class="kt-nav-item">
+                        <a class="kt-nav-link" href="#">Contact</a>
+                    </li>
+                    <li class="kt-nav-item">
+                        <a class="kt-nav-link" href="#"><svg class="icon" style="width: 18px; height: 18px; vertical-align: middle; margin-right: 0.5rem;"><use href="#icon-cart"></use></svg>Panier (<span id="cart-count">0</span>)</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Product Section -->
+    <section class="product-hero">
+        <div class="kt-container">
+            <div class="kt-row kt-gap-4">
+                <!-- Product Images -->
+                <div class="kt-col-md-6">
+                    <img id="main-image" src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&h=600&fit=crop" alt="Produit" class="product-image">
+                    <div class="kt-d-flex kt-gap-2 kt-mt-4">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=100&h=100&fit=crop" alt="Thumbnail" class="thumbnail active" data-image="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&h=600&fit=crop">
+                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=100&h=100&fit=crop" alt="Thumbnail" class="thumbnail" data-image="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&h=600&fit=crop">
+                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=100&h=100&fit=crop" alt="Thumbnail" class="thumbnail" data-image="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&h=600&fit=crop">
+                    </div>
+                </div>
+
+                <!-- Product Info -->
+                <div class="kt-col-md-6">
+                    <h1 class="kt-text-xl kt-mb-3" style="font-size: 2.5rem; font-weight: 800; color: #2c3e50;">Produit Premium</h1>
+                    <div class="kt-mb-3">
+                        <span class="kt-badge kt-badge-success" style="padding: 0.5rem 1rem; font-size: 0.95rem; font-weight: 600;"><svg class="icon" style="width: 14px; height: 14px; vertical-align: middle; margin-right: 0.25rem;"><use href="#icon-check"></use></svg>En Stock</span>
+                        <span class="kt-badge kt-badge-primary kt-ml-2" style="padding: 0.5rem 1rem; font-size: 0.95rem; font-weight: 600;"><svg class="icon" style="width: 14px; height: 14px; vertical-align: middle; margin-right: 0.25rem;"><use href="#icon-sparkles"></use></svg>Nouveau</span>
+                    </div>
+                    
+                    <div class="kt-mb-4" style="padding: 1.5rem; background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%); border-radius: 1rem;">
+                        <span class="price">€99.99</span>
+                        <span class="old-price kt-ml-2">€149.99</span>
+                        <span class="kt-badge kt-badge-danger kt-ml-2" style="padding: 0.5rem 1rem; font-size: 1rem; font-weight: 700;">-33%</span>
+                    </div>
+
+                    <p class="kt-text-lg kt-mb-4" style="font-size: 1.2rem; line-height: 1.8; color: #4a5568;">
+                        Description détaillée du produit. Ce produit exceptionnel offre une qualité premium
+                        et des fonctionnalités avancées pour répondre à tous vos besoins.
+                    </p>
+
+                    <!-- Product Options -->
+                    <div class="kt-mb-4">
+                        <label class="kt-label" style="font-weight: 700; font-size: 1.1rem; margin-bottom: 1rem; display: block;">Taille</label>
+                        <div class="kt-d-flex kt-gap-2">
+                            <button class="kt-btn kt-btn-outline-primary size-btn" data-size="S">S</button>
+                            <button class="kt-btn kt-btn-primary size-btn active" data-size="M">M</button>
+                            <button class="kt-btn kt-btn-outline-primary size-btn" data-size="L">L</button>
+                            <button class="kt-btn kt-btn-outline-primary size-btn" data-size="XL">XL</button>
+                        </div>
+                    </div>
+
+                    <div class="kt-mb-4">
+                        <label class="kt-label" style="font-weight: 700; font-size: 1.1rem; margin-bottom: 1rem; display: block;">Couleur</label>
+                        <div class="kt-d-flex kt-gap-3">
+                            <div class="color-option active" style="width: 50px; height: 50px; background: #007bff; border-radius: 50%; cursor: pointer; border: 4px solid #007bff;" data-color="blue"></div>
+                            <div class="color-option" style="width: 50px; height: 50px; background: #28a745; border-radius: 50%; cursor: pointer; border: 4px solid transparent;" data-color="green"></div>
+                            <div class="color-option" style="width: 50px; height: 50px; background: #dc3545; border-radius: 50%; cursor: pointer; border: 4px solid transparent;" data-color="red"></div>
+                            <div class="color-option" style="width: 50px; height: 50px; background: #ffc107; border-radius: 50%; cursor: pointer; border: 4px solid transparent;" data-color="yellow"></div>
+                        </div>
+                    </div>
+
+                    <div class="kt-mb-4">
+                        <label class="kt-label" style="font-weight: 700; font-size: 1.1rem; margin-bottom: 1rem; display: block;">Quantité</label>
+                        <div class="kt-d-flex kt-align-center kt-gap-2" style="max-width: 180px;">
+                            <button class="kt-btn kt-btn-outline-secondary" id="decrease-qty" style="width: 50px; height: 50px; font-size: 1.5rem; font-weight: 700;">-</button>
+                            <input type="number" class="kt-form-control" id="quantity" value="1" min="1" style="text-align: center; height: 50px; font-size: 1.25rem; font-weight: 600;">
+                            <button class="kt-btn kt-btn-outline-secondary" id="increase-qty" style="width: 50px; height: 50px; font-size: 1.5rem; font-weight: 700;">+</button>
+                        </div>
+                    </div>
+
+                    <div class="kt-d-flex kt-gap-2 kt-mb-4">
+                        <button class="kt-btn kt-btn-primary kt-btn-lg" id="add-to-cart" style="flex: 1; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none;">
+                            <svg class="icon" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 0.5rem;"><use href="#icon-cart"></use></svg>Ajouter au Panier
+                        </button>
+                        <button class="kt-btn kt-btn-outline-primary kt-btn-lg" id="add-to-favorites" style="width: 60px; padding: 0;">
+                            <svg class="icon" style="width: 24px; height: 24px;"><use href="#icon-heart"></use></svg>
+                        </button>
+                    </div>
+
+                    <!-- Features -->
+                    <div class="kt-card kt-mt-4">
+                        <div class="kt-card-body">
+                            <h5 class="kt-card-title" style="font-size: 1.5rem; margin-bottom: 1.5rem; color: #2c3e50;"><svg class="icon" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 0.5rem;"><use href="#icon-sparkles"></use></svg>Caractéristiques</h5>
+                            <ul class="feature-list" style="list-style: none; padding: 0;">
+                                <li><svg class="icon" style="width: 20px; height: 20px; color: #28a745; vertical-align: middle; margin-right: 0.75rem;"><use href="#icon-check-circle"></use></svg><strong>Qualité Premium</strong></li>
+                                <li><svg class="icon" style="width: 20px; height: 20px; color: #28a745; vertical-align: middle; margin-right: 0.75rem;"><use href="#icon-check-circle"></use></svg><strong>Livraison Gratuite</strong></li>
+                                <li><svg class="icon" style="width: 20px; height: 20px; color: #28a745; vertical-align: middle; margin-right: 0.75rem;"><use href="#icon-check-circle"></use></svg><strong>Garantie 2 ans</strong></li>
+                                <li><svg class="icon" style="width: 20px; height: 20px; color: #28a745; vertical-align: middle; margin-right: 0.75rem;"><use href="#icon-check-circle"></use></svg><strong>Retours acceptés</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Details Tabs -->
+    <section class="kt-container kt-mb-5" style="padding: 0 1rem;">
+        <div class="kt-card">
+            <div class="kt-card-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 1.5rem;">
+                <ul class="kt-nav" style="border-bottom: none; gap: 1rem;">
+                    <li class="kt-nav-item">
+                        <a class="kt-nav-link active" href="#" data-tab="description" style="color: white; font-weight: 600;"><svg class="icon" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 0.5rem;"><use href="#icon-file-text"></use></svg>Description</a>
+                    </li>
+                    <li class="kt-nav-item">
+                        <a class="kt-nav-link" href="#" data-tab="specs" style="color: rgba(255,255,255,0.8);"><svg class="icon" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 0.5rem;"><use href="#icon-settings"></use></svg>Spécifications</a>
+                    </li>
+                    <li class="kt-nav-item">
+                        <a class="kt-nav-link" href="#" data-tab="reviews" style="color: rgba(255,255,255,0.8);"><svg class="icon" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 0.5rem;"><use href="#icon-star"></use></svg>Avis (24)</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="kt-card-body" style="padding: 2.5rem;">
+                <div id="tab-description" class="tab-content">
+                    <h5 style="font-size: 1.75rem; margin-bottom: 1.5rem; color: #2c3e50;">Description Complète</h5>
+                    <p style="font-size: 1.1rem; line-height: 1.8; color: #4a5568; margin-bottom: 1.5rem;">
+                        Ce produit exceptionnel a été conçu avec soin pour offrir une expérience utilisateur optimale.
+                        Il combine design moderne et fonctionnalités avancées pour répondre à tous vos besoins.
+                    </p>
+                    <p style="font-size: 1.1rem; line-height: 1.8; color: #4a5568;">
+                        Avec une qualité premium et une durabilité à toute épreuve, ce produit est le choix idéal
+                        pour ceux qui recherchent l'excellence.
+                    </p>
+                </div>
+                <div id="tab-specs" class="tab-content" style="display: none;">
+                    <h5 style="font-size: 1.75rem; margin-bottom: 1.5rem; color: #2c3e50;">Spécifications Techniques</h5>
+                    <table class="kt-table" style="font-size: 1.1rem;">
+                        <tr style="background: #f8f9fa;">
+                            <td style="padding: 1rem;"><strong>Dimensions</strong></td>
+                            <td style="padding: 1rem;">30 x 20 x 15 cm</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 1rem;"><strong>Poids</strong></td>
+                            <td style="padding: 1rem;">500g</td>
+                        </tr>
+                        <tr style="background: #f8f9fa;">
+                            <td style="padding: 1rem;"><strong>Matériau</strong></td>
+                            <td style="padding: 1rem;">Plastique haute qualité</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 1rem;"><strong>Couleurs disponibles</strong></td>
+                            <td style="padding: 1rem;">Bleu, Vert, Rouge, Jaune</td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="tab-reviews" class="tab-content" style="display: none;">
+                    <h5 style="font-size: 1.75rem; margin-bottom: 1.5rem; color: #2c3e50;">Avis Clients</h5>
+                    <div class="kt-mb-4" style="padding: 1.5rem; background: #f8f9fa; border-radius: 1rem;">
+                        <strong style="font-size: 1.1rem;">Jean D.</strong> <span style="color: #ffc107; font-size: 1.25rem;"><svg class="icon" style="width: 18px; height: 18px; vertical-align: middle; margin-right: 0.25rem; fill: #ffc107;"><use href="#icon-star"></use></svg><svg class="icon" style="width: 18px; height: 18px; vertical-align: middle; margin-right: 0.25rem; fill: #ffc107;"><use href="#icon-star"></use></svg><svg class="icon" style="width: 18px; height: 18px; vertical-align: middle; margin-right: 0.25rem; fill: #ffc107;"><use href="#icon-star"></use></svg><svg class="icon" style="width: 18px; height: 18px; vertical-align: middle; margin-right: 0.25rem; fill: #ffc107;"><use href="#icon-star"></use></svg><svg class="icon" style="width: 18px; height: 18px; vertical-align: middle; fill: #ffc107;"><use href="#icon-star"></use></svg></span>
+                        <p style="margin-top: 0.75rem; color: #4a5568;">Excellent produit, je recommande !</p>
+                    </div>
+                    <div class="kt-mb-4" style="padding: 1.5rem; background: #f8f9fa; border-radius: 1rem;">
+                        <strong style="font-size: 1.1rem;">Marie M.</strong> <span style="color: #ffc107; font-size: 1.25rem;"><svg class="icon" style="width: 18px; height: 18px; vertical-align: middle; margin-right: 0.25rem; fill: #ffc107;"><use href="#icon-star"></use></svg><svg class="icon" style="width: 18px; height: 18px; vertical-align: middle; margin-right: 0.25rem; fill: #ffc107;"><use href="#icon-star"></use></svg><svg class="icon" style="width: 18px; height: 18px; vertical-align: middle; margin-right: 0.25rem; fill: #ffc107;"><use href="#icon-star"></use></svg><svg class="icon" style="width: 18px; height: 18px; vertical-align: middle; fill: #ffc107;"><use href="#icon-star"></use></svg></span>
+                        <p style="margin-top: 0.75rem; color: #4a5568;">Très satisfaite de mon achat.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Products -->
+    <section class="kt-container kt-mb-5" style="padding: 0 1rem;">
+        <h2 class="kt-text-xl kt-mb-4" style="font-size: 2.5rem; font-weight: 800; color: #2c3e50; text-align: center;"><svg class="icon" style="width: 32px; height: 32px; vertical-align: middle; margin-right: 0.75rem;"><use href="#icon-shopping-bag"></use></svg>Produits Similaires</h2>
+        <div class="kt-row kt-gap-3">
+            <div class="kt-col-md-3">
+                <div class="kt-card related-product-card">
+                    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=200&fit=crop" alt="Produit" style="width: 100%; height: 250px; object-fit: cover;">
+                    <div class="kt-card-body">
+                        <h5 class="kt-card-title" style="font-weight: 700; margin-bottom: 0.75rem;">Produit Similaire 1</h5>
+                        <p class="kt-card-text" style="font-size: 1.5rem; font-weight: 700; color: #28a745; margin-bottom: 1rem;">€79.99</p>
+                        <button class="kt-btn kt-btn-primary kt-btn-block" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none;">Voir</button>
+                    </div>
+                </div>
+            </div>
+            <div class="kt-col-md-3">
+                <div class="kt-card related-product-card">
+                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300&h=200&fit=crop" alt="Produit" style="width: 100%; height: 250px; object-fit: cover;">
+                    <div class="kt-card-body">
+                        <h5 class="kt-card-title" style="font-weight: 700; margin-bottom: 0.75rem;">Produit Similaire 2</h5>
+                        <p class="kt-card-text" style="font-size: 1.5rem; font-weight: 700; color: #28a745; margin-bottom: 1rem;">€89.99</p>
+                        <button class="kt-btn kt-btn-primary kt-btn-block" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none;">Voir</button>
+                    </div>
+                </div>
+            </div>
+            <div class="kt-col-md-3">
+                <div class="kt-card related-product-card">
+                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300&h=200&fit=crop" alt="Produit" style="width: 100%; height: 250px; object-fit: cover;">
+                    <div class="kt-card-body">
+                        <h5 class="kt-card-title" style="font-weight: 700; margin-bottom: 0.75rem;">Produit Similaire 3</h5>
+                        <p class="kt-card-text" style="font-size: 1.5rem; font-weight: 700; color: #28a745; margin-bottom: 1rem;">€69.99</p>
+                        <button class="kt-btn kt-btn-primary kt-btn-block" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none;">Voir</button>
+                    </div>
+                </div>
+            </div>
+            <div class="kt-col-md-3">
+                <div class="kt-card related-product-card">
+                    <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=300&h=200&fit=crop" alt="Produit" style="width: 100%; height: 250px; object-fit: cover;">
+                    <div class="kt-card-body">
+                        <h5 class="kt-card-title" style="font-weight: 700; margin-bottom: 0.75rem;">Produit Similaire 4</h5>
+                        <p class="kt-card-text" style="font-size: 1.5rem; font-weight: 700; color: #28a745; margin-bottom: 1rem;">€109.99</p>
+                        <button class="kt-btn kt-btn-primary kt-btn-block" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none;">Voir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="../js/kitoko.bundle.js"></script>
+    <script>
+        // Product Image Thumbnails
+        document.querySelectorAll('.thumbnail').forEach(thumb => {
+            thumb.addEventListener('click', function() {
+                const mainImage = document.getElementById('main-image');
+                mainImage.style.opacity = '0.5';
+                setTimeout(() => {
+                    mainImage.src = this.getAttribute('data-image');
+                    mainImage.style.opacity = '1';
+                }, 150);
+                document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Size Selection
+        document.querySelectorAll('.size-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.size-btn').forEach(b => {
+                    b.classList.remove('active', 'kt-btn-primary');
+                    b.classList.add('kt-btn-outline-primary');
+                    b.style.background = '';
+                    b.style.borderColor = '';
+                });
+                this.classList.add('active', 'kt-btn-primary');
+                this.classList.remove('kt-btn-outline-primary');
+            });
+        });
+
+        // Color Selection
+        document.querySelectorAll('.color-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.color-option').forEach(o => {
+                    o.classList.remove('active');
+                    o.style.border = '4px solid transparent';
+                    o.style.transform = 'scale(1)';
+                    o.style.boxShadow = '';
+                });
+                this.classList.add('active');
+                this.style.border = '4px solid #667eea';
+                this.style.transform = 'scale(1.2)';
+                this.style.boxShadow = '0 0 0 4px rgba(102, 126, 234, 0.2)';
+            });
+        });
+
+        // Quantity Controls
+        document.getElementById('increase-qty').addEventListener('click', function() {
+            const qtyInput = document.getElementById('quantity');
+            qtyInput.value = parseInt(qtyInput.value) + 1;
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => this.style.transform = '', 150);
+        });
+
+        document.getElementById('decrease-qty').addEventListener('click', function() {
+            const qtyInput = document.getElementById('quantity');
+            if (parseInt(qtyInput.value) > 1) {
+                qtyInput.value = parseInt(qtyInput.value) - 1;
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => this.style.transform = '', 150);
+            }
+        });
+
+        // Add to Cart
+        document.getElementById('add-to-cart').addEventListener('click', function() {
+            const qty = document.getElementById('quantity').value;
+            const size = document.querySelector('.size-btn.active').getAttribute('data-size');
+            const color = document.querySelector('.color-option.active').getAttribute('data-color');
+            
+            // Animation
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => this.style.transform = '', 200);
+            
+            // Update cart count
+            const cartCount = document.getElementById('cart-count');
+            cartCount.textContent = parseInt(cartCount.textContent) + parseInt(qty);
+            cartCount.style.animation = 'pulse 0.5s';
+            setTimeout(() => cartCount.style.animation = '', 500);
+            
+            // Show success message
+            alert(`Produit ajouté au panier !\n\nQuantité: ${qty}\nTaille: ${size}\nCouleur: ${color}`);
+        });
+
+        // Add to Favorites
+        let isFavorite = false;
+        document.getElementById('add-to-favorites').addEventListener('click', function() {
+            isFavorite = !isFavorite;
+            const heartIcon = this.querySelector('svg use');
+            if (isFavorite) {
+                this.style.background = '#dc3545';
+                this.style.color = 'white';
+                this.style.borderColor = '#dc3545';
+                this.style.transform = 'scale(1.1)';
+                setTimeout(() => this.style.transform = '', 200);
+            } else {
+                this.style.background = '';
+                this.style.color = '';
+                this.style.borderColor = '';
+            }
+        });
+
+        // Tab Navigation
+        document.querySelectorAll('[data-tab]').forEach(tab => {
+            tab.addEventListener('click', function(e) {
+                e.preventDefault();
+                const tabName = this.getAttribute('data-tab');
+                
+                // Update active tab
+                document.querySelectorAll('[data-tab]').forEach(t => {
+                    t.classList.remove('active');
+                    t.style.color = 'rgba(255,255,255,0.8)';
+                    t.style.fontWeight = '';
+                });
+                this.classList.add('active');
+                this.style.color = 'white';
+                this.style.fontWeight = '600';
+                
+                // Show corresponding content
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.style.display = 'none';
+                });
+                const targetContent = document.getElementById('tab-' + tabName);
+                targetContent.style.display = 'block';
+                targetContent.style.animation = 'fadeIn 0.3s ease';
+            });
+        });
+
+        // Add pulse animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0%, 100% { transform: scale(1); }
+                50% { transform: scale(1.2); }
+            }
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

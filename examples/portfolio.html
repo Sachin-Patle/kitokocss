@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - MOLENGO MALANDA FORDI</title>
+    <link rel="icon" type="image/png" href="../logo-trans.png">
+    <link rel="stylesheet" href="../dist/kitoko.min.css">
+    <style>
+        .hero-portfolio {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 6rem 0;
+            text-align: center;
+        }
+        .portfolio-filter {
+            padding: 2rem 0;
+            background: #f8f9fa;
+        }
+        .filter-btn {
+            margin: 0.25rem;
+        }
+        .filter-btn.active {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.5rem;
+            margin-bottom: 2rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .portfolio-item.hidden {
+            display: none;
+        }
+        .portfolio-item:hover {
+            transform: translateY(-5px);
+        }
+        .portfolio-item img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        .portfolio-item:hover img {
+            transform: scale(1.1);
+        }
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,123,255,0.9);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+            padding: 2rem;
+        }
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+        .about-section {
+            padding: 5rem 0;
+            background: #f8f9fa;
+        }
+        .skill-bar {
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #007bff, #0056b3);
+            transition: width 1s ease;
+        }
+        .profile-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            margin: 0 auto 2rem;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="kt-navbar" data-kt-sticky>
+        <a class="kt-navbar-brand" href="index.html"><img src="../logo-trans.png" alt="Portfolio" style="height: 30px; vertical-align: middle; margin-right: 0.5rem;">Portfolio</a>
+        <div class="kt-navbar-collapse">
+            <ul class="kt-navbar-nav">
+                <li class="kt-nav-item"><a class="kt-nav-link" href="#about">À propos</a></li>
+                <li class="kt-nav-item"><a class="kt-nav-link" href="#portfolio">Portfolio</a></li>
+                <li class="kt-nav-item"><a class="kt-nav-link" href="#skills">Compétences</a></li>
+                <li class="kt-nav-item"><a class="kt-nav-link" href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-portfolio">
+        <div class="kt-container">
+            <img src="../fordi.png" alt="MOLENGO MALANDA FORDI" class="profile-image">
+            <h1 class="kt-text-xxl kt-mb-3">MOLENGO MALANDA FORDI</h1>
+            <p class="kt-text-lg" style="font-size: 1.5rem; opacity: 0.9; max-width: 600px; margin: 0 auto;">
+                Je crée des expériences web modernes et engageantes avec un design soigné et un code de qualité.
+            </p>
+            <div class="kt-d-flex kt-justify-center kt-gap-3 kt-mt-4">
+                <a href="#portfolio" class="kt-btn kt-btn-light kt-btn-lg">Voir mes Projets</a>
+                <a href="#contact" class="kt-btn kt-btn-outline-light kt-btn-lg">Me Contacter</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="kt-container">
+            <div class="kt-row kt-align-center">
+                <div class="kt-col-md-6">
+                    <h2 class="kt-text-xl kt-mb-4">À Propos de Moi</h2>
+                    <p class="kt-text-lg kt-mb-3">
+                        Passionné par le design et le développement web, je crée des interfaces utilisateur élégantes et fonctionnelles. 
+                        Mon approche combine créativité et expertise technique pour livrer des projets qui marquent.
+                    </p>
+                    <p class="kt-mb-4">
+                        Avec une solide expérience dans le domaine, j'ai travaillé sur de nombreux projets variés, 
+                        allant des sites vitrines aux applications web complexes. Chaque projet est une nouvelle opportunité 
+                        d'apprendre et de créer quelque chose d'unique.
+                    </p>
+                    <div class="kt-d-flex kt-gap-3">
+                        <a href="#contact" class="kt-btn kt-btn-primary">Me Contacter</a>
+                        <a href="mailto:fordimalanda7@gmail.com" class="kt-btn kt-btn-outline-primary">Envoyer un Email</a>
+                    </div>
+                </div>
+                <div class="kt-col-md-6">
+                    <div class="kt-card">
+                        <div class="kt-card-body">
+                            <h5 class="kt-card-title">Informations Personnelles</h5>
+                            <ul style="list-style: none; padding: 0;">
+                                <li class="kt-mb-2"><strong>Nom complet :</strong> MOLENGO MALANDA FORDI</li>
+                                <li class="kt-mb-2"><strong>Email :</strong> <a href="mailto:fordimalanda7@gmail.com">fordimalanda7@gmail.com</a></li>
+                                <li class="kt-mb-2"><strong>Téléphone :</strong> <a href="tel:+243824708027">+243 824 708 027</a></li>
+                                <li class="kt-mb-2"><strong>Localisation :</strong> Kinshasa, RDC</li>
+                                <li class="kt-mb-2"><strong>Disponibilité :</strong> Disponible</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" style="padding: 5rem 0;">
+        <div class="kt-container">
+            <h2 class="kt-text-center kt-text-xl kt-mb-5">Mes Compétences</h2>
+            <div class="kt-row">
+                <div class="kt-col-md-6">
+                    <div class="kt-card kt-mb-4">
+                        <div class="kt-card-body">
+                            <h5 class="kt-card-title">Design</h5>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%;"></div>
+                            </div>
+                            <p class="kt-text-muted">UI/UX Design, Prototypage, Design System</p>
+                        </div>
+                    </div>
+                    <div class="kt-card kt-mb-4">
+                        <div class="kt-card-body">
+                            <h5 class="kt-card-title">Frontend</h5>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 95%;"></div>
+                            </div>
+                            <p class="kt-text-muted">HTML, CSS, JavaScript, React, Vue.js</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="kt-col-md-6">
+                    <div class="kt-card kt-mb-4">
+                        <div class="kt-card-body">
+                            <h5 class="kt-card-title">Backend</h5>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 75%;"></div>
+                            </div>
+                            <p class="kt-text-muted">Node.js, PHP, Python, Bases de données</p>
+                        </div>
+                    </div>
+                    <div class="kt-card kt-mb-4">
+                        <div class="kt-card-body">
+                            <h5 class="kt-card-title">Outils</h5>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%;"></div>
+                            </div>
+                            <p class="kt-text-muted">Git, Webpack, Docker, CI/CD</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio-filter">
+        <div class="kt-container">
+            <h2 class="kt-text-center kt-text-xl kt-mb-4">Mes Projets</h2>
+            <div class="kt-text-center kt-mb-4">
+                <button class="kt-btn kt-btn-primary filter-btn active" data-filter="all">Tous</button>
+                <button class="kt-btn kt-btn-outline-primary filter-btn" data-filter="web">Web</button>
+                <button class="kt-btn kt-btn-outline-primary filter-btn" data-filter="mobile">Mobile</button>
+                <button class="kt-btn kt-btn-outline-primary filter-btn" data-filter="design">Design</button>
+            </div>
+            <div class="kt-row">
+                <div class="kt-col-md-4" data-category="web">
+                    <div class="portfolio-item">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop" alt="Application E-commerce">
+                        <div class="portfolio-overlay">
+                            <h4>Application E-commerce</h4>
+                            <p>Plateforme complète de vente en ligne avec gestion de panier et paiement</p>
+                            <a href="#" class="kt-btn kt-btn-light kt-mt-2">Voir le Projet</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="kt-col-md-4" data-category="mobile">
+                    <div class="portfolio-item">
+                        <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=600&fit=crop" alt="Application Mobile">
+                        <div class="portfolio-overlay">
+                            <h4>Application Mobile</h4>
+                            <p>Application React Native pour la gestion de tâches</p>
+                            <a href="#" class="kt-btn kt-btn-light kt-mt-2">Voir le Projet</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="kt-col-md-4" data-category="design">
+                    <div class="portfolio-item">
+                        <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=600&fit=crop" alt="Design System">
+                        <div class="portfolio-overlay">
+                            <h4>Design System</h4>
+                            <p>Système de design complet pour une grande entreprise</p>
+                            <a href="#" class="kt-btn kt-btn-light kt-mt-2">Voir le Projet</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="kt-col-md-4" data-category="web">
+                    <div class="portfolio-item">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop" alt="Dashboard Analytics">
+                        <div class="portfolio-overlay">
+                            <h4>Dashboard Analytics</h4>
+                            <p>Tableau de bord interactif avec graphiques et statistiques</p>
+                            <a href="#" class="kt-btn kt-btn-light kt-mt-2">Voir le Projet</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="kt-col-md-4" data-category="mobile">
+                    <div class="portfolio-item">
+                        <img src="https://images.unsplash.com/photo-1512486130939-2c4f79935e4f?w=800&h=600&fit=crop" alt="App Social">
+                        <div class="portfolio-overlay">
+                            <h4>App Social</h4>
+                            <p>Réseau social mobile avec fonctionnalités de chat</p>
+                            <a href="#" class="kt-btn kt-btn-light kt-mt-2">Voir le Projet</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="kt-col-md-4" data-category="design">
+                    <div class="portfolio-item">
+                        <img src="https://images.unsplash.com/photo-1561070791-36c11767b26a?w=800&h=600&fit=crop" alt="Rebranding">
+                        <div class="portfolio-overlay">
+                            <h4>Rebranding</h4>
+                            <p>Refonte complète de l'identité visuelle d'une marque</p>
+                            <a href="#" class="kt-btn kt-btn-light kt-mt-2">Voir le Projet</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" style="padding: 5rem 0; background: #f8f9fa;">
+        <div class="kt-container">
+            <h2 class="kt-text-center kt-text-xl kt-mb-5">Contactez-Moi</h2>
+            <div class="kt-row">
+                <div class="kt-col-md-6" style="margin: 0 auto;">
+                    <div class="kt-card">
+                        <div class="kt-card-body">
+                            <form>
+                                <div class="kt-mb-3">
+                                    <label class="kt-label">Nom</label>
+                                    <input type="text" class="kt-form-control" placeholder="Votre nom">
+                                </div>
+                                <div class="kt-mb-3">
+                                    <label class="kt-label">Email</label>
+                                    <input type="email" class="kt-form-control" placeholder="votre@email.com">
+                                </div>
+                                <div class="kt-mb-3">
+                                    <label class="kt-label">Message</label>
+                                    <textarea class="kt-form-control" rows="5" placeholder="Votre message"></textarea>
+                                </div>
+                                <button type="submit" class="kt-btn kt-btn-primary kt-btn-block">Envoyer</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="../js/kitoko.bundle.js"></script>
+    <script>
+        // Portfolio Filter
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const portfolioItems = document.querySelectorAll('[data-category]');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const filter = this.getAttribute('data-filter');
+                    
+                    // Update active button
+                    filterButtons.forEach(btn => {
+                        btn.classList.remove('active', 'kt-btn-primary');
+                        btn.classList.add('kt-btn-outline-primary');
+                    });
+                    this.classList.add('active', 'kt-btn-primary');
+                    this.classList.remove('kt-btn-outline-primary');
+                    
+                    // Filter items
+                    portfolioItems.forEach(item => {
+                        const category = item.getAttribute('data-category');
+                        if (filter === 'all' || category === filter) {
+                            item.style.display = '';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

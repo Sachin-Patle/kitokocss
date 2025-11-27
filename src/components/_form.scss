@@ -1,0 +1,174 @@
+// ============================================
+// KitokoCSS v1.0 - Composant Formulaire
+// ============================================
+
+@import '../config/variables';
+
+// --- Labels ---
+.kt-label,
+label {
+  display: inline-block;
+  margin-bottom: map-get($kt-spacers, 1);
+  font-weight: $kt-font-weight-medium;
+}
+
+// --- Inputs, Textarea, Select ---
+.kt-form-control,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="tel"],
+input[type="url"],
+input[type="search"],
+input[type="date"],
+input[type="time"],
+input[type="datetime-local"],
+textarea,
+select {
+  display: block;
+  width: 100%;
+  padding: map-get($kt-spacers, 2) map-get($kt-spacers, 3);
+  font-size: $kt-font-size-base;
+  font-weight: $kt-font-weight-normal;
+  line-height: $kt-line-height-base;
+  color: $kt-text-color;
+  background-color: $kt-white;
+  background-clip: padding-box;
+  border: $kt-border-width solid $kt-border-color;
+  border-radius: $kt-border-radius;
+  transition: $kt-transition-base;
+
+  &:focus {
+    color: $kt-text-color;
+    background-color: $kt-white;
+    border-color: lighten($kt-primary, 25%);
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba($kt-primary, 0.25);
+  }
+
+  &::placeholder {
+    color: $kt-text-muted;
+    opacity: 1;
+  }
+
+  &:disabled,
+  &[readonly] {
+    background-color: $kt-bg-secondary;
+    opacity: 1;
+  }
+}
+
+textarea.kt-form-control {
+  min-height: calc(1.5em + 0.75rem + 2px);
+}
+
+// --- Checkbox et Radio ---
+.kt-form-check {
+  position: relative;
+  display: block;
+  padding-left: 1.5em;
+
+  .kt-form-check-input {
+    position: absolute;
+    margin-top: 0.3em;
+    margin-left: -1.5em;
+  }
+
+  .kt-form-check-label {
+    margin-bottom: 0;
+  }
+}
+
+.kt-form-check-input {
+  width: 1em;
+  height: 1em;
+  margin-top: 0.25em;
+  vertical-align: top;
+  background-color: $kt-white;
+  border: $kt-border-width solid $kt-border-color;
+  appearance: none;
+  cursor: pointer;
+
+  &[type="checkbox"] {
+    border-radius: $kt-border-radius-sm;
+  }
+
+  &[type="radio"] {
+    border-radius: $kt-border-radius-circle;
+  }
+
+  &:checked {
+    background-color: $kt-primary;
+    border-color: $kt-primary;
+  }
+
+  &:focus {
+    border-color: lighten($kt-primary, 25%);
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba($kt-primary, 0.25);
+  }
+
+  &:disabled {
+    pointer-events: none;
+    filter: none;
+    opacity: 0.5;
+  }
+}
+
+// --- États de Validation ---
+.kt-form-control.is-valid {
+  border-color: $kt-success;
+
+  &:focus {
+    border-color: $kt-success;
+    box-shadow: 0 0 0 0.2rem rgba($kt-success, 0.25);
+  }
+}
+
+.kt-form-control.is-invalid {
+  border-color: $kt-danger;
+
+  &:focus {
+    border-color: $kt-danger;
+    box-shadow: 0 0 0 0.2rem rgba($kt-danger, 0.25);
+  }
+}
+
+.kt-valid-feedback {
+  display: none;
+  width: 100%;
+  margin-top: map-get($kt-spacers, 1);
+  font-size: $kt-font-size-sm;
+  color: $kt-success;
+}
+
+.kt-invalid-feedback {
+  display: none;
+  width: 100%;
+  margin-top: map-get($kt-spacers, 1);
+  font-size: $kt-font-size-sm;
+  color: $kt-danger;
+}
+
+.is-valid ~ .kt-valid-feedback,
+.is-invalid ~ .kt-invalid-feedback {
+  display: block;
+}
+
+// --- Groupes de Formulaire ---
+.kt-input-group {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  width: 100%;
+
+  > .kt-form-control {
+    position: relative;
+    flex: 1 1 auto;
+    width: 1%;
+    min-width: 0;
+  }
+}
+

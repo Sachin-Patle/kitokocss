@@ -1,0 +1,111 @@
+// ============================================
+// KitokoCSS v1.0 - Composant Carte
+// ============================================
+
+@import '../config/variables';
+
+.kt-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: $kt-white;
+  background-clip: border-box;
+  border: $kt-border-width solid $kt-border-color;
+  border-radius: $kt-border-radius;
+  box-shadow: $kt-box-shadow-sm;
+
+  > hr {
+    margin-right: 0;
+    margin-left: 0;
+  }
+}
+
+.kt-card-body {
+  flex: 1 1 auto;
+  padding: map-get($kt-spacers, 4);
+}
+
+.kt-card-title {
+  margin-bottom: map-get($kt-spacers, 2);
+  font-size: $kt-font-size-lg;
+  font-weight: $kt-font-weight-semibold;
+}
+
+.kt-card-subtitle {
+  margin-top: -map-get($kt-spacers, 1);
+  margin-bottom: map-get($kt-spacers, 2);
+  color: $kt-text-muted;
+}
+
+.kt-card-text:last-child {
+  margin-bottom: 0;
+}
+
+.kt-card-link {
+  &:hover {
+    text-decoration: none;
+  }
+
+  + .kt-card-link {
+    margin-left: map-get($kt-spacers, 4);
+  }
+}
+
+.kt-card-header {
+  padding: map-get($kt-spacers, 3) map-get($kt-spacers, 4);
+  margin-bottom: 0;
+  background-color: rgba(0, 0, 0, 0.03);
+  border-bottom: $kt-border-width solid $kt-border-color;
+
+  &:first-child {
+    border-radius: calc(#{$kt-border-radius} - #{$kt-border-width}) calc(#{$kt-border-radius} - #{$kt-border-width}) 0 0;
+  }
+}
+
+.kt-card-footer {
+  padding: map-get($kt-spacers, 3) map-get($kt-spacers, 4);
+  background-color: rgba(0, 0, 0, 0.03);
+  border-top: $kt-border-width solid $kt-border-color;
+
+  &:last-child {
+    border-radius: 0 0 calc(#{$kt-border-radius} - #{$kt-border-width}) calc(#{$kt-border-radius} - #{$kt-border-width});
+  }
+}
+
+.kt-card-img-top {
+  width: 100%;
+  border-top-left-radius: calc(#{$kt-border-radius} - #{$kt-border-width});
+  border-top-right-radius: calc(#{$kt-border-radius} - #{$kt-border-width});
+}
+
+.kt-card-img-bottom {
+  width: 100%;
+  border-bottom-right-radius: calc(#{$kt-border-radius} - #{$kt-border-width});
+  border-bottom-left-radius: calc(#{$kt-border-radius} - #{$kt-border-width});
+}
+
+.kt-card-img-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: map-get($kt-spacers, 4);
+  border-radius: calc(#{$kt-border-radius} - #{$kt-border-width});
+}
+
+// --- Variantes de Couleurs ---
+@each $color, $value in $kt-theme-colors {
+  .kt-card-#{$color} {
+    border-color: $value;
+    
+    .kt-card-header {
+      background-color: $value;
+      color: $kt-white;
+      border-color: $value;
+    }
+  }
+}
+

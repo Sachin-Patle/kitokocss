@@ -1,0 +1,35 @@
+// ============================================
+// KitokoCSS v1.0 - Classes Utilitaires de Bordures
+// ============================================
+
+@import '../config/variables';
+
+// --- Bordures ---
+.kt-border { border: $kt-border-width solid $kt-border-color !important; }
+.kt-border-top { border-top: $kt-border-width solid $kt-border-color !important; }
+.kt-border-right { border-right: $kt-border-width solid $kt-border-color !important; }
+.kt-border-bottom { border-bottom: $kt-border-width solid $kt-border-color !important; }
+.kt-border-left { border-left: $kt-border-width solid $kt-border-color !important; }
+.kt-border-0 { border: 0 !important; }
+.kt-border-top-0 { border-top: 0 !important; }
+.kt-border-right-0 { border-right: 0 !important; }
+.kt-border-bottom-0 { border-bottom: 0 !important; }
+.kt-border-left-0 { border-left: 0 !important; }
+
+// --- Couleurs de Bordures ---
+@each $color, $value in $kt-theme-colors {
+  .kt-border-#{$color} {
+    border-color: $value !important;
+  }
+}
+
+// --- Rayon de Bordure ---
+.kt-rounded { border-radius: $kt-border-radius !important; }
+.kt-rounded-top { border-top-left-radius: $kt-border-radius !important; border-top-right-radius: $kt-border-radius !important; }
+.kt-rounded-right { border-top-right-radius: $kt-border-radius !important; border-bottom-right-radius: $kt-border-radius !important; }
+.kt-rounded-bottom { border-bottom-right-radius: $kt-border-radius !important; border-bottom-left-radius: $kt-border-radius !important; }
+.kt-rounded-left { border-top-left-radius: $kt-border-radius !important; border-bottom-left-radius: $kt-border-radius !important; }
+.kt-rounded-circle { border-radius: $kt-border-radius-circle !important; }
+.kt-rounded-pill { border-radius: $kt-border-radius-pill !important; }
+.kt-rounded-0 { border-radius: 0 !important; }
+

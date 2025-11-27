@@ -1,0 +1,106 @@
+// ============================================
+// KitokoCSS v1.0 - Composant Bouton
+// ============================================
+
+@import '../config/variables';
+@import '../mixins/button';
+
+// --- Styles de Base ---
+.kt-btn {
+  display: inline-block;
+  font-weight: $kt-font-weight-normal;
+  color: $kt-text-color;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  user-select: none;
+  background-color: transparent;
+  border: $kt-border-width solid transparent;
+  padding: map-get($kt-spacers, 2) map-get($kt-spacers, 3);
+  font-size: $kt-font-size-base;
+  line-height: $kt-line-height-base;
+  border-radius: $kt-border-radius;
+  transition: $kt-transition-base;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  &:focus,
+  &.focus {
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba($kt-primary, 0.5);
+  }
+
+  &.disabled,
+  &:disabled {
+    pointer-events: none;
+    opacity: 0.65;
+    box-shadow: none;
+  }
+
+  &:not(:disabled):not(.disabled) {
+    cursor: pointer;
+  }
+}
+
+// --- Variantes de Couleurs (Rempli) ---
+@each $color, $value in $kt-theme-colors {
+  .kt-btn-#{$color} {
+    @include kt-button-variant($value, $value);
+  }
+}
+
+// --- Variantes Outline ---
+@each $color, $value in $kt-theme-colors {
+  .kt-btn-outline-#{$color} {
+    @include kt-button-outline-variant($value);
+  }
+}
+
+// --- Tailles ---
+.kt-btn-sm {
+  padding: map-get($kt-spacers, 1) map-get($kt-spacers, 2);
+  font-size: $kt-font-size-sm;
+  border-radius: $kt-border-radius-sm;
+}
+
+.kt-btn-lg {
+  padding: map-get($kt-spacers, 3) map-get($kt-spacers, 4);
+  font-size: $kt-font-size-lg;
+  border-radius: $kt-border-radius-lg;
+}
+
+// --- Bouton Block (Pleine Largeur) ---
+.kt-btn-block {
+  display: block;
+  width: 100%;
+}
+
+// --- Groupe de Boutons ---
+.kt-btn-group {
+  position: relative;
+  display: inline-flex;
+  vertical-align: middle;
+
+  > .kt-btn {
+    position: relative;
+    flex: 1 1 auto;
+
+    &:not(:first-child) {
+      margin-left: -$kt-border-width;
+    }
+
+    &:not(:last-child):not(.dropdown-toggle) {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    &:not(:first-child) {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+}
+

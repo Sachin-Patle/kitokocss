@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - KitokoCSS Exemple</title>
+    <link rel="icon" type="image/png" href="../logo-trans.png">
+    <link rel="stylesheet" href="../dist/kitoko.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100vh;
+            width: 280px;
+            background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 2rem 0;
+            z-index: 1000;
+            box-shadow: 4px 0 20px rgba(0,0,0,0.1);
+        }
+        .sidebar-brand {
+            padding: 0 2rem;
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: #fff;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        .sidebar-nav {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar-nav li {
+            margin: 0.5rem 0;
+        }
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            padding: 1rem 2rem;
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+            position: relative;
+        }
+        .sidebar-nav a:hover {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border-left-color: #3498db;
+            transform: translateX(5px);
+        }
+        .sidebar-nav a svg {
+            margin-right: 1rem;
+            width: 20px;
+            height: 20px;
+        }
+        .main-content {
+            margin-left: 280px;
+            padding: 2.5rem;
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .stats-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: none;
+            overflow: hidden;
+            position: relative;
+        }
+        .stats-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: rgba(255,255,255,0.3);
+        }
+        .stats-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        .stats-card h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 1rem 0;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        .stats-card .kt-card-text {
+            font-size: 0.95rem;
+            opacity: 0.95;
+        }
+        .kt-navbar {
+            background: white;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+            border-radius: 1rem;
+            padding: 1rem 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .kt-card {
+            border: none;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border-radius: 1rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .kt-card:hover {
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+        .kt-card-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.25rem 1.5rem;
+            border-bottom: none;
+        }
+        .kt-card-header h5 {
+            margin: 0;
+            font-weight: 600;
+        }
+        .kt-card-body {
+            padding: 1.5rem;
+        }
+        .activity-item {
+            padding: 1rem;
+            border-radius: 0.75rem;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+        .activity-item:hover {
+            background: #f8f9fa;
+            border-left-color: #667eea;
+            transform: translateX(5px);
+        }
+        .activity-item img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .kt-table {
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+        .kt-table thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .kt-table thead th {
+            border: none;
+            padding: 1rem;
+            font-weight: 600;
+        }
+        .kt-table tbody tr {
+            transition: all 0.3s ease;
+        }
+        .kt-table tbody tr:hover {
+            background: #f8f9fa;
+            transform: scale(1.01);
+        }
+        .kt-table tbody td {
+            padding: 1rem;
+            border-top: 1px solid #e9ecef;
+        }
+        .kt-table tbody td img {
+            transition: transform 0.3s ease;
+        }
+        .kt-table tbody tr:hover td img {
+            transform: scale(1.1);
+        }
+        .kt-btn {
+            transition: all 0.3s ease;
+            border-radius: 0.5rem;
+            font-weight: 500;
+        }
+        .kt-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .icon {
+            display: inline-block;
+            width: 1em;
+            height: 1em;
+            vertical-align: middle;
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s;
+            }
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <symbol id="icon-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></symbol>
+        <symbol id="icon-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></symbol>
+        <symbol id="icon-chart-line" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></symbol>
+        <symbol id="icon-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+        <symbol id="icon-package" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></symbol>
+        <symbol id="icon-settings" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 6v6M5.64 5.64l4.24 4.24m4.24 4.24l4.24 4.24M1 12h6m6 0h6M5.64 18.36l4.24-4.24m4.24-4.24l4.24-4.24"/></symbol>
+        <symbol id="icon-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></symbol>
+        <symbol id="icon-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+        <symbol id="icon-trending-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></symbol>
+        <symbol id="icon-dollar-sign" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></symbol>
+        <symbol id="icon-bar-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></symbol>
+        <symbol id="icon-zap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></symbol>
+        <symbol id="icon-list" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></symbol>
+        <symbol id="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></symbol>
+        <symbol id="icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+        <symbol id="icon-pause" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></symbol>
+    </svg>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-brand">
+            <svg class="icon" style="width: 28px; height: 28px; color: #3498db;"><use href="#icon-chart"></use></svg>
+            Dashboard
+        </div>
+        <ul class="sidebar-nav">
+            <li><a href="#"><svg class="icon"><use href="#icon-home"></use></svg>Accueil</a></li>
+            <li><a href="#"><svg class="icon"><use href="#icon-chart-line"></use></svg>Statistiques</a></li>
+            <li><a href="#"><svg class="icon"><use href="#icon-users"></use></svg>Utilisateurs</a></li>
+            <li><a href="#"><svg class="icon"><use href="#icon-package"></use></svg>Produits</a></li>
+            <li><a href="#"><svg class="icon"><use href="#icon-settings"></use></svg>Paramètres</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Navbar -->
+        <nav class="kt-navbar kt-mb-4">
+            <div class="kt-navbar-brand">
+                <a href="index.html" style="text-decoration: none; color: inherit; font-weight: 600;">← Retour aux Exemples</a> | <span style="color: #667eea; font-weight: 600;">Tableau de Bord</span>
+            </div>
+            <div class="kt-d-flex kt-gap-3">
+                <button class="kt-btn kt-btn-outline-primary"><svg class="icon" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 0.5rem;"><use href="#icon-bell"></use></svg>Notifications</button>
+                <button class="kt-btn kt-btn-primary"><svg class="icon" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 0.5rem;"><use href="#icon-user"></use></svg>Profil</button>
+            </div>
+        </nav>
+
+        <!-- Stats Cards -->
+        <div class="kt-row kt-gap-3 kt-mb-4">
+            <div class="kt-col-md-3">
+                <div class="kt-card stats-card kt-bg-primary kt-text-white">
+                    <div class="kt-card-body">
+                        <h5 class="kt-card-title" style="opacity: 0.9;">Utilisateurs</h5>
+                        <h2>1,234</h2>
+                        <p class="kt-card-text"><svg class="icon" style="width: 14px; height: 14px; vertical-align: middle; margin-right: 0.25rem;"><use href="#icon-trending-up"></use></svg>+12% ce mois</p>
+                    </div>
+                </div>
+            </div>
+            <div class="kt-col-md-3">
+                <div class="kt-card stats-card kt-bg-success kt-text-white">
+                    <div class="kt-card-body">
+                        <h5 class="kt-card-title" style="opacity: 0.9;">Ventes</h5>
+                        <h2>€45,678</h2>
+                        <p class="kt-card-text"><svg class="icon" style="width: 14px; height: 14px; vertical-align: middle; margin-right: 0.25rem;"><use href="#icon-dollar-sign"></use></svg>+8% ce mois</p>
+                    </div>
+                </div>
+            </div>
+            <div class="kt-col-md-3">
+                <div class="kt-card stats-card kt-bg-warning kt-text-white">
+                    <div class="kt-card-body">
+                        <h5 class="kt-card-title" style="opacity: 0.9;">Commandes</h5>
+                        <h2>567</h2>
+                        <p class="kt-card-text"><svg class="icon" style="width: 14px; height: 14px; vertical-align: middle; margin-right: 0.25rem;"><use href="#icon-package"></use></svg>+5% ce mois</p>
+                    </div>
+                </div>
+            </div>
+            <div class="kt-col-md-3">
+                <div class="kt-card stats-card kt-bg-info kt-text-white">
+                    <div class="kt-card-body">
+                        <h5 class="kt-card-title" style="opacity: 0.9;">Revenus</h5>
+                        <h2>€89,012</h2>
+                        <p class="kt-card-text"><svg class="icon" style="width: 14px; height: 14px; vertical-align: middle; margin-right: 0.25rem;"><use href="#icon-dollar-sign"></use></svg>+15% ce mois</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="kt-row kt-gap-3 kt-mb-4">
+            <div class="kt-col-md-8">
+                <div class="kt-card">
+                    <div class="kt-card-header">
+                        <h5 class="kt-card-title"><svg class="icon" style="width: 18px; height: 18px; vertical-align: middle; margin-right: 0.5rem;"><use href="#icon-bar-chart"></use></svg>Graphique des Ventes</h5>
+                    </div>
+                    <div class="kt-card-body">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=400&fit=crop" alt="Graphique" style="width: 100%; height: 350px; object-fit: cover; border-radius: 0.75rem; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                    </div>
+                </div>
+            </div>
+            <div class="kt-col-md-4">
+                <div class="kt-card">
+                    <div class="kt-card-header">
+                        <h5 class="kt-card-title"><svg class="icon" style="width: 18px; height: 18px; vertical-align: middle; margin-right: 0.5rem;"><use href="#icon-zap"></use></svg>Activité Récente</h5>
+                    </div>
+                    <div class="kt-card-body">
+                        <div class="activity-item">
+                            <div class="kt-d-flex kt-gap-2">
+                                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=50&h=50&fit=crop" alt="User">
+                                <div>
+                                    <strong>Nouvelle commande</strong><br>
+                                    <small class="kt-text-muted">Il y a 2 heures</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="kt-d-flex kt-gap-2">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=50&h=50&fit=crop" alt="User">
+                                <div>
+                                    <strong>Nouvel utilisateur</strong><br>
+                                    <small class="kt-text-muted">Il y a 4 heures</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="kt-d-flex kt-gap-2">
+                                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=50&h=50&fit=crop" alt="User">
+                                <div>
+                                    <strong>Paiement reçu</strong><br>
+                                    <small class="kt-text-muted">Il y a 6 heures</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Table Section -->
+        <div class="kt-card">
+            <div class="kt-card-header">
+                        <h5 class="kt-card-title"><svg class="icon" style="width: 18px; height: 18px; vertical-align: middle; margin-right: 0.5rem;"><use href="#icon-list"></use></svg>Dernières Commandes</h5>
+            </div>
+            <div class="kt-card-body" style="padding: 0;">
+                <div class="kt-table-responsive">
+                    <table class="kt-table kt-table-striped kt-table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Client</th>
+                                <th>Produit</th>
+                                <th>Montant</th>
+                                <th>Statut</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>#1234</strong></td>
+                                <td>
+                                    <div class="kt-d-flex kt-align-center kt-gap-2">
+                                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop" alt="Client" style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid white; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                                        <span><strong>Jean Dupont</strong></span>
+                                    </div>
+                                </td>
+                                <td>Produit A</td>
+                                <td><strong>€99.99</strong></td>
+                                <td><span class="kt-badge kt-badge-success"><svg class="icon" style="width: 12px; height: 12px; vertical-align: middle; margin-right: 0.25rem;"><use href="#icon-check"></use></svg>Livré</span></td>
+                                <td>2025-11-27</td>
+                            </tr>
+                            <tr>
+                                <td><strong>#1235</strong></td>
+                                <td>
+                                    <div class="kt-d-flex kt-align-center kt-gap-2">
+                                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=40&h=40&fit=crop" alt="Client" style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid white; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                                        <span><strong>Marie Martin</strong></span>
+                                    </div>
+                                </td>
+                                <td>Produit B</td>
+                                <td><strong>€149.99</strong></td>
+                                <td><span class="kt-badge kt-badge-warning"><svg class="icon" style="width: 12px; height: 12px; vertical-align: middle; margin-right: 0.25rem;"><use href="#icon-clock"></use></svg>En cours</span></td>
+                                <td>2025-11-27</td>
+                            </tr>
+                            <tr>
+                                <td><strong>#1236</strong></td>
+                                <td>
+                                    <div class="kt-d-flex kt-align-center kt-gap-2">
+                                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=40&h=40&fit=crop" alt="Client" style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid white; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                                        <span><strong>Pierre Durand</strong></span>
+                                    </div>
+                                </td>
+                                <td>Produit C</td>
+                                <td><strong>€79.99</strong></td>
+                                <td><span class="kt-badge kt-badge-primary"><svg class="icon" style="width: 12px; height: 12px; vertical-align: middle; margin-right: 0.25rem;"><use href="#icon-pause"></use></svg>En attente</span></td>
+                                <td>2025-11-27</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/kitoko.bundle.js"></script>
+</body>
+</html>

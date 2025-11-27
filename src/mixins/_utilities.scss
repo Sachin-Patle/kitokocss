@@ -1,0 +1,63 @@
+// ============================================
+// KitokoCSS v1.0 - Mixins Utilitaires
+// ============================================
+
+@import '../config/variables';
+@import '../config/breakpoints';
+
+// --- Mixin pour les Classes Responsives ---
+@mixin kt-make-responsive($property, $class-prefix, $values) {
+  @each $breakpoint in map-keys($kt-grid-breakpoints) {
+    $infix: if($breakpoint == xs, "", "-#{$breakpoint}");
+    
+    @include kt-media-breakpoint-up($breakpoint) {
+      @each $key, $value in $values {
+        .#{$class-prefix}#{$infix}-#{$key} {
+          #{$property}: $value !important;
+        }
+      }
+    }
+  }
+}
+
+// --- Mixin pour Clearfix ---
+@mixin kt-clearfix() {
+  &::after {
+    display: block;
+    clear: both;
+    content: "";
+  }
+}
+
+// --- Mixin pour Truncate (Texte Ellipsis) ---
+@mixin kt-text-truncate() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// --- Mixin pour Screen Reader Only ---
+@mixin kt-sr-only() {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+@mixin kt-sr-only-focusable() {
+  &:active,
+  &:focus {
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+    overflow: visible !important;
+    clip: auto !important;
+    white-space: normal !important;
+  }
+}
+

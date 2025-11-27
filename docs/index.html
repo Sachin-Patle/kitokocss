@@ -1,0 +1,2042 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KitokoCSS v1.0 - Documentation Complète</title>
+    <link rel="icon" type="image/png" href="../logo-trans.png">
+    <link rel="stylesheet" href="../dist/kitoko.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.7;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background-attachment: fixed;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .docs-sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 300px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(102, 126, 234, 0.2);
+            overflow-y: auto;
+            padding: 2rem 1.5rem;
+            box-shadow: 4px 0 20px rgba(0,0,0,0.05);
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+        
+        .docs-sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .docs-sidebar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        .docs-sidebar::-webkit-scrollbar-thumb {
+            background: rgba(102, 126, 234, 0.3);
+            border-radius: 3px;
+        }
+        
+        .docs-sidebar::-webkit-scrollbar-thumb:hover {
+            background: rgba(102, 126, 234, 0.5);
+        }
+        
+        .docs-sidebar .logo {
+            height: 60px;
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 4px 12px rgba(102, 126, 234, 0.3));
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .docs-sidebar h2 {
+            font-size: 1.75rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .docs-sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .docs-sidebar li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .docs-sidebar a {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: #4a5568;
+            text-decoration: none;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .docs-sidebar a::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .docs-sidebar a:hover {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            color: #667eea;
+            transform: translateX(5px);
+        }
+        
+        .docs-sidebar a:hover::before {
+            transform: scaleY(1);
+        }
+        
+        .docs-sidebar a.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .docs-sidebar a.active::before {
+            display: none;
+        }
+        
+        .docs-content {
+            margin-left: 300px;
+            padding: 2rem 4rem;
+            max-width: 1000px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .docs-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            color: white;
+            padding: 5rem 3rem;
+            margin: -2rem -4rem 4rem -4rem;
+            text-align: center;
+            border-radius: 0 0 2rem 2rem;
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .docs-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: float 20s linear infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .docs-header img {
+            height: 100px;
+            margin-bottom: 1.5rem;
+            filter: brightness(0) invert(1) drop-shadow(0 4px 12px rgba(0,0,0,0.2));
+            position: relative;
+            z-index: 1;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        .docs-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.2);
+        }
+        
+        .docs-header p {
+            font-size: 1.4rem;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .docs-header p:last-child {
+            font-size: 1rem;
+            margin-top: 1rem;
+            opacity: 0.85;
+        }
+        
+        .chapter {
+            margin-bottom: 5rem;
+            padding: 3rem;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08), 0 0 0 1px rgba(255,255,255,0.5);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease-out;
+            animation-fill-mode: both;
+        }
+        
+        .chapter:nth-child(2) { animation-delay: 0.1s; }
+        .chapter:nth-child(3) { animation-delay: 0.2s; }
+        .chapter:nth-child(4) { animation-delay: 0.3s; }
+        .chapter:nth-child(5) { animation-delay: 0.4s; }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .chapter:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.12), 0 0 0 1px rgba(255,255,255,0.5);
+        }
+        
+        .chapter h2 {
+            color: #2d3748;
+            margin-top: 0;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid;
+            border-image: linear-gradient(90deg, #667eea, #764ba2) 1;
+            font-size: 2.25rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .chapter h2 svg {
+            color: #667eea;
+        }
+        
+        .chapter h3 {
+            color: #4a5568;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .chapter p {
+            color: #4a5568;
+            margin-bottom: 1rem;
+            font-size: 1.05rem;
+        }
+        
+        .chapter ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .chapter ul li {
+            margin-bottom: 0.75rem;
+            color: #4a5568;
+            line-height: 1.8;
+        }
+        
+        .chapter ul li strong {
+            color: #667eea;
+            font-weight: 700;
+        }
+        
+        code {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.375rem;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #667eea;
+            font-weight: 600;
+        }
+        
+        pre {
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+            padding: 2rem;
+            border-radius: 1rem;
+            overflow-x: auto;
+            border-left: 4px solid #667eea;
+            margin: 1.5rem 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            position: relative;
+        }
+        
+        pre::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 1rem 1rem 0 0;
+        }
+        
+        pre code {
+            background: none;
+            padding: 0;
+            color: #e2e8f0;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            display: block;
+            position: relative;
+            z-index: 1;
+            white-space: pre;
+        }
+        
+        .example-box {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+            padding: 2.5rem;
+            border-radius: 1rem;
+            margin: 2rem 0;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .example-box:hover {
+            border-color: rgba(102, 126, 234, 0.4);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
+        }
+        
+        .icon {
+            display: inline-block;
+            width: 1em;
+            height: 1em;
+            vertical-align: middle;
+            margin-right: 0.5rem;
+        }
+        
+        .kt-table {
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+        
+        .kt-table thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .kt-table tbody tr {
+            transition: all 0.2s ease;
+        }
+        
+        .kt-table tbody tr:hover {
+            background: rgba(102, 126, 234, 0.05);
+            transform: scale(1.01);
+        }
+        
+        /* Styles pour les boutons avec toutes les couleurs */
+        .kt-btn-primary { background-color: #007bff; border-color: #007bff; color: white; }
+        .kt-btn-primary:hover { background-color: #0056b3; border-color: #0056b3; }
+        .kt-btn-secondary { background-color: #6c757d; border-color: #6c757d; color: white; }
+        .kt-btn-secondary:hover { background-color: #545b62; border-color: #545b62; }
+        .kt-btn-success { background-color: #28a745; border-color: #28a745; color: white; }
+        .kt-btn-success:hover { background-color: #218838; border-color: #218838; }
+        .kt-btn-danger { background-color: #dc3545; border-color: #dc3545; color: white; }
+        .kt-btn-danger:hover { background-color: #c82333; border-color: #c82333; }
+        .kt-btn-warning { background-color: #ffc107; border-color: #ffc107; color: #212529; }
+        .kt-btn-warning:hover { background-color: #e0a800; border-color: #e0a800; }
+        .kt-btn-info { background-color: #17a2b8; border-color: #17a2b8; color: white; }
+        .kt-btn-info:hover { background-color: #138496; border-color: #138496; }
+        .kt-btn-light { background-color: #f8f9fa; border-color: #f8f9fa; color: #212529; }
+        .kt-btn-light:hover { background-color: #e2e6ea; border-color: #e2e6ea; }
+        .kt-btn-dark { background-color: #343a40; border-color: #343a40; color: white; }
+        .kt-btn-dark:hover { background-color: #23272b; border-color: #23272b; }
+        
+        .kt-btn-outline-primary { border-color: #007bff; color: #007bff; background-color: transparent; }
+        .kt-btn-outline-primary:hover { background-color: #007bff; color: white; }
+        .kt-btn-outline-secondary { border-color: #6c757d; color: #6c757d; background-color: transparent; }
+        .kt-btn-outline-secondary:hover { background-color: #6c757d; color: white; }
+        .kt-btn-outline-success { border-color: #28a745; color: #28a745; background-color: transparent; }
+        .kt-btn-outline-success:hover { background-color: #28a745; color: white; }
+        .kt-btn-outline-danger { border-color: #dc3545; color: #dc3545; background-color: transparent; }
+        .kt-btn-outline-danger:hover { background-color: #dc3545; color: white; }
+        .kt-btn-outline-warning { border-color: #ffc107; color: #ffc107; background-color: transparent; }
+        .kt-btn-outline-warning:hover { background-color: #ffc107; color: #212529; }
+        .kt-btn-outline-info { border-color: #17a2b8; color: #17a2b8; background-color: transparent; }
+        .kt-btn-outline-info:hover { background-color: #17a2b8; color: white; }
+        
+        /* Styles pour les alertes avec toutes les couleurs */
+        .kt-alert-primary { background-color: #d1ecf1; border-color: #bee5eb; color: #0c5460; }
+        .kt-alert-success { background-color: #d4edda; border-color: #c3e6cb; color: #155724; }
+        .kt-alert-warning { background-color: #fff3cd; border-color: #ffeaa7; color: #856404; }
+        .kt-alert-danger { background-color: #f8d7da; border-color: #f5c6cb; color: #721c24; }
+        .kt-alert-info { background-color: #d1ecf1; border-color: #bee5eb; color: #0c5460; }
+        
+        /* Styles pour les badges avec toutes les couleurs */
+        .kt-badge-primary { background-color: #007bff; color: white; }
+        .kt-badge-secondary { background-color: #6c757d; color: white; }
+        .kt-badge-success { background-color: #28a745; color: white; }
+        .kt-badge-danger { background-color: #dc3545; color: white; }
+        .kt-badge-warning { background-color: #ffc107; color: #212529; }
+        .kt-badge-info { background-color: #17a2b8; color: white; }
+        .kt-badge-light { background-color: #f8f9fa; color: #212529; }
+        .kt-badge-dark { background-color: #343a40; color: white; }
+        
+        /* Styles pour les classes de texte */
+        .kt-text-primary { color: #007bff !important; }
+        .kt-text-secondary { color: #6c757d !important; }
+        .kt-text-success { color: #28a745 !important; }
+        .kt-text-danger { color: #dc3545 !important; }
+        .kt-text-warning { color: #ffc107 !important; }
+        .kt-text-info { color: #17a2b8 !important; }
+        .kt-text-light { color: #f8f9fa !important; }
+        .kt-text-dark { color: #343a40 !important; }
+        
+        /* Styles pour les classes de fond */
+        .kt-bg-primary { background-color: #007bff !important; }
+        .kt-bg-secondary { background-color: #6c757d !important; }
+        .kt-bg-success { background-color: #28a745 !important; }
+        .kt-bg-danger { background-color: #dc3545 !important; }
+        .kt-bg-warning { background-color: #ffc107 !important; }
+        .kt-bg-info { background-color: #17a2b8 !important; }
+        .kt-bg-light { background-color: #f8f9fa !important; }
+        .kt-bg-dark { background-color: #343a40 !important; }
+        
+        /* Styles de base pour les boutons */
+        .kt-btn {
+            display: inline-block;
+            font-weight: 400;
+            text-align: center;
+            vertical-align: middle;
+            cursor: pointer;
+            user-select: none;
+            border: 1px solid transparent;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: 0.25rem;
+            transition: all 0.15s ease-in-out;
+            text-decoration: none;
+        }
+        
+        .kt-btn-sm {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.875rem;
+        }
+        
+        .kt-btn-lg {
+            padding: 0.75rem 1.5rem;
+            font-size: 1.125rem;
+        }
+        
+        /* Styles de base pour les alertes */
+        .kt-alert {
+            padding: 0.75rem 1.25rem;
+            margin-bottom: 1rem;
+            border: 1px solid transparent;
+            border-radius: 0.25rem;
+            position: relative;
+        }
+        
+        /* Styles de base pour les badges */
+        .kt-badge {
+            display: inline-block;
+            padding: 0.25em 0.4em;
+            font-size: 75%;
+            font-weight: 700;
+            line-height: 1;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: 0.25rem;
+        }
+        
+        .kt-badge-pill {
+            padding-right: 0.6em;
+            padding-left: 0.6em;
+            border-radius: 10rem;
+        }
+        
+        /* Styles de base pour les cartes */
+        .kt-card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border: 1px solid rgba(0,0,0,0.125);
+            border-radius: 0.25rem;
+            box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075);
+        }
+        
+        .kt-card-body {
+            flex: 1 1 auto;
+            padding: 1.25rem;
+        }
+        
+        .kt-card-title {
+            margin-bottom: 0.75rem;
+            font-size: 1.25rem;
+            font-weight: 500;
+        }
+        
+        .kt-card-text {
+            margin-bottom: 0;
+        }
+        
+        .kt-card-header {
+            padding: 0.75rem 1.25rem;
+            margin-bottom: 0;
+            background-color: rgba(0,0,0,0.03);
+            border-bottom: 1px solid rgba(0,0,0,0.125);
+        }
+        
+        .kt-card-footer {
+            padding: 0.75rem 1.25rem;
+            background-color: rgba(0,0,0,0.03);
+            border-top: 1px solid rgba(0,0,0,0.125);
+        }
+        
+        /* Assurer que les couleurs s'affichent même avec !important */
+        .kt-bg-primary, .kt-bg-primary * { background-color: #007bff !important; }
+        .kt-bg-secondary, .kt-bg-secondary * { background-color: #6c757d !important; }
+        .kt-bg-success, .kt-bg-success * { background-color: #28a745 !important; }
+        .kt-bg-danger, .kt-bg-danger * { background-color: #dc3545 !important; }
+        .kt-bg-warning, .kt-bg-warning * { background-color: #ffc107 !important; }
+        .kt-bg-info, .kt-bg-info * { background-color: #17a2b8 !important; }
+        .kt-bg-light, .kt-bg-light * { background-color: #f8f9fa !important; }
+        .kt-bg-dark, .kt-bg-dark * { background-color: #343a40 !important; }
+        
+        /* Surcharger pour les cartes avec bg */
+        .kt-card.kt-bg-primary { background-color: #007bff !important; }
+        .kt-card.kt-bg-secondary { background-color: #6c757d !important; }
+        .kt-card.kt-bg-success { background-color: #28a745 !important; }
+        .kt-card.kt-bg-danger { background-color: #dc3545 !important; }
+        .kt-card.kt-bg-warning { background-color: #ffc107 !important; }
+        .kt-card.kt-bg-info { background-color: #17a2b8 !important; }
+        .kt-card.kt-bg-light { background-color: #f8f9fa !important; }
+        .kt-card.kt-bg-dark { background-color: #343a40 !important; }
+        
+        @media (max-width: 1024px) {
+            .docs-sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .docs-content {
+                margin-left: 0;
+                padding: 2rem 1.5rem;
+            }
+            
+            .docs-header {
+                margin: -2rem -1.5rem 3rem -1.5rem;
+                padding: 3rem 2rem;
+            }
+            
+            .docs-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .chapter {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <symbol id="icon-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20M4 19.5V4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5z"/></symbol>
+        <symbol id="icon-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
+        <symbol id="icon-package" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></symbol>
+        <symbol id="icon-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></symbol>
+        <symbol id="icon-type" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></symbol>
+        <symbol id="icon-color" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.9 0 1.75-.15 2.54-.42M21.79 13.5c.2-.9.3-1.85.3-2.8 0-5.5-4.5-10-10-10"/><path d="M22 2l-5 5M17 2l5 5"/></symbol>
+        <symbol id="icon-button" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="18" height="8" rx="2"/><line x1="7" y1="12" x2="17" y2="12"/></symbol>
+        <symbol id="icon-card" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></symbol>
+        <symbol id="icon-form" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="7" y1="8" x2="17" y2="8"/><line x1="7" y1="12" x2="17" y2="12"/><line x1="7" y1="16" x2="12" y2="16"/></symbol>
+        <symbol id="icon-nav" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></symbol>
+        <symbol id="icon-modal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="2" y1="8" x2="22" y2="8"/><circle cx="18" cy="6" r="1"/></symbol>
+        <symbol id="icon-tools" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
+        <symbol id="icon-settings" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 6v6M5.64 5.64l4.24 4.24m4.24 4.24l4.24 4.24M1 12h6m6 0h6M5.64 18.36l4.24-4.24m4.24-4.24l4.24-4.24"/></symbol>
+        <symbol id="icon-celebration" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/><path d="M8 14l-2 2M16 14l2 2M14 8l2-2M10 8l-2-2"/></symbol>
+    </svg>
+    <div class="docs-sidebar">
+            <img src="../logo-trans.png" alt="KitokoCSS" class="logo">
+        <h2><svg class="icon"><use href="#icon-book"></use></svg>KitokoCSS</h2>
+        <ul>
+            <li><a href="#introduction" class="active">Introduction</a></li>
+            <li><a href="#installation">Installation</a></li>
+            <li><a href="#grid">Système de Grille</a></li>
+            <li><a href="#typography">Typographie</a></li>
+            <li><a href="#colors">Couleurs</a></li>
+            <li><a href="#buttons">Boutons</a></li>
+            <li><a href="#cards">Cartes</a></li>
+            <li><a href="#alerts">Alertes</a></li>
+            <li><a href="#badges">Badges</a></li>
+            <li><a href="#forms">Formulaires</a></li>
+            <li><a href="#navbar">Navigation</a></li>
+            <li><a href="#tables">Tableaux</a></li>
+            <li><a href="#pagination">Pagination</a></li>
+            <li><a href="#modals">Modales</a></li>
+            <li><a href="#utilities">Classes Utilitaires</a></li>
+            <li><a href="#javascript">JavaScript</a></li>
+        </ul>
+    </div>
+
+    <div class="docs-content">
+        <div class="docs-header">
+            <img src="../logo-trans.png" alt="KitokoCSS" style="height: 80px; margin-bottom: 1rem; filter: brightness(0) invert(1);">
+            <h1>KitokoCSS v1.0</h1>
+            <p>Framework CSS moderne, esthétique et performant</p>
+            <p style="font-size: 1rem; margin-top: 1rem;">Développé par FomaDev • Publié le 27 novembre 2025</p>
+        </div>
+
+        <div id="introduction" class="chapter">
+            <h2><svg class="icon"><use href="#icon-target"></use></svg>Introduction</h2>
+            <p><strong>KitokoCSS</strong> est un framework CSS moderne, esthétique et hautement performant, conçu pour accélérer le développement front-end sans compromettre le design. Fini les interfaces banales, créez des applications véritablement "Kitoko" (belles).</p>
+            
+            <h3>Philosophie</h3>
+            <ul>
+                <li><strong>Design-First & Esthétique</strong> : Tous les composants ont un design par défaut moderne, épuré et attrayant</li>
+                <li><strong>Facilité d'Utilisation</strong> : Syntaxe simple et intuitive avec le préfixe <code>kt-</code></li>
+                <li><strong>Performance</strong> : Code léger, optimisé et modulaire</li>
+                <li><strong>Responsivité Universelle</strong> : Gestion de tous les breakpoints, du mobile aux écrans 8K</li>
+            </ul>
+
+            <h3>Pourquoi KitokoCSS ?</h3>
+            <p>KitokoCSS offre une alternative moderne aux frameworks existants avec :</p>
+            <ul>
+                <li>Un système de nommage cohérent avec le préfixe <code>kt-</code></li>
+                <li>Une architecture modulaire SCSS pour une personnalisation facile</li>
+                <li>Des composants entièrement stylisés et responsifs par défaut</li>
+                <li>Un JavaScript compagnon léger (Vanilla JS, aucune dépendance)</li>
+                <li>Une documentation complète et des exemples prêts à l'emploi</li>
+            </ul>
+        </div>
+
+        <div id="installation" class="chapter">
+            <h2><svg class="icon"><use href="#icon-package"></use></svg>Installation</h2>
+            
+            <h3>Via CDN (Recommandé)</h3>
+            <p>La méthode la plus simple pour démarrer rapidement :</p>
+            <pre><code>&lt;!-- CSS --&gt;
+&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/FomaDev/KitokoCSS@v1.0/dist/kitoko.min.css"&gt;
+
+&lt;!-- JavaScript (optionnel, pour les composants interactifs) --&gt;
+&lt;script src="https://cdn.jsdelivr.net/gh/FomaDev/KitokoCSS@v1.0/dist/kitoko.bundle.min.js"&gt;&lt;/script&gt;</code></pre>
+
+            <h3>Installation Locale</h3>
+            <p>Pour une utilisation en développement ou pour personnaliser le framework :</p>
+            <pre><code># Cloner le repository
+git clone https://github.com/FomaDev/KitokoCSS.git
+cd KitokoCSS
+
+# Installer les dépendances
+npm install
+
+# Compiler le CSS
+npm run build</code></pre>
+
+            <h3>Structure du Projet</h3>
+            <pre><code>KitokoCSS/
+├── src/              # Code source SCSS
+│   ├── config/       # Variables et breakpoints
+│   ├── mixins/       # Mixins réutilisables
+│   ├── base/         # Reset et typographie
+│   ├── layout/       # Système de grille
+│   ├── components/   # Composants UI
+│   └── utilities/    # Classes utilitaires
+├── dist/             # Fichiers compilés
+├── docs/             # Documentation
+├── examples/         # Templates d'exemple
+└── js/               # JavaScript compagnon</code></pre>
+        </div>
+
+        <div id="grid" class="chapter">
+            <h2><svg class="icon"><use href="#icon-grid"></use></svg>Système de Grille</h2>
+            
+            <p>KitokoCSS utilise un système de grille flexible basé sur Flexbox, avec 12 colonnes et 6 breakpoints responsives.</p>
+
+            <h3>Breakpoints</h3>
+            <table class="kt-table">
+                <thead>
+                    <tr>
+                        <th>Breakpoint</th>
+                        <th>Largeur</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>xs</code></td>
+                        <td>&lt; 576px</td>
+                        <td>Extra Small (téléphones)</td>
+                    </tr>
+                    <tr>
+                        <td><code>sm</code></td>
+                        <td>≥ 576px</td>
+                        <td>Small (téléphones en paysage)</td>
+                    </tr>
+                    <tr>
+                        <td><code>md</code></td>
+                        <td>≥ 768px</td>
+                        <td>Medium (tablettes)</td>
+                    </tr>
+                    <tr>
+                        <td><code>lg</code></td>
+                        <td>≥ 992px</td>
+                        <td>Large (desktop)</td>
+                    </tr>
+                    <tr>
+                        <td><code>xl</code></td>
+                        <td>≥ 1200px</td>
+                        <td>Extra Large (grand desktop)</td>
+                    </tr>
+                    <tr>
+                        <td><code>xxl</code></td>
+                        <td>≥ 1400px</td>
+                        <td>Double Extra Large (écrans 4K+)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Conteneurs</h3>
+            <p>Utilisez <code>.kt-container</code> pour une largeur fixe responsive, ou <code>.kt-container-fluid</code> pour une largeur 100% :</p>
+            <pre><code>&lt;div class="kt-container"&gt;
+  &lt;!-- Contenu avec largeur max selon breakpoint --&gt;
+&lt;/div&gt;
+
+&lt;div class="kt-container-fluid"&gt;
+  &lt;!-- Contenu pleine largeur --&gt;
+&lt;/div&gt;</code></pre>
+
+            <h3>Lignes et Colonnes</h3>
+            <p>Créez des lignes avec <code>.kt-row</code> et des colonnes avec <code>.kt-col-*</code> :</p>
+            <pre><code>&lt;div class="kt-container"&gt;
+  &lt;div class="kt-row"&gt;
+    &lt;div class="kt-col-md-6"&gt;Colonne 1&lt;/div&gt;
+    &lt;div class="kt-col-md-6"&gt;Colonne 2&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+            <div class="example-box">
+                <div class="kt-row">
+                    <div class="kt-col-md-6 kt-bg-primary kt-text-white kt-p-3">Colonne 1 (50%)</div>
+                    <div class="kt-col-md-6 kt-bg-secondary kt-text-white kt-p-3">Colonne 2 (50%)</div>
+                </div>
+            </div>
+
+            <h3>Colonnes Responsives</h3>
+            <p>Vous pouvez spécifier différentes largeurs selon les breakpoints :</p>
+            <pre><code>&lt;div class="kt-col-12 kt-col-md-6 kt-col-lg-4"&gt;
+  &lt;!-- 100% sur mobile, 50% sur tablette, 33% sur desktop --&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+
+        <div id="typography" class="chapter">
+            <h2><svg class="icon"><use href="#icon-type"></use></svg>Typographie</h2>
+            
+            <h3>Titres</h3>
+            <p>KitokoCSS définit des styles par défaut pour tous les niveaux de titres :</p>
+            <div class="example-box">
+                <h1>Heading 1</h1>
+                <h2>Heading 2</h2>
+                <h3>Heading 3</h3>
+                <h4>Heading 4</h4>
+                <h5>Heading 5</h5>
+                <h6>Heading 6</h6>
+            </div>
+
+            <h3>Tailles de Texte</h3>
+            <pre><code>&lt;p class="kt-text-xs"&gt;Extra Small&lt;/p&gt;
+&lt;p class="kt-text-sm"&gt;Small&lt;/p&gt;
+&lt;p class="kt-text-base"&gt;Base (défaut)&lt;/p&gt;
+&lt;p class="kt-text-lg"&gt;Large&lt;/p&gt;
+&lt;p class="kt-text-xl"&gt;Extra Large&lt;/p&gt;
+&lt;p class="kt-text-xxl"&gt;Double Extra Large&lt;/p&gt;</code></pre>
+
+            <h3>Poids de Police</h3>
+            <pre><code>&lt;p class="kt-font-light"&gt;Light (300)&lt;/p&gt;
+&lt;p class="kt-font-normal"&gt;Normal (400)&lt;/p&gt;
+&lt;p class="kt-font-medium"&gt;Medium (500)&lt;/p&gt;
+&lt;p class="kt-font-semibold"&gt;Semibold (600)&lt;/p&gt;
+&lt;p class="kt-font-bold"&gt;Bold (700)&lt;/p&gt;</code></pre>
+
+            <h3>Alignement</h3>
+            <pre><code>&lt;p class="kt-text-left"&gt;Aligné à gauche&lt;/p&gt;
+&lt;p class="kt-text-center"&gt;Centré&lt;/p&gt;
+&lt;p class="kt-text-right"&gt;Aligné à droite&lt;/p&gt;
+&lt;p class="kt-text-justify"&gt;Justifié&lt;/p&gt;</code></pre>
+
+            <h3>Truncate</h3>
+            <p>Pour tronquer le texte avec des points de suspension :</p>
+            <pre><code>&lt;p class="kt-text-truncate" style="max-width: 200px;"&gt;
+  Ce texte sera tronqué s'il est trop long...
+&lt;/p&gt;</code></pre>
+        </div>
+
+        <div id="colors" class="chapter">
+            <h2><svg class="icon"><use href="#icon-color"></use></svg>Couleurs</h2>
+            
+            <p><strong>KitokoCSS</strong> est supporté par un système de couleurs étendu qui met en valeur nos styles et composants. Cela permet une personnalisation et une extension plus complètes pour n'importe quel projet.</p>
+
+            <h3>Couleurs du Thème</h3>
+            <p>Nous utilisons un sous-ensemble de toutes les couleurs pour créer une palette de couleurs sémantique. Chaque couleur a un usage spécifique :</p>
+
+            <div class="example-box" style="padding: 2rem; background: #f8f9fa;">
+                <div class="kt-row kt-gap-3">
+                    <div class="kt-col-md-3">
+                        <div class="kt-card kt-bg-primary kt-text-white" style="border: none; box-shadow: 0 4px 15px rgba(0,123,255,0.3);">
+                            <div class="kt-card-body kt-text-center">
+                                <h5 class="kt-card-title" style="font-size: 1.1rem; font-weight: 700;">Primary</h5>
+                                <p class="kt-card-text" style="font-size: 0.875rem; opacity: 0.95; font-family: monospace; margin: 0.5rem 0;">#007bff</p>
+                                <p class="kt-card-text" style="font-size: 0.875rem; margin: 0; opacity: 0.9;">Actions principales, liens, focus</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kt-col-md-3">
+                        <div class="kt-card kt-bg-secondary kt-text-white" style="border: none; box-shadow: 0 4px 15px rgba(108,117,125,0.3);">
+                            <div class="kt-card-body kt-text-center">
+                                <h5 class="kt-card-title" style="font-size: 1.1rem; font-weight: 700;">Secondary</h5>
+                                <p class="kt-card-text" style="font-size: 0.875rem; opacity: 0.95; font-family: monospace; margin: 0.5rem 0;">#6c757d</p>
+                                <p class="kt-card-text" style="font-size: 0.875rem; margin: 0; opacity: 0.9;">Actions secondaires</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kt-col-md-3">
+                        <div class="kt-card kt-bg-success kt-text-white" style="border: none; box-shadow: 0 4px 15px rgba(40,167,69,0.3);">
+                            <div class="kt-card-body kt-text-center">
+                                <h5 class="kt-card-title" style="font-size: 1.1rem; font-weight: 700;">Success</h5>
+                                <p class="kt-card-text" style="font-size: 0.875rem; opacity: 0.95; font-family: monospace; margin: 0.5rem 0;">#28a745</p>
+                                <p class="kt-card-text" style="font-size: 0.875rem; margin: 0; opacity: 0.9;">Succès, validation</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kt-col-md-3">
+                        <div class="kt-card kt-bg-danger kt-text-white" style="border: none; box-shadow: 0 4px 15px rgba(220,53,69,0.3);">
+                            <div class="kt-card-body kt-text-center">
+                                <h5 class="kt-card-title" style="font-size: 1.1rem; font-weight: 700;">Danger</h5>
+                                <p class="kt-card-text" style="font-size: 0.875rem; opacity: 0.95; font-family: monospace; margin: 0.5rem 0;">#dc3545</p>
+                                <p class="kt-card-text" style="font-size: 0.875rem; margin: 0; opacity: 0.9;">Erreurs, suppressions</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kt-col-md-3">
+                        <div class="kt-card kt-bg-warning kt-text-dark" style="border: none; box-shadow: 0 4px 15px rgba(255,193,7,0.3);">
+                            <div class="kt-card-body kt-text-center">
+                                <h5 class="kt-card-title" style="font-size: 1.1rem; font-weight: 700;">Warning</h5>
+                                <p class="kt-card-text" style="font-size: 0.875rem; opacity: 0.9; font-family: monospace; margin: 0.5rem 0; color: #856404;">#ffc107</p>
+                                <p class="kt-card-text" style="font-size: 0.875rem; margin: 0; color: #856404;">Avertissements</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kt-col-md-3">
+                        <div class="kt-card kt-bg-info kt-text-white" style="border: none; box-shadow: 0 4px 15px rgba(23,162,184,0.3);">
+                            <div class="kt-card-body kt-text-center">
+                                <h5 class="kt-card-title" style="font-size: 1.1rem; font-weight: 700;">Info</h5>
+                                <p class="kt-card-text" style="font-size: 0.875rem; opacity: 0.95; font-family: monospace; margin: 0.5rem 0;">#17a2b8</p>
+                                <p class="kt-card-text" style="font-size: 0.875rem; margin: 0; opacity: 0.9;">Informations</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kt-col-md-3">
+                        <div class="kt-card kt-bg-light" style="border: 2px solid #dee2e6; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                            <div class="kt-card-body kt-text-center">
+                                <h5 class="kt-card-title" style="font-size: 1.1rem; font-weight: 700; color: #212529;">Light</h5>
+                                <p class="kt-card-text" style="font-size: 0.875rem; font-family: monospace; margin: 0.5rem 0; color: #6c757d;">#f8f9fa</p>
+                                <p class="kt-card-text" style="font-size: 0.875rem; margin: 0; color: #6c757d;">Fonds clairs</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kt-col-md-3">
+                        <div class="kt-card kt-bg-dark kt-text-white" style="border: none; box-shadow: 0 4px 15px rgba(52,58,64,0.3);">
+                            <div class="kt-card-body kt-text-center">
+                                <h5 class="kt-card-title" style="font-size: 1.1rem; font-weight: 700;">Dark</h5>
+                                <p class="kt-card-text" style="font-size: 0.875rem; opacity: 0.95; font-family: monospace; margin: 0.5rem 0;">#343a40</p>
+                                <p class="kt-card-text" style="font-size: 0.875rem; margin: 0; opacity: 0.9;">Fonds sombres</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Utilisation des Couleurs</h3>
+            <p>Utilisez les classes <code>.kt-text-*</code> pour les couleurs de texte et <code>.kt-bg-*</code> pour les couleurs de fond :</p>
+            <div class="example-box" style="padding: 2rem; background: #f8f9fa;">
+                <p class="kt-text-primary kt-mb-2" style="font-weight: 600;">Texte primaire (.kt-text-primary)</p>
+                <p class="kt-text-success kt-mb-2" style="font-weight: 600;">Texte succès (.kt-text-success)</p>
+                <p class="kt-text-danger kt-mb-2" style="font-weight: 600;">Texte danger (.kt-text-danger)</p>
+                <p class="kt-text-warning kt-mb-2" style="font-weight: 600;">Texte warning (.kt-text-warning)</p>
+                <p class="kt-text-info kt-mb-2" style="font-weight: 600;">Texte info (.kt-text-info)</p>
+                <div class="kt-bg-primary kt-text-white kt-p-3 kt-rounded kt-mb-2" style="font-weight: 600;">Fond primaire (.kt-bg-primary)</div>
+                <div class="kt-bg-success kt-text-white kt-p-3 kt-rounded kt-mb-2" style="font-weight: 600;">Fond succès (.kt-bg-success)</div>
+                <div class="kt-bg-warning kt-text-dark kt-p-3 kt-rounded" style="font-weight: 600;">Fond warning (.kt-bg-warning)</div>
+            </div>
+            <pre><code>&lt;p class="kt-text-primary"&gt;Texte primaire&lt;/p&gt;
+&lt;div class="kt-bg-success kt-text-white"&gt;Fond vert&lt;/div&gt;
+&lt;span class="kt-badge kt-badge-warning"&gt;Badge warning&lt;/span&gt;</code></pre>
+
+            <h3>Toutes les Couleurs</h3>
+            <p>Toutes les couleurs KitokoCSS sont disponibles via les variables Sass et CSS. Voici la palette complète avec toutes les nuances :</p>
+
+            <div class="example-box" style="padding: 2rem; background: #f8f9fa;">
+                <h4 style="margin-bottom: 1.5rem; color: #2d3748;">Couleurs de Base</h4>
+                
+                <!-- Blue -->
+                <div style="margin-bottom: 2rem;">
+                    <h5 style="margin-bottom: 1rem; color: #007bff; font-weight: 700;">Blue</h5>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 0.5rem;">
+                        <div style="background: #e7f1ff; border: 1px solid #dee2e6; padding: 1rem; border-radius: 0.25rem; text-align: center;">
+                            <div style="font-size: 0.75rem; color: #6c757d; margin-bottom: 0.25rem;">100</div>
+                            <div style="font-family: monospace; font-size: 0.7rem; color: #212529;">#e7f1ff</div>
+                        </div>
+                        <div style="background: #cfe2ff; border: 1px solid #dee2e6; padding: 1rem; border-radius: 0.25rem; text-align: center;">
+                            <div style="font-size: 0.75rem; color: #6c757d; margin-bottom: 0.25rem;">200</div>
+                            <div style="font-family: monospace; font-size: 0.7rem; color: #212529;">#cfe2ff</div>
+                        </div>
+                        <div style="background: #b6d4fe; border: 1px solid #dee2e6; padding: 1rem; border-radius: 0.25rem; text-align: center;">
+                            <div style="font-size: 0.75rem; color: #6c757d; margin-bottom: 0.25rem;">300</div>
+                            <div style="font-family: monospace; font-size: 0.7rem; color: #212529;">#b6d4fe</div>
+                        </div>
+                        <div style="background: #9ec5fe; border: 1px solid #dee2e6; padding: 1rem; border-radius: 0.25rem; text-align: center;">
+                            <div style="font-size: 0.75rem; color: #6c757d; margin-bottom: 0.25rem;">400</div>
+                            <div style="font-family: monospace; font-size: 0.7rem; color: #212529;">#9ec5fe</div>
+                        </div>
+                        <div style="background: #007bff; border: 1px solid #007bff; padding: 1rem; border-radius: 0.25rem; text-align: center; color: white; font-weight: 700;">
+                            <div style="font-size: 0.75rem; margin-bottom: 0.25rem; opacity: 0.9;">500</div>
+                            <div style="font-family: monospace; font-size: 0.7rem;">#007bff</div>
+                        </div>
+                        <div style="background: #0056b3; border: 1px solid #0056b3; padding: 1rem; border-radius: 0.25rem; text-align: center; color: white;">
+                            <div style="font-size: 0.75rem; margin-bottom: 0.25rem; opacity: 0.9;">600</div>
+                            <div style="font-family: monospace; font-size: 0.7rem;">#0056b3</div>
+                        </div>
+                        <div style="background: #004085; border: 1px solid #004085; padding: 1rem; border-radius: 0.25rem; text-align: center; color: white;">
+                            <div style="font-size: 0.75rem; margin-bottom: 0.25rem; opacity: 0.9;">700</div>
+                            <div style="font-family: monospace; font-size: 0.7rem;">#004085</div>
+                        </div>
+                        <div style="background: #002752; border: 1px solid #002752; padding: 1rem; border-radius: 0.25rem; text-align: center; color: white;">
+                            <div style="font-size: 0.75rem; margin-bottom: 0.25rem; opacity: 0.9;">800</div>
+                            <div style="font-family: monospace; font-size: 0.7rem;">#002752</div>
+                        </div>
+                        <div style="background: #001731; border: 1px solid #001731; padding: 1rem; border-radius: 0.25rem; text-align: center; color: white;">
+                            <div style="font-size: 0.75rem; margin-bottom: 0.25rem; opacity: 0.9;">900</div>
+                            <div style="font-family: monospace; font-size: 0.7rem;">#001731</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Green -->
+                <div style="margin-bottom: 2rem;">
+                    <h5 style="margin-bottom: 1rem; color: #28a745; font-weight: 700;">Green</h5>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 0.5rem;">
+                        <div style="background: #d1e7dd; border: 1px solid #dee2e6; padding: 1rem; border-radius: 0.25rem; text-align: center;">
+                            <div style="font-size: 0.75rem; color: #6c757d; margin-bottom: 0.25rem;">100</div>
+                            <div style="font-family: monospace; font-size: 0.7rem; color: #212529;">#d1e7dd</div>
+                        </div>
+                        <div style="background: #a3cfbb; border: 1px solid #dee2e6; padding: 1rem; border-radius: 0.25rem; text-align: center;">
+                            <div style="font-size: 0.75rem; color: #6c757d; margin-bottom: 0.25rem;">200</div>
+                            <div style="font-family: monospace; font-size: 0.7rem; color: #212529;">#a3cfbb</div>
+                        </div>
+                        <div style="background: #75b798; border: 1px solid #dee2e6; padding: 1rem; border-radius: 0.25rem; text-align: center;">
+                            <div style="font-size: 0.75rem; color: #6c757d; margin-bottom: 0.25rem;">300</div>
+                            <div style="font-family: monospace; font-size: 0.7rem; color: #212529;">#75b798</div>
+                        </div>
+                        <div style="background: #479f76; border: 1px solid #dee2e6; padding: 1rem; border-radius: 0.25rem; text-align: center;">
+                            <div style="font-size: 0.75rem; color: #6c757d; margin-bottom: 0.25rem;">400</div>
+                            <div style="font-family: monospace; font-size: 0.7rem; color: #212529;">#479f76</div>
+                        </div>
+                        <div style="background: #28a745; border: 1px solid #28a745; padding: 1rem; border-radius: 0.25rem; text-align: center; color: white; font-weight: 700;">
+                            <div style="font-size: 0.75rem; margin-bottom: 0.25rem; opacity: 0.9;">500</div>
+                            <div style="font-family: monospace; font-size: 0.7rem;">#28a745</div>
+                        </div>
+                        <div style="background: #1e7e34; border: 1px solid #1e7e34; padding: 1rem; border-radius: 0.25rem; text-align: center; color: white;">
+                            <div style="font-size: 0.75rem; margin-bottom: 0.25rem; opacity: 0.9;">600</div>
+                            <div style="font-family: monospace; font-size: 0.7rem;">#1e7e34</div>
+                        </div>
+                        <div style="background: #155724; border: 1px solid #155724; padding: 1rem; border-radius: 0.25rem; text-align: center; color: white;">
+                            <div style="font-size: 0.75rem; margin-bottom: 0.25rem; opacity: 0.9;">700</div>
+                            <div style="font-family: monospace; font-size: 0.7rem;">#155724</div>
+                        </div>
+                        <div style="background: #0f5132; border: 1px solid #0f5132; padding: 1rem; border-radius: 0.25rem; text-align: center; color: white;">
+                            <div style="font-size: 0.75rem; margin-bottom: 0.25rem; opacity: 0.9;">800</div>
+                            <div style="font-family: monospace; font-size: 0.7rem;">#0f5132</div>
+                        </div>
+                        <div style="background: #0a3622; border: 1px solid #0a3622; padding: 1rem; border-radius: 0.25rem; text-align: center; color: white;">
+                            <div style="font-size: 0.75rem; margin-bottom: 0.25rem; opacity: 0.9;">900</div>
+                            <div style="font-family: monospace; font-size: 0.7rem;">#0a3622</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Red -->
+                <div style="margin-bottom: 2rem;">
+                    <h5 style="margin-bottom: 1rem; color: #dc3545; font-weight: 700;">Red</h5>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 0.5rem;">
+                        <div style="background: #f8d7da; border: 1px solid #dee2e6; padding: 1rem; border-radius: 0.25rem; text-align: center;">
+                            <div style="font-size: 0.75rem; color: #6c757d; margin-bottom: 0.25rem;">100</div>
+                            <div style="font-family: monospace; font-size: 0.7rem; color: #212529;">#f8d7da</div>
+                        </div>
+                        <div style="background: #f1aeb5; border: 1px solid #dee2e6; padding: 1rem; border-radius: 0.25rem; text-align: center;">
+                            <div style="font-size: 0.75rem; color: #6c757d; margin-bottom: 0.25rem;">200</div>
+                            <div style="font-family: monospace; font-size: 0.7rem; color: #212529;">#f1aeb5</div>
+                        </div>
+                        <div style="background: #ea868f; border: 1px solid #dee2e6; padding: 1rem; border-radius: 0.25rem; text-align: center;">
+                            <div style="font-size: 0.75rem; color: #6c757d; margin-bottom: 0.25rem;">300</div>
+                            <div style="font-family: monospace; font-size: 0.7rem; color: #212529;">#ea868f</div>
+                        </div>
+                        <div style="background: #e35d6a; border: 1px solid #dee2e6; padding: 1rem; border-radius: 0.25rem; text-align: center;">
+                            <div style="font-size: 0.75rem; color: #6c757d; margin-bottom: 0.25rem;">400</div>
+                            <div style="font-family: monospace; font-size: 0.7rem; color: #212529;">#e35d6a</div>
+                        </div>
+                        <div style="background: #dc3545; border: 1px solid #dc3545; padding: 1rem; border-radius: 0.25rem; text-align: center; color: white; font-weight: 700;">
+                            <div style="font-size: 0.75rem; margin-bottom: 0.25rem; opacity: 0.9;">500</div>
+                            <div style="font-family: monospace; font-size: 0.7rem;">#dc3545</div>
+                        </div>
+                        <div style="background: #b02a37; border: 1px solid #b02a37; padding: 1rem; border-radius: 0.25rem; text-align: center; color: white;">
+                            <div style="font-size: 0.75rem; margin-bottom: 0.25rem; opacity: 0.9;">600</div>
+                            <div style="font-family: monospace; font-size: 0.7rem;">#b02a37</div>
+                        </div>
+                        <div style="background: #842029; border: 1px solid #842029; padding: 1rem; border-radius: 0.25rem; text-align: center; color: white;">
+                            <div style="font-size: 0.75rem; margin-bottom: 0.25rem; opacity: 0.9;">700</div>
+                            <div style="font-family: monospace; font-size: 0.7rem;">#842029</div>
+                        </div>
+                        <div style="background: #58151c; border: 1px solid #58151c; padding: 1rem; border-radius: 0.25rem; text-align: center; color: white;">
+                            <div style="font-size: 0.75rem; margin-bottom: 0.25rem; opacity: 0.9;">800</div>
+                            <div style="font-family: monospace; font-size: 0.7rem;">#58151c</div>
+                        </div>
+                        <div style="background: #2c0b0e; border: 1px solid #2c0b0e; padding: 1rem; border-radius: 0.25rem; text-align: center; color: white;">
+                            <div style="font-size: 0.75rem; margin-bottom: 0.25rem; opacity: 0.9;">900</div>
+                            <div style="font-family: monospace; font-size: 0.7rem;">#2c0b0e</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Yellow/Warning -->
+                <div style="margin-bottom: 2rem;">
+                    <h5 style="margin-bottom: 1rem; color: #ffc107; font-weight: 700;">Yellow / Warning</h5>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 0.5rem;">
+                        <div style="background: #fff3cd; border: 1px solid #dee2e6; padding: 1rem; border-radius: 0.25rem; text-align: center;">
+                            <div style="font-size: 0.75rem; color: #6c757d; margin-bottom: 0.25rem;">100</div>
+                            <div style="font-family: monospace; font-size: 0.7rem; color: #212529;">#fff3cd</div>
+                        </div>
+                        <div style="background: #ffe69c; border: 1px solid #dee2e6; padding: 1rem; border-radius: 0.25rem; text-align: center;">
+                            <div style="font-size: 0.75rem; color: #6c757d; margin-bottom: 0.25rem;">200</div>
+                            <div style="font-family: monospace; font-size: 0.7rem; color: #212529;">#ffe69c</div>
+                        </div>
+                        <div style="background: #ffda6a; border: 1px solid #dee2e6; padding: 1rem; border-radius: 0.25rem; text-align: center;">
+                            <div style="font-size: 0.75rem; color: #6c757d; margin-bottom: 0.25rem;">300</div>
+                            <div style="font-family: monospace; font-size: 0.7rem; color: #212529;">#ffda6a</div>
+                        </div>
+                        <div style="background: #ffcd39; border: 1px solid #dee2e6; padding: 1rem; border-radius: 0.25rem; text-align: center;">
+                            <div style="font-size: 0.75rem; color: #6c757d; margin-bottom: 0.25rem;">400</div>
+                            <div style="font-family: monospace; font-size: 0.7rem; color: #212529;">#ffcd39</div>
+                        </div>
+                        <div style="background: #ffc107; border: 1px solid #ffc107; padding: 1rem; border-radius: 0.25rem; text-align: center; color: #856404; font-weight: 700;">
+                            <div style="font-size: 0.75rem; margin-bottom: 0.25rem;">500</div>
+                            <div style="font-family: monospace; font-size: 0.7rem;">#ffc107</div>
+                        </div>
+                        <div style="background: #cc9a06; border: 1px solid #cc9a06; padding: 1rem; border-radius: 0.25rem; text-align: center; color: white;">
+                            <div style="font-size: 0.75rem; margin-bottom: 0.25rem; opacity: 0.9;">600</div>
+                            <div style="font-family: monospace; font-size: 0.7rem;">#cc9a06</div>
+                        </div>
+                        <div style="background: #997404; border: 1px solid #997404; padding: 1rem; border-radius: 0.25rem; text-align: center; color: white;">
+                            <div style="font-size: 0.75rem; margin-bottom: 0.25rem; opacity: 0.9;">700</div>
+                            <div style="font-family: monospace; font-size: 0.7rem;">#997404</div>
+                        </div>
+                        <div style="background: #664d03; border: 1px solid #664d03; padding: 1rem; border-radius: 0.25rem; text-align: center; color: white;">
+                            <div style="font-size: 0.75rem; margin-bottom: 0.25rem; opacity: 0.9;">800</div>
+                            <div style="font-family: monospace; font-size: 0.7rem;">#664d03</div>
+                        </div>
+                        <div style="background: #332701; border: 1px solid #332701; padding: 1rem; border-radius: 0.25rem; text-align: center; color: white;">
+                            <div style="font-size: 0.75rem; margin-bottom: 0.25rem; opacity: 0.9;">900</div>
+                            <div style="font-family: monospace; font-size: 0.7rem;">#332701</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gray -->
+                <div style="margin-bottom: 2rem;">
+                    <h5 style="margin-bottom: 1rem; color: #6c757d; font-weight: 700;">Gray</h5>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 0.5rem;">
+                        <div style="background: #f8f9fa; border: 1px solid #dee2e6; padding: 1rem; border-radius: 0.25rem; text-align: center;">
+                            <div style="font-size: 0.75rem; color: #6c757d; margin-bottom: 0.25rem;">100</div>
+                            <div style="font-family: monospace; font-size: 0.7rem; color: #212529;">#f8f9fa</div>
+                        </div>
+                        <div style="background: #e9ecef; border: 1px solid #dee2e6; padding: 1rem; border-radius: 0.25rem; text-align: center;">
+                            <div style="font-size: 0.75rem; color: #6c757d; margin-bottom: 0.25rem;">200</div>
+                            <div style="font-family: monospace; font-size: 0.7rem; color: #212529;">#e9ecef</div>
+                        </div>
+                        <div style="background: #dee2e6; border: 1px solid #dee2e6; padding: 1rem; border-radius: 0.25rem; text-align: center;">
+                            <div style="font-size: 0.75rem; color: #6c757d; margin-bottom: 0.25rem;">300</div>
+                            <div style="font-family: monospace; font-size: 0.7rem; color: #212529;">#dee2e6</div>
+                        </div>
+                        <div style="background: #ced4da; border: 1px solid #dee2e6; padding: 1rem; border-radius: 0.25rem; text-align: center;">
+                            <div style="font-size: 0.75rem; color: #6c757d; margin-bottom: 0.25rem;">400</div>
+                            <div style="font-family: monospace; font-size: 0.7rem; color: #212529;">#ced4da</div>
+                        </div>
+                        <div style="background: #adb5bd; border: 1px solid #adb5bd; padding: 1rem; border-radius: 0.25rem; text-align: center; color: white; font-weight: 700;">
+                            <div style="font-size: 0.75rem; margin-bottom: 0.25rem; opacity: 0.9;">500</div>
+                            <div style="font-family: monospace; font-size: 0.7rem;">#adb5bd</div>
+                        </div>
+                        <div style="background: #6c757d; border: 1px solid #6c757d; padding: 1rem; border-radius: 0.25rem; text-align: center; color: white;">
+                            <div style="font-size: 0.75rem; margin-bottom: 0.25rem; opacity: 0.9;">600</div>
+                            <div style="font-family: monospace; font-size: 0.7rem;">#6c757d</div>
+                        </div>
+                        <div style="background: #495057; border: 1px solid #495057; padding: 1rem; border-radius: 0.25rem; text-align: center; color: white;">
+                            <div style="font-size: 0.75rem; margin-bottom: 0.25rem; opacity: 0.9;">700</div>
+                            <div style="font-family: monospace; font-size: 0.7rem;">#495057</div>
+                        </div>
+                        <div style="background: #343a40; border: 1px solid #343a40; padding: 1rem; border-radius: 0.25rem; text-align: center; color: white;">
+                            <div style="font-size: 0.75rem; margin-bottom: 0.25rem; opacity: 0.9;">800</div>
+                            <div style="font-family: monospace; font-size: 0.7rem;">#343a40</div>
+                        </div>
+                        <div style="background: #212529; border: 1px solid #212529; padding: 1rem; border-radius: 0.25rem; text-align: center; color: white;">
+                            <div style="font-size: 0.75rem; margin-bottom: 0.25rem; opacity: 0.9;">900</div>
+                            <div style="font-family: monospace; font-size: 0.7rem;">#212529</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Variables Sass</h3>
+            <p>Toutes ces couleurs sont disponibles sous forme de variables Sass dans le fichier <code>src/config/_variables.scss</code> :</p>
+            <pre><code>// Couleurs du thème
+$kt-primary: #007bff;
+$kt-secondary: #6c757d;
+$kt-success: #28a745;
+$kt-danger: #dc3545;
+$kt-warning: #ffc107;
+$kt-info: #17a2b8;
+$kt-light: #f8f9fa;
+$kt-dark: #343a40;
+
+// Carte des couleurs du thème
+$kt-theme-colors: (
+  "primary": $kt-primary,
+  "secondary": $kt-secondary,
+  "success": $kt-success,
+  "danger": $kt-danger,
+  "warning": $kt-warning,
+  "info": $kt-info,
+  "light": $kt-light,
+  "dark": $kt-dark
+);</code></pre>
+
+            <h3>Exemple d'Utilisation</h3>
+            <p>Voici comment utiliser les couleurs dans votre code :</p>
+            <div class="example-box" style="padding: 2rem; background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%); border: 2px solid rgba(102, 126, 234, 0.3);">
+                <div class="kt-d-flex kt-gap-3 kt-flex-wrap" style="margin-bottom: 1.5rem;">
+                    <button class="kt-btn kt-btn-primary">Primary</button>
+                    <button class="kt-btn kt-btn-success">Success</button>
+                    <button class="kt-btn kt-btn-danger">Danger</button>
+                    <button class="kt-btn kt-btn-warning">Warning</button>
+                    <button class="kt-btn kt-btn-info">Info</button>
+                </div>
+                <div class="kt-d-flex kt-gap-2 kt-flex-wrap">
+                    <span class="kt-badge kt-badge-primary">Primary</span>
+                    <span class="kt-badge kt-badge-success">Success</span>
+                    <span class="kt-badge kt-badge-danger">Danger</span>
+                    <span class="kt-badge kt-badge-warning">Warning</span>
+                    <span class="kt-badge kt-badge-info">Info</span>
+                </div>
+            </div>
+            <pre><code>&lt;!-- Boutons avec couleurs --&gt;
+&lt;button class="kt-btn kt-btn-primary"&gt;Primary&lt;/button&gt;
+&lt;button class="kt-btn kt-btn-success"&gt;Success&lt;/button&gt;
+&lt;button class="kt-btn kt-btn-warning"&gt;Warning&lt;/button&gt;
+
+&lt;!-- Badges avec couleurs --&gt;
+&lt;span class="kt-badge kt-badge-primary"&gt;Primary&lt;/span&gt;
+&lt;span class="kt-badge kt-badge-danger"&gt;Danger&lt;/span&gt;
+
+&lt;!-- Classes utilitaires --&gt;
+&lt;p class="kt-text-primary"&gt;Texte primaire&lt;/p&gt;
+&lt;div class="kt-bg-success kt-text-white"&gt;Fond vert&lt;/div&gt;</code></pre>
+        </div>
+
+        <div id="buttons" class="chapter">
+            <h2><svg class="icon"><use href="#icon-button"></use></svg>Boutons</h2>
+            
+            <h3>Boutons de Base</h3>
+            <p>Voici tous les styles de boutons disponibles avec leurs couleurs respectives :</p>
+            <div class="example-box" style="padding: 2rem; background: #f8f9fa;">
+                <div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;">
+                    <button class="kt-btn kt-btn-primary">Primary</button>
+                    <button class="kt-btn kt-btn-secondary">Secondary</button>
+                    <button class="kt-btn kt-btn-success">Success</button>
+                    <button class="kt-btn kt-btn-danger">Danger</button>
+                    <button class="kt-btn kt-btn-warning">Warning</button>
+                    <button class="kt-btn kt-btn-info">Info</button>
+                    <button class="kt-btn kt-btn-light">Light</button>
+                    <button class="kt-btn kt-btn-dark">Dark</button>
+                </div>
+            </div>
+
+            <h3>Boutons Outline</h3>
+            <p>Les boutons outline ont une bordure colorée et un fond transparent :</p>
+            <div class="example-box" style="padding: 2rem; background: #f8f9fa;">
+                <div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;">
+                    <button class="kt-btn kt-btn-outline-primary">Primary</button>
+                    <button class="kt-btn kt-btn-outline-secondary">Secondary</button>
+                    <button class="kt-btn kt-btn-outline-success">Success</button>
+                    <button class="kt-btn kt-btn-outline-danger">Danger</button>
+                    <button class="kt-btn kt-btn-outline-warning">Warning</button>
+                    <button class="kt-btn kt-btn-outline-info">Info</button>
+                </div>
+            </div>
+
+            <h3>Tailles</h3>
+            <p>Trois tailles disponibles : Small, Normal (défaut) et Large :</p>
+            <div class="example-box" style="padding: 2rem; background: #f8f9fa;">
+                <div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;">
+                    <button class="kt-btn kt-btn-primary kt-btn-sm">Small</button>
+                    <button class="kt-btn kt-btn-primary">Normal</button>
+                    <button class="kt-btn kt-btn-primary kt-btn-lg">Large</button>
+                </div>
+            </div>
+
+            <h3>Bouton Block</h3>
+            <pre><code>&lt;button class="kt-btn kt-btn-primary kt-btn-block"&gt;
+  Bouton pleine largeur
+&lt;/button&gt;</code></pre>
+        </div>
+
+        <div id="cards" class="chapter">
+            <h2><svg class="icon"><use href="#icon-card"></use></svg>Cartes</h2>
+            
+            <h3>Carte Simple</h3>
+            <p>Exemple de carte avec titre, contenu et bouton d'action :</p>
+            <div class="example-box" style="padding: 2rem; background: #f8f9fa;">
+                <div class="kt-card" style="max-width: 350px; margin: 0 auto;">
+                    <div class="kt-card-body">
+                        <h5 class="kt-card-title">Titre de la carte</h5>
+                        <p class="kt-card-text">Contenu de la carte avec du texte descriptif. Cette carte démontre l'utilisation des composants KitokoCSS.</p>
+                        <a href="#" class="kt-btn kt-btn-primary">Action</a>
+                    </div>
+                </div>
+            </div>
+
+            <pre><code>&lt;div class="kt-card"&gt;
+  &lt;div class="kt-card-body"&gt;
+    &lt;h5 class="kt-card-title"&gt;Titre&lt;/h5&gt;
+    &lt;p class="kt-card-text"&gt;Contenu&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+            <h3>Carte avec Header et Footer</h3>
+            <p>Exemple de carte complète avec header, body et footer :</p>
+            <div class="example-box" style="padding: 2rem; background: #f8f9fa;">
+                <div class="kt-card" style="max-width: 350px; margin: 0 auto;">
+                    <div class="kt-card-header">
+                        <strong>En-tête de la carte</strong>
+                    </div>
+                    <div class="kt-card-body">
+                        <p class="kt-card-text">Contenu principal de la carte avec du texte descriptif et des informations importantes.</p>
+                    </div>
+                    <div class="kt-card-footer">
+                        <small class="kt-text-muted">Pied de page de la carte</small>
+                    </div>
+                </div>
+            </div>
+            <pre><code>&lt;div class="kt-card"&gt;
+  &lt;div class="kt-card-header"&gt;Header&lt;/div&gt;
+  &lt;div class="kt-card-body"&gt;
+    &lt;p class="kt-card-text"&gt;Contenu&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="kt-card-footer"&gt;Footer&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+
+        <div id="alerts" class="chapter">
+            <h2><svg class="icon"><use href="#icon-modal"></use></svg>Alertes</h2>
+            
+            <p>Les alertes permettent d'afficher des messages importants à l'utilisateur :</p>
+            
+            <div class="example-box" style="padding: 2rem; background: #f8f9fa;">
+                <div class="kt-alert kt-alert-primary" role="alert">
+                    <strong>Information !</strong> Ceci est une alerte primaire avec un message important.
+                </div>
+                <div class="kt-alert kt-alert-success" role="alert">
+                    <strong>Succès !</strong> Votre action a été effectuée avec succès.
+                </div>
+                <div class="kt-alert kt-alert-warning" role="alert">
+                    <strong>Attention !</strong> Veuillez vérifier les informations saisies.
+                </div>
+                <div class="kt-alert kt-alert-danger" role="alert">
+                    <strong>Erreur !</strong> Une erreur s'est produite lors du traitement.
+                </div>
+            </div>
+            
+            <h3>Alertes Dismissibles</h3>
+            <p>Les alertes peuvent être fermées par l'utilisateur :</p>
+            <div class="example-box" style="padding: 2rem; background: #f8f9fa;">
+                <div class="kt-alert kt-alert-success kt-alert-dismissible" role="alert">
+                    <strong>Succès !</strong> Cette alerte peut être fermée en cliquant sur le bouton.
+                    <button type="button" class="kt-close" data-kt-dismiss="alert" aria-label="Fermer"></button>
+                </div>
+            </div>
+            
+            <pre><code>&lt;div class="kt-alert kt-alert-primary" role="alert"&gt;
+  Message d'alerte
+&lt;/div&gt;
+
+&lt;div class="kt-alert kt-alert-success kt-alert-dismissible" role="alert"&gt;
+  Message avec fermeture
+  &lt;button class="kt-close" data-kt-dismiss="alert"&gt;&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+
+        <div id="badges" class="chapter">
+            <h2><svg class="icon"><use href="#icon-button"></use></svg>Badges</h2>
+            
+            <p>Les badges sont de petits indicateurs pour afficher des informations supplémentaires :</p>
+            
+            <div class="example-box" style="padding: 2rem; background: #f8f9fa;">
+                <div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; margin-bottom: 2rem;">
+                    <span class="kt-badge kt-badge-primary">Primary</span>
+                    <span class="kt-badge kt-badge-secondary">Secondary</span>
+                    <span class="kt-badge kt-badge-success">Success</span>
+                    <span class="kt-badge kt-badge-danger">Danger</span>
+                    <span class="kt-badge kt-badge-warning">Warning</span>
+                    <span class="kt-badge kt-badge-info">Info</span>
+                    <span class="kt-badge kt-badge-light">Light</span>
+                    <span class="kt-badge kt-badge-dark">Dark</span>
+                </div>
+                <hr style="margin: 2rem 0;">
+                <h5 class="kt-mb-3">Badges dans du texte :</h5>
+                <p class="kt-text-lg">
+                    Vous avez <span class="kt-badge kt-badge-primary">3</span> nouveaux messages
+                    et <span class="kt-badge kt-badge-danger">1</span> notification importante.
+                </p>
+                <hr style="margin: 2rem 0;">
+                <h5 class="kt-mb-3">Badges Pill (arrondis) :</h5>
+                <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+                    <span class="kt-badge kt-badge-primary kt-badge-pill">Nouveau</span>
+                    <span class="kt-badge kt-badge-success kt-badge-pill">En Stock</span>
+                    <span class="kt-badge kt-badge-danger kt-badge-pill">Urgent</span>
+                </div>
+            </div>
+            
+            <pre><code>&lt;span class="kt-badge kt-badge-primary"&gt;Primary&lt;/span&gt;
+&lt;span class="kt-badge kt-badge-success kt-badge-pill"&gt;Nouveau&lt;/span&gt;</code></pre>
+        </div>
+
+        <div id="forms" class="chapter">
+            <h2><svg class="icon"><use href="#icon-form"></use></svg>Formulaires</h2>
+            
+            <h3>Champs de Texte</h3>
+            <p>Exemples de champs de formulaire avec styles KitokoCSS :</p>
+            <div class="example-box" style="padding: 2rem; background: #f8f9fa;">
+                <div style="max-width: 500px; margin: 0 auto;">
+                    <div class="kt-mb-3">
+                        <label class="kt-label">Nom complet</label>
+                        <input type="text" class="kt-form-control" placeholder="Entrez votre nom">
+                    </div>
+                    
+                    <div class="kt-mb-3">
+                        <label class="kt-label">Adresse email</label>
+                        <input type="email" class="kt-form-control" placeholder="email@example.com">
+                    </div>
+                    
+                    <div class="kt-mb-3">
+                        <label class="kt-label">Message</label>
+                        <textarea class="kt-form-control" rows="4" placeholder="Votre message..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="kt-btn kt-btn-primary">Envoyer</button>
+                </div>
+            </div>
+
+            <pre><code>&lt;label class="kt-label"&gt;Nom&lt;/label&gt;
+&lt;input type="text" class="kt-form-control" placeholder="Votre nom"&gt;
+
+&lt;label class="kt-label"&gt;Message&lt;/label&gt;
+&lt;textarea class="kt-form-control" rows="3"&gt;&lt;/textarea&gt;</code></pre>
+
+            <h3>Checkbox et Radio</h3>
+            <p>Exemples de cases à cocher et boutons radio :</p>
+            <div class="example-box" style="padding: 2rem; background: #f8f9fa;">
+                <div style="max-width: 400px;">
+                    <div class="kt-form-check kt-mb-3">
+                        <input class="kt-form-check-input" type="checkbox" id="check1" checked>
+                        <label class="kt-form-check-label" for="check1">
+                            J'accepte les conditions d'utilisation
+                        </label>
+                    </div>
+                    <div class="kt-form-check kt-mb-3">
+                        <input class="kt-form-check-input" type="checkbox" id="check2">
+                        <label class="kt-form-check-label" for="check2">
+                            Recevoir la newsletter
+                        </label>
+                    </div>
+                    <hr style="margin: 1.5rem 0;">
+                    <div class="kt-form-check kt-mb-3">
+                        <input class="kt-form-check-input" type="radio" name="option" id="radio1" checked>
+                        <label class="kt-form-check-label" for="radio1">
+                            Option 1
+                        </label>
+                    </div>
+                    <div class="kt-form-check kt-mb-3">
+                        <input class="kt-form-check-input" type="radio" name="option" id="radio2">
+                        <label class="kt-form-check-label" for="radio2">
+                            Option 2
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <pre><code>&lt;div class="kt-form-check"&gt;
+  &lt;input class="kt-form-check-input" type="checkbox" id="check1"&gt;
+  &lt;label class="kt-form-check-label" for="check1"&gt;
+    Option 1
+  &lt;/label&gt;
+&lt;/div&gt;</code></pre>
+            
+            <h3>États de Validation</h3>
+            <p>Les champs peuvent avoir des états de validation visuels :</p>
+            <div class="example-box" style="padding: 2rem; background: #f8f9fa;">
+                <div style="max-width: 400px;">
+                    <div class="kt-mb-3">
+                        <label class="kt-label">Email valide</label>
+                        <input type="email" class="kt-form-control is-valid" value="user@example.com">
+                        <div class="kt-valid-feedback">Email valide !</div>
+                    </div>
+                    <div class="kt-mb-3">
+                        <label class="kt-label">Email invalide</label>
+                        <input type="email" class="kt-form-control is-invalid" value="invalid-email">
+                        <div class="kt-invalid-feedback">Veuillez entrer un email valide</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="navbar" class="chapter">
+            <h2><svg class="icon"><use href="#icon-nav"></use></svg>Navigation</h2>
+            
+            <h3>Navbar Simple</h3>
+            <p>Exemple de barre de navigation basique avec logo et liens :</p>
+            <div class="example-box" style="padding: 0; background: #f8f9fa; overflow: hidden;">
+                <nav class="kt-navbar" style="margin: 0;">
+                    <a class="kt-navbar-brand" href="#"><img src="../logo-trans.png" alt="KitokoCSS" style="height: 30px; vertical-align: middle; margin-right: 0.5rem;">KitokoCSS</a>
+                    <div class="kt-navbar-collapse">
+                        <ul class="kt-navbar-nav">
+                            <li class="kt-nav-item">
+                                <a class="kt-nav-link" href="#">Accueil</a>
+                            </li>
+                            <li class="kt-nav-item">
+                                <a class="kt-nav-link" href="#">À propos</a>
+                            </li>
+                            <li class="kt-nav-item">
+                                <a class="kt-nav-link" href="#">Services</a>
+                            </li>
+                            <li class="kt-nav-item">
+                                <a class="kt-nav-link" href="#">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            <pre><code>&lt;nav class="kt-navbar"&gt;
+  &lt;a class="kt-navbar-brand" href="#"&gt;KitokoCSS&lt;/a&gt;
+  &lt;div class="kt-navbar-collapse"&gt;
+    &lt;ul class="kt-navbar-nav"&gt;
+      &lt;li class="kt-nav-item"&gt;
+        &lt;a class="kt-nav-link" href="#"&gt;Accueil&lt;/a&gt;
+      &lt;/li&gt;
+      &lt;li class="kt-nav-item"&gt;
+        &lt;a class="kt-nav-link" href="#"&gt;À propos&lt;/a&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/nav&gt;</code></pre>
+
+            <h3>Navbar avec Toggler Mobile</h3>
+            <p>Pour les écrans mobiles, ajoutez un bouton toggler qui affiche/masque le menu :</p>
+            <div class="example-box" style="padding: 0; background: #f8f9fa; overflow: hidden;">
+                <nav class="kt-navbar" style="margin: 0;">
+                    <a class="kt-navbar-brand" href="#"><img src="../logo-trans.png" alt="KitokoCSS" style="height: 30px; vertical-align: middle; margin-right: 0.5rem;">KitokoCSS</a>
+                    <button class="kt-navbar-toggler" data-kt-toggle="collapse" data-kt-target="#navbarNavMobile">
+                        <span class="kt-navbar-toggler-icon"></span>
+                    </button>
+                    <div class="kt-navbar-collapse collapse" id="navbarNavMobile">
+                        <ul class="kt-navbar-nav">
+                            <li class="kt-nav-item">
+                                <a class="kt-nav-link" href="#">Accueil</a>
+                            </li>
+                            <li class="kt-nav-item">
+                                <a class="kt-nav-link" href="#">Services</a>
+                            </li>
+                            <li class="kt-nav-item">
+                                <a class="kt-nav-link" href="#">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            <pre><code>&lt;nav class="kt-navbar"&gt;
+  &lt;a class="kt-navbar-brand" href="#"&gt;KitokoCSS&lt;/a&gt;
+  &lt;button class="kt-navbar-toggler" data-kt-toggle="collapse" data-kt-target="#navbarNav"&gt;
+    &lt;span class="kt-navbar-toggler-icon"&gt;&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;div class="kt-navbar-collapse collapse" id="navbarNav"&gt;
+    &lt;ul class="kt-navbar-nav"&gt;
+      &lt;li class="kt-nav-item"&gt;
+        &lt;a class="kt-nav-link" href="#"&gt;Accueil&lt;/a&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/nav&gt;</code></pre>
+            
+            <h3>Navbar Sticky</h3>
+            <p>Pour une navbar qui reste fixe en haut lors du défilement, ajoutez l'attribut <code>data-kt-sticky</code> :</p>
+            <pre><code>&lt;nav class="kt-navbar" data-kt-sticky&gt;
+  &lt;!-- Contenu de la navbar --&gt;
+&lt;/nav&gt;</code></pre>
+        </div>
+
+        <div id="tables" class="chapter">
+            <h2><svg class="icon"><use href="#icon-form"></use></svg>Tableaux</h2>
+            
+            <h3>Tableau Simple</h3>
+            <p>Exemple de tableau avec styles KitokoCSS :</p>
+            <div class="example-box" style="padding: 2rem; background: #f8f9fa; overflow-x: auto;">
+                <table class="kt-table">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Email</th>
+                            <th>Rôle</th>
+                            <th>Statut</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Jean Dupont</td>
+                            <td>jean@example.com</td>
+                            <td>Administrateur</td>
+                            <td><span class="kt-badge kt-badge-success">Actif</span></td>
+                        </tr>
+                        <tr>
+                            <td>Marie Martin</td>
+                            <td>marie@example.com</td>
+                            <td>Éditeur</td>
+                            <td><span class="kt-badge kt-badge-success">Actif</span></td>
+                        </tr>
+                        <tr>
+                            <td>Pierre Durand</td>
+                            <td>pierre@example.com</td>
+                            <td>Utilisateur</td>
+                            <td><span class="kt-badge kt-badge-warning">En attente</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>Tableau avec Variantes</h3>
+            <p>Vous pouvez ajouter des styles supplémentaires :</p>
+            <div class="example-box" style="padding: 2rem; background: #f8f9fa; overflow-x: auto;">
+                <table class="kt-table kt-table-striped kt-table-hover">
+                    <thead>
+                        <tr>
+                            <th>Produit</th>
+                            <th>Prix</th>
+                            <th>Stock</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Produit A</td>
+                            <td>€99.99</td>
+                            <td><span class="kt-badge kt-badge-success">En stock</span></td>
+                        </tr>
+                        <tr>
+                            <td>Produit B</td>
+                            <td>€149.99</td>
+                            <td><span class="kt-badge kt-badge-warning">Stock faible</span></td>
+                        </tr>
+                        <tr>
+                            <td>Produit C</td>
+                            <td>€79.99</td>
+                            <td><span class="kt-badge kt-badge-danger">Rupture</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <pre><code>&lt;table class="kt-table kt-table-striped kt-table-hover"&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Colonne 1&lt;/th&gt;
+      &lt;th&gt;Colonne 2&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Donnée 1&lt;/td&gt;
+      &lt;td&gt;Donnée 2&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+        </div>
+
+        <div id="pagination" class="chapter">
+            <h2><svg class="icon"><use href="#icon-nav"></use></svg>Pagination</h2>
+            
+            <p>La pagination permet de naviguer entre plusieurs pages de contenu :</p>
+            
+            <div class="example-box" style="padding: 2rem; background: #f8f9fa;">
+                <nav>
+                    <ul class="kt-pagination">
+                        <li class="kt-page-item">
+                            <a class="kt-page-link" href="#">Précédent</a>
+                        </li>
+                        <li class="kt-page-item">
+                            <a class="kt-page-link" href="#">1</a>
+                        </li>
+                        <li class="kt-page-item active">
+                            <a class="kt-page-link" href="#">2</a>
+                        </li>
+                        <li class="kt-page-item">
+                            <a class="kt-page-link" href="#">3</a>
+                        </li>
+                        <li class="kt-page-item">
+                            <a class="kt-page-link" href="#">4</a>
+                        </li>
+                        <li class="kt-page-item">
+                            <a class="kt-page-link" href="#">5</a>
+                        </li>
+                        <li class="kt-page-item">
+                            <a class="kt-page-link" href="#">Suivant</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            
+            <pre><code>&lt;nav&gt;
+  &lt;ul class="kt-pagination"&gt;
+    &lt;li class="kt-page-item"&gt;
+      &lt;a class="kt-page-link" href="#"&gt;Précédent&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li class="kt-page-item active"&gt;
+      &lt;a class="kt-page-link" href="#"&gt;1&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li class="kt-page-item"&gt;
+      &lt;a class="kt-page-link" href="#"&gt;2&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li class="kt-page-item"&gt;
+      &lt;a class="kt-page-link" href="#"&gt;Suivant&lt;/a&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;</code></pre>
+        </div>
+
+        <div id="modals" class="chapter">
+            <h2><svg class="icon"><use href="#icon-modal"></use></svg>Modales</h2>
+            
+            <h3>Modal Simple</h3>
+            <p>Exemple de modal avec bouton de déclenchement. Cliquez sur le bouton pour voir la modal en action :</p>
+            <div class="example-box" style="padding: 2rem; background: #f8f9fa;">
+                <button class="kt-btn kt-btn-primary kt-btn-lg" data-kt-toggle="modal" data-kt-target="#exampleModal">
+                    Ouvrir la Modal
+                </button>
+            </div>
+            
+            <!-- Modal Example -->
+            <div class="kt-modal" id="exampleModal">
+                <div class="kt-modal-dialog">
+                    <div class="kt-modal-content">
+                        <div class="kt-modal-header">
+                            <h5 class="kt-modal-title">Exemple de Modal</h5>
+                            <button class="kt-close" data-kt-dismiss="modal"></button>
+                        </div>
+                        <div class="kt-modal-body">
+                            <p>Ceci est un exemple de modal KitokoCSS. Vous pouvez y placer n'importe quel contenu : texte, formulaires, images, etc.</p>
+                            <p class="kt-mb-0">La modal se ferme en cliquant sur le bouton de fermeture, en cliquant en dehors, ou en appuyant sur Échap.</p>
+                        </div>
+                        <div class="kt-modal-footer">
+                            <button class="kt-btn kt-btn-secondary" data-kt-dismiss="modal">Fermer</button>
+                            <button class="kt-btn kt-btn-primary">Sauvegarder</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <pre><code>&lt;!-- Bouton de déclenchement --&gt;
+&lt;button class="kt-btn kt-btn-primary" data-kt-toggle="modal" data-kt-target="#myModal"&gt;
+  Ouvrir Modal
+&lt;/button&gt;
+
+&lt;!-- Modal --&gt;
+&lt;div class="kt-modal" id="myModal"&gt;
+  &lt;div class="kt-modal-dialog"&gt;
+    &lt;div class="kt-modal-content"&gt;
+      &lt;div class="kt-modal-header"&gt;
+        &lt;h5 class="kt-modal-title"&gt;Titre&lt;/h5&gt;
+        &lt;button class="kt-close" data-kt-dismiss="modal"&gt;&lt;/button&gt;
+      &lt;/div&gt;
+      &lt;div class="kt-modal-body"&gt;
+        &lt;p&gt;Contenu de la modal&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class="kt-modal-footer"&gt;
+        &lt;button class="kt-btn kt-btn-secondary" data-kt-dismiss="modal"&gt;Fermer&lt;/button&gt;
+        &lt;button class="kt-btn kt-btn-primary"&gt;Sauvegarder&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+
+        <div id="utilities" class="chapter">
+            <h2><svg class="icon"><use href="#icon-tools"></use></svg>Classes Utilitaires</h2>
+            
+            <p>KitokoCSS offre une vaste collection de classes utilitaires pour styliser rapidement vos éléments sans écrire de CSS personnalisé.</p>
+            
+            <h3>Espacement</h3>
+            <p>Utilisez les classes <code>kt-m-*</code> pour les marges et <code>kt-p-*</code> pour les paddings. Les valeurs vont de 0 à 9 :</p>
+            <div class="example-box" style="padding: 2rem; background: #f8f9fa;">
+                <div class="kt-bg-primary kt-text-white kt-p-2 kt-mb-3 kt-rounded" style="text-align: center;">kt-p-2 (padding: 0.5rem)</div>
+                <div class="kt-bg-success kt-text-white kt-p-3 kt-mb-3 kt-rounded" style="text-align: center;">kt-p-3 (padding: 1rem)</div>
+                <div class="kt-bg-info kt-text-white kt-p-4 kt-mb-3 kt-rounded" style="text-align: center;">kt-p-4 (padding: 1.5rem)</div>
+                <div class="kt-bg-warning kt-text-white kt-p-5 kt-rounded" style="text-align: center;">kt-p-5 (padding: 2rem)</div>
+            </div>
+            <pre><code>&lt;div class="kt-m-3"&gt;Margin 3 (1rem)&lt;/div&gt;
+&lt;div class="kt-p-4"&gt;Padding 4 (1.5rem)&lt;/div&gt;
+&lt;div class="kt-mt-2"&gt;Margin-top 2 (0.5rem)&lt;/div&gt;
+&lt;div class="kt-mb-5"&gt;Margin-bottom 5 (2rem)&lt;/div&gt;</code></pre>
+
+            <h3>Display</h3>
+            <p>Contrôlez l'affichage des éléments avec les classes display :</p>
+            <div class="example-box" style="padding: 2rem; background: #f8f9fa;">
+                <div class="kt-d-inline kt-bg-primary kt-text-white kt-p-2 kt-rounded kt-mr-2">Inline</div>
+                <div class="kt-d-inline kt-bg-success kt-text-white kt-p-2 kt-rounded kt-mr-2">Inline</div>
+                <div class="kt-d-block kt-bg-info kt-text-white kt-p-2 kt-rounded kt-mt-2">Block</div>
+                <div class="kt-d-flex kt-justify-center kt-bg-warning kt-text-dark kt-p-2 kt-rounded kt-mt-2">Flex</div>
+            </div>
+            <pre><code>&lt;div class="kt-d-none"&gt;Masqué&lt;/div&gt;
+&lt;div class="kt-d-block"&gt;Block&lt;/div&gt;
+&lt;div class="kt-d-flex"&gt;Flex&lt;/div&gt;
+&lt;div class="kt-d-md-none"&gt;Masqué sur medium+&lt;/div&gt;</code></pre>
+
+            <h3>Flexbox</h3>
+            <p>Utilisez les classes Flexbox pour aligner et distribuer vos éléments :</p>
+            <div class="example-box" style="padding: 2rem; background: #f8f9fa;">
+                <div class="kt-d-flex kt-justify-center kt-align-center kt-bg-light kt-p-3 kt-rounded kt-mb-3" style="height: 80px;">
+                    <div class="kt-bg-primary kt-text-white kt-p-2 kt-rounded">Centré</div>
+                </div>
+                <div class="kt-d-flex kt-justify-between kt-bg-light kt-p-3 kt-rounded" style="height: 60px;">
+                    <div class="kt-bg-success kt-text-white kt-p-2 kt-rounded">Gauche</div>
+                    <div class="kt-bg-danger kt-text-white kt-p-2 kt-rounded">Droite</div>
+                </div>
+            </div>
+            <pre><code>&lt;div class="kt-d-flex kt-justify-center kt-align-center"&gt;
+  &lt;div&gt;Contenu centré&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+            <h3>Bordures</h3>
+            <p>Ajoutez des bordures et des coins arrondis :</p>
+            <div class="example-box" style="padding: 2rem; background: #f8f9fa;">
+                <div class="kt-d-flex kt-gap-3 kt-flex-wrap">
+                    <div class="kt-border kt-p-3 kt-bg-white">kt-border</div>
+                    <div class="kt-rounded kt-border kt-p-3 kt-bg-white">kt-rounded</div>
+                    <div class="kt-rounded-circle kt-border kt-p-3 kt-bg-white" style="width: 80px; height: 80px; display: flex; align-items: center; justify-content: center;">kt-rounded-circle</div>
+                    <div class="kt-rounded-pill kt-border kt-px-4 kt-py-2 kt-bg-white">kt-rounded-pill</div>
+                </div>
+            </div>
+            <pre><code>&lt;div class="kt-border"&gt;Bordure&lt;/div&gt;
+&lt;div class="kt-rounded"&gt;Arrondi&lt;/div&gt;
+&lt;div class="kt-rounded-circle"&gt;Cercle&lt;/div&gt;
+&lt;div class="kt-rounded-pill"&gt;Pill&lt;/div&gt;</code></pre>
+
+            <h3>Ombres</h3>
+            <p>Ajoutez des ombres pour donner de la profondeur à vos éléments :</p>
+            <div class="example-box" style="padding: 2rem; background: #f8f9fa;">
+                <div class="kt-row kt-gap-3">
+                    <div class="kt-col-md-4">
+                        <div class="kt-shadow-sm kt-bg-white kt-p-4 kt-rounded kt-text-center">
+                            <strong>kt-shadow-sm</strong><br>
+                            <small>Ombre petite</small>
+                        </div>
+                    </div>
+                    <div class="kt-col-md-4">
+                        <div class="kt-shadow kt-bg-white kt-p-4 kt-rounded kt-text-center">
+                            <strong>kt-shadow</strong><br>
+                            <small>Ombre normale</small>
+                        </div>
+                    </div>
+                    <div class="kt-col-md-4">
+                        <div class="kt-shadow-lg kt-bg-white kt-p-4 kt-rounded kt-text-center">
+                            <strong>kt-shadow-lg</strong><br>
+                            <small>Ombre grande</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <pre><code>&lt;div class="kt-shadow-sm"&gt;Ombre petite&lt;/div&gt;
+&lt;div class="kt-shadow"&gt;Ombre normale&lt;/div&gt;
+&lt;div class="kt-shadow-lg"&gt;Ombre grande&lt;/div&gt;</code></pre>
+        </div>
+
+        <div id="javascript" class="chapter">
+            <h2><svg class="icon"><use href="#icon-settings"></use></svg>JavaScript</h2>
+            
+            <p>KitokoCSS inclut un JavaScript compagnon léger (Vanilla JS) pour les composants interactifs.</p>
+
+            <h3>Initialisation Automatique</h3>
+            <p>Le JavaScript s'initialise automatiquement au chargement de la page. Assurez-vous d'inclure le script :</p>
+            <pre><code>&lt;script src="https://cdn.jsdelivr.net/gh/FomaDev/KitokoCSS@v1.0/dist/kitoko.bundle.min.js"&gt;&lt;/script&gt;</code></pre>
+
+            <h3>API JavaScript</h3>
+            <p>Vous pouvez également utiliser l'API JavaScript directement :</p>
+            <pre><code id="js-api-code">// Modal
+const modal = new kitoko.Modal('#myModal');
+modal.show();
+modal.hide();
+
+// Navbar Toggler
+const toggler = new kitoko.Toggler('[data-kt-toggle="collapse"]');
+toggler.toggle();
+
+// Carousel
+const carousel = new kitoko.Carousel('#myCarousel', {
+  interval: 3000,
+  wrap: true
+});
+
+// Toast
+const toast = new kitoko.Toast('#myToast', {
+  autohide: true,
+  delay: 5000
+});</code></pre>
+        </div>
+
+        <div class="chapter" style="border-bottom: none; padding: 0; margin-bottom: 0;">
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%); border-radius: 2rem; padding: 5rem 3rem; text-align: center; position: relative; overflow: hidden; box-shadow: 0 20px 60px rgba(102, 126, 234, 0.4);">
+                <div style="position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 50px 50px; animation: rotate 20s linear infinite; pointer-events: none;"></div>
+                <div style="position: relative; z-index: 1;">
+                    <h2 style="color: white; font-size: 3rem; font-weight: 800; margin-bottom: 1.5rem; text-shadow: 0 2px 20px rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; gap: 1rem;">
+                        <svg class="icon" style="width: 48px; height: 48px; color: white; filter: drop-shadow(0 2px 10px rgba(0,0,0,0.3));"><use href="#icon-celebration"></use></svg>
+                        Félicitations !
+                    </h2>
+                    <p style="color: white; font-size: 1.5rem; margin-bottom: 1rem; opacity: 0.95; font-weight: 500; line-height: 1.6;">
+                        Vous avez maintenant toutes les bases pour utiliser KitokoCSS
+                    </p>
+                    <p style="color: white; font-size: 1.2rem; margin-bottom: 3rem; opacity: 0.9; line-height: 1.6;">
+                        Explorez nos exemples pour découvrir des mises en page complètes et fonctionnelles qui vous inspireront
+                    </p>
+                    <div style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;">
+                        <a href="../examples/index.html" class="kt-btn kt-btn-light kt-btn-lg" style="text-decoration: none; font-weight: 700; padding: 1rem 2.5rem; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 8px 25px rgba(0,0,0,0.3); transition: all 0.3s ease; border-radius: 0.5rem;" onmouseover="this.style.transform='translateY(-3px) scale(1.05)'; this.style.boxShadow='0 12px 35px rgba(0,0,0,0.4)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 8px 25px rgba(0,0,0,0.3)';">
+                            Voir tous les Exemples
+                        </a>
+                        <a href="../guide.html" class="kt-btn" style="background: rgba(255,255,255,0.2); border: 2px solid white; color: white; text-decoration: none; font-weight: 700; padding: 1rem 2.5rem; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; border-radius: 0.5rem; backdrop-filter: blur(10px);" onmouseover="this.style.background='rgba(255,255,255,0.3)'; this.style.transform='translateY(-3px) scale(1.05)';" onmouseout="this.style.background='rgba(255,255,255,0.2)'; this.style.transform='translateY(0) scale(1)';">
+                            Guide Rapide
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/kitoko.bundle.js"></script>
+    <script>
+        // Fonction pour colorer le code JavaScript
+        function highlightJS(code) {
+            let result = code;
+            
+            // Commentaires
+            result = result.replace(/(\/\/.*$)/gm, '<span class="js-comment">$1</span>');
+            
+            // Mots-clés
+            const keywords = ['const', 'let', 'var', 'new', 'function', 'return', 'if', 'else', 'for', 'while', 'true', 'false', 'null', 'undefined'];
+            keywords.forEach(keyword => {
+                const regex = new RegExp(`\\b(${keyword})\\b`, 'g');
+                result = result.replace(regex, '<span class="js-keyword">$1</span>');
+            });
+            
+            // Strings
+            result = result.replace(/(['"`])((?:\\.|(?!\1)[^\\])*?)(\1)/g, '<span class="js-string">$1$2$3</span>');
+            
+            // Nombres
+            result = result.replace(/\b(\d+)\b/g, '<span class="js-number">$1</span>');
+            
+            // Fonctions
+            result = result.replace(/(\w+)(\s*)(\()/g, function(match, func, space, paren) {
+                if (!['if', 'else', 'for', 'while', 'return', 'const', 'let', 'var', 'new'].includes(func)) {
+                    return '<span class="js-function">' + func + '</span>' + space + paren;
+                }
+                return match;
+            });
+            
+            // Objets et propriétés
+            result = result.replace(/\.(\w+)/g, '.<span class="js-property">$1</span>');
+            
+            return result;
+        }
+        
+        // Fonction pour colorer le code HTML
+        function highlightHTML(html) {
+            let result = html;
+            
+            // Traiter les commentaires d'abord
+            result = result.replace(/(&lt;!--[\s\S]*?--&gt;)/g, function(match) {
+                return '<span class="comment">' + match + '</span>';
+            });
+            
+            // Traiter DOCTYPE
+            result = result.replace(/(&lt;!DOCTYPE[^&gt;]*&gt;)/g, '<span class="doctype">$1</span>');
+            
+            // Traiter les balises et leurs attributs
+            result = result.replace(/(&lt;)(\/?)([\w-]+)([\s\S]*?)(&gt;)/g, function(match, open, slash, tag, attrs, close) {
+                let highlightedTag = open + slash + '<span class="tag">' + tag + '</span>';
+                
+                // Traiter les attributs
+                let highlightedAttrs = attrs.replace(/(\s+)([\w-]+)(=)(")([^"]*)(")/g, function(attrMatch, space, attrName, eq, quote1, attrValue, quote2) {
+                    // Si c'est l'attribut class avec des classes kt-
+                    if (attrName === 'class' && attrValue.includes('kt-')) {
+                        const highlightedClasses = attrValue.split(' ').map(function(cls) {
+                            if (cls.trim() && cls.startsWith('kt-')) {
+                                return '<span class="class-name">' + cls + '</span>';
+                            }
+                            return cls;
+                        }).join(' ');
+                        return space + '<span class="attr-name">' + attrName + '</span>' + eq + quote1 + highlightedClasses + quote2;
+                    }
+                    return space + '<span class="attr-name">' + attrName + '</span>' + eq + quote1 + '<span class="attr-value">' + attrValue + '</span>' + quote2;
+                });
+                
+                return highlightedTag + highlightedAttrs + close;
+            });
+            
+            return result;
+        }
+        
+        // Appliquer la coloration à tous les blocs de code
+        document.addEventListener('DOMContentLoaded', function() {
+            const codeBlocks = document.querySelectorAll('pre code');
+            codeBlocks.forEach(function(block) {
+                const originalHTML = block.innerHTML;
+                // Ne pas re-colorer si déjà coloré
+                if (!block.querySelector('.tag') && !block.querySelector('.js-keyword')) {
+                    // Vérifier si c'est du JavaScript
+                    if (block.id === 'js-api-code' || originalHTML.includes('const ') || originalHTML.includes('new ') || originalHTML.includes('function')) {
+                        block.innerHTML = highlightJS(originalHTML);
+                    } else {
+                        block.innerHTML = highlightHTML(originalHTML);
+                    }
+                }
+            });
+        });
+        
+        // Styles pour la coloration syntaxique
+        const style = document.createElement('style');
+        style.textContent = `
+            .code-block .tag, pre .tag { color: #e06c75; font-weight: 600; }
+            .code-block .attr-name, pre .attr-name { color: #d19a66; font-weight: 500; }
+            .code-block .attr-value, pre .attr-value { color: #98c379; }
+            .code-block .comment, pre .comment { color: #5c6370; font-style: italic; opacity: 0.8; }
+            .code-block .doctype, pre .doctype { color: #c678dd; font-weight: 600; }
+            .code-block .class-name, pre .class-name { color: #61afef; font-weight: 600; }
+            
+            /* JavaScript syntax highlighting */
+            pre .js-keyword { color: #c678dd; font-weight: 600; }
+            pre .js-string { color: #98c379; }
+            pre .js-number { color: #d19a66; }
+            pre .js-comment { color: #5c6370; font-style: italic; opacity: 0.8; }
+            pre .js-function { color: #61afef; font-weight: 600; }
+            pre .js-property { color: #e06c75; }
+        `;
+        document.head.appendChild(style);
+        
+        // Navigation smooth scroll avec highlight actif
+        document.querySelectorAll('.docs-sidebar a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    // Update active class
+                    document.querySelectorAll('.docs-sidebar a').forEach(a => a.classList.remove('active'));
+                    this.classList.add('active');
+                }
+            });
+        });
+        
+        // Mise à jour automatique de l'élément actif lors du scroll
+        const chapters = document.querySelectorAll('.chapter');
+        const sidebarLinks = document.querySelectorAll('.docs-sidebar a');
+        
+        function updateActiveLink() {
+            let current = '';
+            chapters.forEach(chapter => {
+                const chapterTop = chapter.offsetTop;
+                const chapterHeight = chapter.clientHeight;
+                if (window.pageYOffset >= (chapterTop - 200)) {
+                    current = chapter.getAttribute('id');
+                }
+            });
+            
+            sidebarLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', updateActiveLink);
+        updateActiveLink();
+    </script>
+</body>
+</html>
+

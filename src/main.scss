@@ -1,0 +1,40 @@
+// ============================================
+// KitokoCSS v1.0 - Fichier Principal
+// ============================================
+
+// --- Configuration ---
+@import 'config/variables';
+@import 'config/breakpoints';
+
+// --- Mixins ---
+@import 'mixins/utilities';
+@import 'mixins/button';
+
+// --- Base ---
+@import 'base/reset';
+@import 'base/typography';
+
+// --- Layout ---
+@import 'layout/grid';
+
+// --- Composants ---
+@import 'components/button';
+@import 'components/card';
+@import 'components/alert';
+@import 'components/badge';
+@import 'components/form';
+@import 'components/navbar';
+@import 'components/modal';
+@import 'components/table';
+@import 'components/pagination';
+@import 'components/carousel';
+@import 'components/toast';
+
+// --- Utilitaires ---
+@import 'utilities/spacing';
+@import 'utilities/display';
+@import 'utilities/flexbox';
+@import 'utilities/colors';
+@import 'utilities/borders';
+@import 'utilities/shadows';
+

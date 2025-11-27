@@ -1,0 +1,68 @@
+// ============================================
+// KitokoCSS v1.0 - Composant Toast
+// ============================================
+
+@import '../config/variables';
+
+.kt-toast-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: $kt-zindex-tooltip;
+  display: flex;
+  flex-direction: column;
+  padding: map-get($kt-spacers, 3);
+  pointer-events: none;
+}
+
+.kt-toast {
+  max-width: 350px;
+  font-size: $kt-font-size-sm;
+  pointer-events: auto;
+  background-color: rgba($kt-white, 0.95);
+  background-clip: padding-box;
+  border: $kt-border-width solid rgba(0, 0, 0, 0.1);
+  border-radius: $kt-border-radius;
+  box-shadow: $kt-box-shadow-lg;
+  backdrop-filter: blur(10px);
+
+  &:not(:last-child) {
+    margin-bottom: map-get($kt-spacers, 2);
+  }
+
+  &.showing {
+    opacity: 0;
+  }
+
+  &.show {
+    display: block;
+    opacity: 1;
+  }
+
+  &.hide {
+    display: none;
+  }
+}
+
+.kt-toast-header {
+  display: flex;
+  align-items: center;
+  padding: map-get($kt-spacers, 2) map-get($kt-spacers, 3);
+  color: $kt-text-muted;
+  background-color: rgba($kt-white, 0.85);
+  background-clip: padding-box;
+  border-bottom: $kt-border-width solid rgba(0, 0, 0, 0.05);
+  border-top-left-radius: calc(#{$kt-border-radius} - #{$kt-border-width});
+  border-top-right-radius: calc(#{$kt-border-radius} - #{$kt-border-width});
+
+  .kt-close {
+    margin-right: -map-get($kt-spacers, 1);
+    margin-left: auto;
+  }
+}
+
+.kt-toast-body {
+  padding: map-get($kt-spacers, 3);
+  word-wrap: break-word;
+}
+
